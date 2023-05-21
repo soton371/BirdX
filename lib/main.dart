@@ -13,7 +13,6 @@ class MyApp extends StatelessWidget {
     return CupertinoApp(
       title: 'BirdX',
       debugShowCheckedModeBanner: false,
-      // theme: MyTheme.switchTheme(),
       theme: CupertinoThemeData(
         brightness: MediaQuery.of(context).platformBrightness,
       ),
