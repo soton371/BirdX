@@ -15,6 +15,10 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: CupertinoThemeData(
         brightness: MediaQuery.of(context).platformBrightness,
+        barBackgroundColor: const CupertinoDynamicColor.withBrightness(
+          color: CupertinoColors.white, 
+          darkColor: CupertinoColors.black,
+          )
       ),
       home: const ContactScreen(),
     );
