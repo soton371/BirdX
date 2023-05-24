@@ -53,7 +53,7 @@ class ContactScreen extends StatelessWidget {
                       subtitle: Text('01234567890$index'),
                     ),
                     Divider(
-                      indent: 80,
+                      indent: 85,
                       color: CupertinoColors.systemGrey.withOpacity(0.3),
                       height: 5,
                     )
