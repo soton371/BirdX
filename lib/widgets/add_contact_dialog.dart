@@ -14,7 +14,7 @@ void addContactDialog(BuildContext context) {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(50),
                     border: Border.all(color: CupertinoColors.systemGrey.withOpacity(0.4)),
-                    image: const DecorationImage(image: NetworkImage("https://cdn141.picsart.com/321556657089211.png"))
+                    image: const DecorationImage(image: AssetImage("assets/images/avatar.png"))
                   ),
                   child: Stack(
                     alignment: Alignment.center,
