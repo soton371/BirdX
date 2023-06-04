@@ -11,7 +11,7 @@ class ContactEmpty extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Image.asset("assets/images/contacts.png",height: 70,width: 70,),
-          const Text("\nThere are no any\ncontacts saved yet\n\n", textAlign: TextAlign.center,style: TextStyle(color: CupertinoDynamicColor.withBrightness(color: CupertinoColors.systemGrey, darkColor: CupertinoColors.systemGrey))),
+          const Text("\nThere are no any\ncontacts saved yet\n\n", textAlign: TextAlign.center,style: TextStyle(color: CupertinoColors.systemGrey)),
           CupertinoButton.filled(
             padding: const EdgeInsets.symmetric(horizontal: 15),
               child: const Text("Add Contacts"), onPressed: ()=> addContactDialog(context))

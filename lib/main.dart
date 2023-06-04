@@ -1,4 +1,4 @@
-import 'package:birdx/screens/contacts/contact.dart';
+import 'package:birdx/screens/contacts/contact_screen.dart';
 import 'package:flutter/cupertino.dart';
 
 void main() {
