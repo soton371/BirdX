@@ -18,11 +18,11 @@
 		</data>
 		<key>Assets.car</key>
 		<data>
-		o5437oWt3Ummd4/1vShtdLcX+kw=
+		jH6w2h9ezmOONqNb+8rPEz4PorI=
 		</data>
 		<key>Base.lproj/LaunchScreen.storyboardc/01J-lp-oVM-view-Ze5-6b-2t3.nib</key>
 		<data>
-		28xWMBQ91UzszfdXY91SqhC7ecg=
+		pJzzzq5TKHceDADzOtPQNFhkdg0=
 		</data>
 		<key>Base.lproj/LaunchScreen.storyboardc/Info.plist</key>
 		<data>
@@ -46,7 +46,7 @@
 		</data>
 		<key>Frameworks/App.framework/App</key>
 		<data>
-		kt6kggYEoTKEAv2x9fRXR7l4dHY=
+		VrheHysL82ACpzdMLb1AfUStsyo=
 		</data>
 		<key>Frameworks/App.framework/Info.plist</key>
 		<data>
@@ -54,7 +54,7 @@
 		</data>
 		<key>Frameworks/App.framework/_CodeSignature/CodeResources</key>
 		<data>
-		mPxDrYOm/oZt6Ev963p5CENH9/A=
+		DNdN0pZN4Tqmw9BIMU5iOJRYVJQ=
 		</data>
 		<key>Frameworks/App.framework/flutter_assets/AssetManifest.json</key>
 		<data>
@@ -70,7 +70,7 @@
 		</data>
 		<key>Frameworks/App.framework/flutter_assets/NOTICES.Z</key>
 		<data>
-		20ao0qlVlIrF3zoVZD08XpAWPs8=
+		pPqAVNE+LIS85/OJcSvTX60dnyQ=
 		</data>
 		<key>Frameworks/App.framework/flutter_assets/assets/images/avatar.png</key>
 		<data>
@@ -94,7 +94,7 @@
 		</data>
 		<key>Frameworks/App.framework/flutter_assets/kernel_blob.bin</key>
 		<data>
-		j4uTI+8w1ZRIXmxU46HsGuPvm3U=
+		j54SUVh7Ni9qngo/S89stme6lvw=
 		</data>
 		<key>Frameworks/App.framework/flutter_assets/packages/cupertino_icons/assets/CupertinoIcons.ttf</key>
 		<data>
@@ -192,9 +192,21 @@
 		<data>
 		nMTZkkm9uooDDa8A2YJSyK73oP8=
 		</data>
+		<key>Frameworks/flutter_native_splash.framework/Info.plist</key>
+		<data>
+		jbziq1Wg4mKI5HSguhpWR8NKtw8=
+		</data>
+		<key>Frameworks/flutter_native_splash.framework/_CodeSignature/CodeResources</key>
+		<data>
+		UVgxfmV4APmZBhXyPb52g+6/mk0=
+		</data>
+		<key>Frameworks/flutter_native_splash.framework/flutter_native_splash</key>
+		<data>
+		VNnZBE7Ha4n8C1+KRZHmOvUxY2k=
+		</data>
 		<key>Info.plist</key>
 		<data>
-		LG3tVBPFySNSSfVi7nGiWpAmowg=
+		MPP13dgLYKIlZMUNxQ+uYd/p2tc=
 		</data>
 		<key>PkgInfo</key>
 		<data>
@@ -232,14 +244,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			fcnxmo7hdNxoF8Bo7f1Z7jLG6fP0AMy+j+g5Cc2c4Tg=
+			3wD5izEk+r6yIWUCEv8Ebdui2O1gHyetsj+C7ZpoJGo=
 			</data>
 		</dict>
 		<key>Base.lproj/LaunchScreen.storyboardc/01J-lp-oVM-view-Ze5-6b-2t3.nib</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			by6WshwXWgbEYiAy2bvh0UtjSVa3EwySkNFc1FazGdY=
+			ZCS3BohFYb/9KYHtdusv9PB4PwEusTav9oznYeFRbM4=
 			</data>
 		</dict>
 		<key>Base.lproj/LaunchScreen.storyboardc/Info.plist</key>
@@ -281,7 +293,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			DlbUarO6xzzDYAjR3S6jVh7OFI904uBuumDV3o1wM7s=
+			PM0Lo16BMKoqrraTEMyNv1pRBgzlCYZa5+jLWeW0b08=
 			</data>
 		</dict>
 		<key>Frameworks/App.framework/Info.plist</key>
@@ -295,7 +307,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			/oS62fZy9+wx78449i27xM9g8pAi+xL9fTWjMiT7xME=
+			kHtMwjP5RoSuwO3V66IMBMakATE2H4bWWs3wHiy+nKM=
 			</data>
 		</dict>
 		<key>Frameworks/App.framework/flutter_assets/AssetManifest.json</key>
@@ -323,7 +335,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			04fZ1QV/1PFMA6XxEHB2bP3UmZJEnJ1sIENYNLnntx4=
+			W8uASOOBmnLT9XEDW7vOFq5mEqfHrN2iAGibiQIKG+0=
 			</data>
 		</dict>
 		<key>Frameworks/App.framework/flutter_assets/assets/images/avatar.png</key>
@@ -365,7 +377,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			AQDBOFg9Nv5zrOPpGLL7IHcmioqCxpwcDE8hRVfMqnI=
+			lxfu9c9nAeQY9EpQ3TAThuGV2dcqNO3fn8GHbc1GpDM=
 			</data>
 		</dict>
 		<key>Frameworks/App.framework/flutter_assets/packages/cupertino_icons/assets/CupertinoIcons.ttf</key>
@@ -534,6 +546,27 @@
 			<key>hash2</key>
 			<data>
 			rETMw/Yb9jC7IPuAQ9hs/kyJldBrRgCEQA20XXBJezA=
+			</data>
+		</dict>
+		<key>Frameworks/flutter_native_splash.framework/Info.plist</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			7pLj1CuIOyay/UnDSmi2Rm886KZCutUnGEC9wQpo74k=
+			</data>
+		</dict>
+		<key>Frameworks/flutter_native_splash.framework/_CodeSignature/CodeResources</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			3e5ZK8UlP6K25ec2wBzRv0dves7s+mZiWEBE1TKejbI=
+			</data>
+		</dict>
+		<key>Frameworks/flutter_native_splash.framework/flutter_native_splash</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			yKPRj/x5b5rU5jXiPzPMntSsDls58S/pKASfSL5xejY=
 			</data>
 		</dict>
 		<key>embedded.mobileprovision</key>

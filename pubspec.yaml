@@ -17,6 +17,7 @@ dependencies:
 
 
   cupertino_icons: ^1.0.2
+  flutter_native_splash: ^2.3.1
 
 dev_dependencies:
   flutter_test:
@@ -25,6 +26,12 @@ dev_dependencies:
 
   flutter_lints: ^2.0.0
 
+#for native splash screen
+flutter_native_splash:
+  color: "#f2f2f2"
+  color_dark: "#0d0d0d"
+  image: assets/images/avatar.png
+  ios: true
 
 flutter:
 
