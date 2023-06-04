@@ -1,3 +1,4 @@
+import 'package:birdx/configs/my_fonts.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -17,9 +18,9 @@ class ContactList extends StatelessWidget {
               backgroundImage: AssetImage('assets/images/avatar.png'),
               radius: 23,
             ),
-            title: const Text(
+            title: Text(
               'Alex Smith',
-              style: TextStyle(fontSize: 17, fontWeight: FontWeight.w500),
+              style: TextStyle(fontSize: MyFonts.contactTitleSize, fontWeight: MyFonts.contactTitleWeight),
             ),
             subtitle: Text('01234567890$index'),
           ),

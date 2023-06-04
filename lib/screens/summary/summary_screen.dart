@@ -1,4 +1,4 @@
-import 'package:birdx/configs/my_color.dart';
+import 'package:birdx/configs/my_colors.dart';
 import 'package:birdx/screens/summary/summary_empty.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

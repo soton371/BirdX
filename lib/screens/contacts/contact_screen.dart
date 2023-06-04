@@ -3,7 +3,6 @@ import 'package:birdx/screens/contacts/contact_list.dart';
 import 'package:birdx/screens/summary/summary_screen.dart';
 import 'package:birdx/widgets/add_contact_dialog.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 
 class ContactScreen extends StatelessWidget {
   const ContactScreen({super.key});
