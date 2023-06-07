@@ -1,3 +1,3 @@
 class MySizes {
-  static double emptyIcon = 70;
+  static double emptyIcon = 100;
 }

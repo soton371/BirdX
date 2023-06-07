@@ -10,11 +10,11 @@
 		</data>
 		<key>flutter_assets/AssetManifest.json</key>
 		<data>
-		7ZhzYSzDHlArM4qgBR8OFx94NG0=
+		C97VbARA91Ao8C6OP7DAF+pkGsg=
 		</data>
 		<key>flutter_assets/AssetManifest.smcbin</key>
 		<data>
-		CkWFno8RNMi/0R2NMiJYW46BFZk=
+		6JIW7pq+AuZ1S6gYMWt38vcZg+8=
 		</data>
 		<key>flutter_assets/FontManifest.json</key>
 		<data>
@@ -22,7 +22,7 @@
 		</data>
 		<key>flutter_assets/NOTICES.Z</key>
 		<data>
-		cIBH06r/zFhPEd8N7PJSMiYKxH4=
+		hhGmX8R7WKU88o8IRYD2ourBQfY=
 		</data>
 		<key>flutter_assets/assets/images/avatar.png</key>
 		<data>
@@ -32,9 +32,33 @@
 		<data>
 		5eHOMxgoDUeDxsgmM8SgFYfcwak=
 		</data>
+		<key>flutter_assets/assets/images/miyaw.png</key>
+		<data>
+		Wn9itfQVWT/xFRZ4NRg0Vnh5q+U=
+		</data>
+		<key>flutter_assets/assets/images/miyaw.svg</key>
+		<data>
+		eI1i3unC7mPbxKg6Z7u7atpvhaY=
+		</data>
 		<key>flutter_assets/assets/images/paper-plane.png</key>
 		<data>
 		GskHCMzoH6HdiB/ckJUlSQd/uD0=
+		</data>
+		<key>flutter_assets/assets/images/parasut.png</key>
+		<data>
+		pTLE9ET9pJKyH2fDkkrsQbhaofA=
+		</data>
+		<key>flutter_assets/assets/images/parasut.svg</key>
+		<data>
+		lcv2Ci4m6PNe4sQ2iIcXNAcvtuQ=
+		</data>
+		<key>flutter_assets/assets/images/phone_book.png</key>
+		<data>
+		MYC8jZzuCEhQB5BalxsFtPq4yp8=
+		</data>
+		<key>flutter_assets/assets/images/phone_book.svg</key>
+		<data>
+		yTACb4c2a4FLmIeeygVJQuUOufw=
 		</data>
 		<key>flutter_assets/fonts/MaterialIcons-Regular.otf</key>
 		<data>
@@ -46,7 +70,7 @@
 		</data>
 		<key>flutter_assets/kernel_blob.bin</key>
 		<data>
-		ZMJcUqvj3cMFV2nnJfEE1l+sGjg=
+		dwecuAtRh9ZdjWRF0qQZ/toTzC0=
 		</data>
 		<key>flutter_assets/packages/cupertino_icons/assets/CupertinoIcons.ttf</key>
 		<data>
@@ -67,14 +91,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			36yJRW6YzJnJRDNQpgtEU3JIl1xDRSrFTd7W+5QSED8=
+			lJMKlny94tWJsBL8OPn7joToSIF3la2yHXnAcpMCig8=
 			</data>
 		</dict>
 		<key>flutter_assets/AssetManifest.smcbin</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			lN3dPst1m+kAclWwz/HZuYeIlQ4G4+jbOFROk1EAsKI=
+			R4tLIB7zWcdOeUjduHoZ4fZvdkuk7t4DjnH4vEAIiDw=
 			</data>
 		</dict>
 		<key>flutter_assets/FontManifest.json</key>
@@ -88,7 +112,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			6zLAT0OHIqpL8AeYTUOwGd0XeQdtsNvElk7lfiezlfU=
+			aY+1P+tm0pxjRzee+jiryHHPRFWEGsFWlxNAYHg1NG4=
 			</data>
 		</dict>
 		<key>flutter_assets/assets/images/avatar.png</key>
@@ -105,11 +129,53 @@
 			uTdYdl3oZhiFidboZB1qp9iUrXpVxk2ltPQ81CQs6qw=
 			</data>
 		</dict>
+		<key>flutter_assets/assets/images/miyaw.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			fFKVLhEr5VFV13zrHgm9ZAvChjxjzLlL+++5THoTdpw=
+			</data>
+		</dict>
+		<key>flutter_assets/assets/images/miyaw.svg</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			oo/IAWibraWhupYOn3Z010/YZP6FVzIdD2z+Mo1penw=
+			</data>
+		</dict>
 		<key>flutter_assets/assets/images/paper-plane.png</key>
 		<dict>
 			<key>hash2</key>
 			<data>
 			sbLI8WbQRdtdd/cwEFTyBiXwAahdXh4S9BbOFXpasc8=
+			</data>
+		</dict>
+		<key>flutter_assets/assets/images/parasut.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			lk/0C3XQEOxVVyQiKdg/yUcrBPySRFZGD98AGazHihE=
+			</data>
+		</dict>
+		<key>flutter_assets/assets/images/parasut.svg</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			EvC9lX4bvGN303VLniizF1Fs5Mf1tQPSSnERlXC5JxQ=
+			</data>
+		</dict>
+		<key>flutter_assets/assets/images/phone_book.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			1reosRW6cX7vdgifXGneamU0y72tmlS4rijE+JIibrM=
+			</data>
+		</dict>
+		<key>flutter_assets/assets/images/phone_book.svg</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			AzAUQeYK7ubcNDatbjk5KKmaOcnXS1hrWX4eXZQ1Z1k=
 			</data>
 		</dict>
 		<key>flutter_assets/fonts/MaterialIcons-Regular.otf</key>
@@ -130,7 +196,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			FAr/AVr66kRxP6wd493PLw4fbfeuHwvz8ZmHR3vld98=
+			JVCbwF3IPf8sdyiPSGBCsbr8EdY42jvTgrM8aBhuhu8=
 			</data>
 		</dict>
 		<key>flutter_assets/packages/cupertino_icons/assets/CupertinoIcons.ttf</key>

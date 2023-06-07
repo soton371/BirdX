@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:birdx/database/database_helper.dart';
 import 'package:birdx/models/contact.dart';
+import 'package:flutter/cupertino.dart';
 
 Future<List<Contact>> getContacts() async {
   List<Contact> contactList = await DatabaseHelper.instance.getContacts();
@@ -8,13 +9,15 @@ Future<List<Contact>> getContacts() async {
 }
 
 Future<int> addContact(
-    {required String name, required String number, required File image}) async {
+    {required String name,
+    required String number}) async {
+  
   Contact newContact = Contact(
-    image: image.path,
     name: name,
     number: number,
   );
   int result = await DatabaseHelper.instance.insertContact(newContact);
+  debugPrint('addContact result: $result');
   return result;
 }
 
@@ -25,7 +28,7 @@ Future<int> updateContact(
     required File newImage}) async {
   Contact updatedContact = Contact(
     id: contact.id,
-    image: newImage.path.isNotEmpty ? newImage.path : contact.image,
+    // image: newImage.path.isNotEmpty ? newImage.path : contact.image,
     name: newName.isNotEmpty ? newName : contact.name,
     number: newNumber.isNotEmpty ? newNumber : contact.number,
   );

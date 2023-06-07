@@ -66,7 +66,7 @@ class DatabaseHelper {
     return List.generate(maps.length, (i) {
       return Contact(
         id: maps[i][columnId],
-        image: maps[i][columnImage],
+        // image: maps[i][columnImage],
         name: maps[i][columnName],
         number: maps[i][columnNumber],
       );

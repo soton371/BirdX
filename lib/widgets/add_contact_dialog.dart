@@ -1,13 +1,10 @@
-import 'dart:io';
-
+import 'package:birdx/utilities/contact_crud.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 
 void addContactDialog(BuildContext context) {
   String name = '';
   String number = '';
-  File? image;
+  // File? image;
   showCupertinoDialog(
       context: context,
       builder: (context) => CupertinoAlertDialog(
@@ -19,16 +16,51 @@ void addContactDialog(BuildContext context) {
                   const SizedBox(
                     height: 10,
                   ),
+                  /*
                   GestureDetector(
                     onTap: () async {
-                      final ImagePicker picker = ImagePicker();
-                      final XFile? xImage =
-                          await picker.pickImage(source: ImageSource.gallery);
-                      if (xImage != null) {
-                        setState(() {
-                          image = File(xImage.path);
-                        });
-                      }
+                      final action = CupertinoActionSheet(
+                        actions: <Widget>[
+                          CupertinoActionSheetAction(
+                            onPressed: () {
+                              myImagePicker(type: 0).then((value) {
+                                if (value == null) {
+                                  return;
+                                }
+                                setState(() {
+                                  image = File(value);
+                                });
+                                Navigator.pop(context);
+                              });
+                            },
+                            child: const Text("Take Photo"),
+                          ),
+                          CupertinoActionSheetAction(
+                            onPressed: () {
+                              myImagePicker(type: 1).then((value) {
+                                if (value == null) {
+                                  return;
+                                }
+                                setState(() {
+                                  image = File(value);
+                                });
+                                Navigator.pop(context);
+                              });
+                            },
+                            child: const Text("Choose Photo"),
+                          ),
+                        ],
+                        cancelButton: CupertinoActionSheetAction(
+                          isDestructiveAction: true,
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          child: const Text("Cancel"),
+                        ),
+                      );
+
+                      showCupertinoModalPopup(
+                          context: context, builder: (context) => action);
                     },
                     child: Container(
                         height: 70,
@@ -76,6 +108,7 @@ void addContactDialog(BuildContext context) {
                           ],
                         )),
                   ),
+                  */
                   const SizedBox(
                     height: 10,
                   ),
@@ -90,6 +123,7 @@ void addContactDialog(BuildContext context) {
                   ),
                   CupertinoTextField(
                     placeholder: "Enter number",
+                    keyboardType: TextInputType.number,
                     onChanged: (value) {
                       number = value;
                     },
@@ -106,7 +140,8 @@ void addContactDialog(BuildContext context) {
               CupertinoDialogAction(
                 child: const Text('Save'),
                 onPressed: () {
-                  debugPrint("Name: $name and Number: $number");
+                  addContact(name: name, number: number);
+                  //check all input not empty
                 },
               )
             ],

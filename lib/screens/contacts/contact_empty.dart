@@ -13,11 +13,11 @@ class ContactEmpty extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Image.asset(
-            "assets/images/contacts.png",
+            "assets/images/phone_book.png",
             height: MySizes.emptyIcon,
             width: MySizes.emptyIcon,
           ),
-          Text("\nThere are no any\ncontacts saved yet\n\n",
+          Text("There are no any\ncontacts saved yet\n\n",
               textAlign: TextAlign.center,
               style: TextStyle(color: MyColors.emptyText)),
           CupertinoButton.filled(
