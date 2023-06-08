@@ -10,7 +10,7 @@ class DatabaseHelper {
   static const table = 'contacts';
 
   static const columnId = '_id';
-  static const columnImage = 'image';
+  // static const columnImage = 'image';
   static const columnName = 'name';
   static const columnNumber = 'number';
 
@@ -36,7 +36,6 @@ class DatabaseHelper {
     await db.execute('''
           CREATE TABLE $table (
             $columnId INTEGER PRIMARY KEY AUTOINCREMENT,
-            $columnImage TEXT NOT NULL,
             $columnName TEXT NOT NULL,
             $columnNumber TEXT NOT NULL
           )
