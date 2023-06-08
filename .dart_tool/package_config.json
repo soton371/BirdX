@@ -116,6 +116,12 @@
       "languageVersion": "3.0"
     },
     {
+      "name": "fluttertoast",
+      "rootUri": "file:///Users/soton/.pub-cache/hosted/pub.dev/fluttertoast-8.2.2",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "html",
       "rootUri": "file:///Users/soton/.pub-cache/hosted/pub.dev/html-0.15.3",
       "packageUri": "lib/",
@@ -338,7 +344,7 @@
       "languageVersion": "3.0"
     }
   ],
-  "generated": "2023-06-07T18:12:37.276776Z",
+  "generated": "2023-06-08T15:02:04.546206Z",
   "generator": "pub",
   "generatorVersion": "3.0.1"
 }

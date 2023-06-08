@@ -1,4 +1,4 @@
-import 'package:birdx/utilities/contact_crud.dart';
+import 'package:birdx/widgets/my_toast.dart';
 import 'package:flutter/cupertino.dart';
 
 void addContactDialog(BuildContext context) {
@@ -140,8 +140,24 @@ void addContactDialog(BuildContext context) {
               CupertinoDialogAction(
                 child: const Text('Save'),
                 onPressed: () {
-                  addContact(name: name, number: number);
+                  // addContact(name: name, number: number);
                   //check all input not empty
+                  if (name.isEmpty && number.isEmpty) {
+                    myToast(context, msg: "Please give name and number");
+                    return;
+                  }
+                  if (name.isEmpty) {
+                    myToast(context, msg: "Please give the name");
+                    return;
+                  }
+                  if (number.isEmpty) {
+                    myToast(context, msg: "Please give the number");
+                    return;
+                  }
+                  if (number.isNotEmpty && number.length != 11) {
+                    myToast(context, msg: "Please give the 11 digits number");
+                    return;
+                  }
                 },
               )
             ],
