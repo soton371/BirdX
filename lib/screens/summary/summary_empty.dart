@@ -12,8 +12,13 @@ class SummaryEmpty extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Image.asset(isPending == 0 ? "assets/images/paper-plane.png" : "assets/images/contacts.png", height: MySizes.emptyIcon, width: MySizes.emptyIcon),
-           Text("\nNo Communication History",
+          Image.asset(
+              isPending == 0
+                  ? "assets/images/parachute.png"
+                  : "assets/images/miyaw.png",
+              height: MySizes.emptyIcon,
+              width: MySizes.emptyIcon),
+          Text("\nNo Communication History",
               textAlign: TextAlign.center,
               style: TextStyle(color: MyColors.emptyText)),
         ],
