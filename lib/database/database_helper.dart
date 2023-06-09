@@ -10,7 +10,6 @@ class DatabaseHelper {
   static const table = 'contacts';
 
   static const columnId = '_id';
-  // static const columnImage = 'image';
   static const columnName = 'name';
   static const columnNumber = 'number';
 
@@ -65,7 +64,6 @@ class DatabaseHelper {
     return List.generate(maps.length, (i) {
       return Contact(
         id: maps[i][columnId],
-        // image: maps[i][columnImage],
         name: maps[i][columnName],
         number: maps[i][columnNumber],
       );

@@ -19,13 +19,12 @@ class _ContactScreenState extends State<ContactScreen> {
   void initState() {
     super.initState();
     getContacts().then((value) {
-      contacts = value;
-      debugPrint("contacts len: ${contacts.length}");
       setState(() {
-        
+        contacts = value;
       });
     });
   }
+
   @override
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
@@ -38,7 +37,15 @@ class _ContactScreenState extends State<ContactScreen> {
                   trailing: CupertinoButton(
                       padding: EdgeInsets.zero,
                       child: const Icon(CupertinoIcons.add),
-                      onPressed: () => addContactDialog(context)),
+                      onPressed: () {
+                        addContactDialog(context).then((value) {
+                          getContacts().then((value) {
+                            setState(() {
+                              contacts = value;
+                            });
+                          });
+                        });
+                      }),
                   leading: CupertinoButton(
                       padding: EdgeInsets.zero,
                       child: const Text("Summary"),

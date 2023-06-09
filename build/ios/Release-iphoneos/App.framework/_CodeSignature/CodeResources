@@ -10,11 +10,11 @@
 		</data>
 		<key>flutter_assets/AssetManifest.json</key>
 		<data>
-		C97VbARA91Ao8C6OP7DAF+pkGsg=
+		SZgiHq5wcf/ZbHif11I8HLvFRJo=
 		</data>
 		<key>flutter_assets/AssetManifest.smcbin</key>
 		<data>
-		6JIW7pq+AuZ1S6gYMWt38vcZg+8=
+		TSHxR6hpHNTWwq/yCOycc7T5qzc=
 		</data>
 		<key>flutter_assets/FontManifest.json</key>
 		<data>
@@ -22,7 +22,7 @@
 		</data>
 		<key>flutter_assets/NOTICES.Z</key>
 		<data>
-		hhGmX8R7WKU88o8IRYD2ourBQfY=
+		gVLZNaGZdyN/lgMDooMONOgsBi0=
 		</data>
 		<key>flutter_assets/assets/images/avatar.png</key>
 		<data>
@@ -43,6 +43,10 @@
 		<key>flutter_assets/assets/images/paper-plane.png</key>
 		<data>
 		GskHCMzoH6HdiB/ckJUlSQd/uD0=
+		</data>
+		<key>flutter_assets/assets/images/parachute.png</key>
+		<data>
+		pTLE9ET9pJKyH2fDkkrsQbhaofA=
 		</data>
 		<key>flutter_assets/assets/images/parasut.png</key>
 		<data>
@@ -68,6 +72,14 @@
 		<data>
 		P7bb/oR3EhwqCIH1M6LyTuBIWYU=
 		</data>
+		<key>flutter_assets/packages/fluttertoast/assets/toastify.css</key>
+		<data>
+		HVkEhoid+n6bwOYCwZg4DdmGBHY=
+		</data>
+		<key>flutter_assets/packages/fluttertoast/assets/toastify.js</key>
+		<data>
+		v5LMft1C/Ps/+tw6D+zco3p3Urk=
+		</data>
 		<key>flutter_assets/shaders/ink_sparkle.frag</key>
 		<data>
 		KL+7f3IYR/Y9WDlxxUeDmgGoluc=
@@ -79,14 +91,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			lJMKlny94tWJsBL8OPn7joToSIF3la2yHXnAcpMCig8=
+			lOOm3f7yzY19MJisYLO0EAVPtFkTE41ZpznGjvIKtX0=
 			</data>
 		</dict>
 		<key>flutter_assets/AssetManifest.smcbin</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			R4tLIB7zWcdOeUjduHoZ4fZvdkuk7t4DjnH4vEAIiDw=
+			LfpWPDNAxmE5UbwS6vZ+970yMi5u/LHhIX1IEI9Wvfw=
 			</data>
 		</dict>
 		<key>flutter_assets/FontManifest.json</key>
@@ -100,7 +112,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			aY+1P+tm0pxjRzee+jiryHHPRFWEGsFWlxNAYHg1NG4=
+			yFqElTjRdjsRzG3Tn3Xg6SB6Q0shtqzGXOdNahPXU40=
 			</data>
 		</dict>
 		<key>flutter_assets/assets/images/avatar.png</key>
@@ -136,6 +148,13 @@
 			<key>hash2</key>
 			<data>
 			sbLI8WbQRdtdd/cwEFTyBiXwAahdXh4S9BbOFXpasc8=
+			</data>
+		</dict>
+		<key>flutter_assets/assets/images/parachute.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			lk/0C3XQEOxVVyQiKdg/yUcrBPySRFZGD98AGazHihE=
 			</data>
 		</dict>
 		<key>flutter_assets/assets/images/parasut.png</key>
@@ -178,6 +197,20 @@
 			<key>hash2</key>
 			<data>
 			x6NX+tjyECiQtyzbbjyY8U2zoZ7GDbJtE+T+k/dzgI0=
+			</data>
+		</dict>
+		<key>flutter_assets/packages/fluttertoast/assets/toastify.css</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			abr0T+pbPv0zd7q8FU7xuDv4JjuRAgKox9bnRddRNJ8=
+			</data>
+		</dict>
+		<key>flutter_assets/packages/fluttertoast/assets/toastify.js</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			CRyacJlKIATuArBPER1Aq+QMB7BmhWOZ9YxYcELsKZA=
 			</data>
 		</dict>
 		<key>flutter_assets/shaders/ink_sparkle.frag</key>

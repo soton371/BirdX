@@ -1,11 +1,11 @@
-import 'package:birdx/widgets/my_toast.dart';
+import 'package:birdx/utilities/contact_crud.dart';
+import 'package:birdx/utilities/input_validation.dart';
 import 'package:flutter/cupertino.dart';
 
-void addContactDialog(BuildContext context) {
+Future addContactDialog(BuildContext context) {
   String name = '';
   String number = '';
-  // File? image;
-  showCupertinoDialog(
+  var r = showCupertinoDialog(
       context: context,
       builder: (context) => CupertinoAlertDialog(
             title: const Text("Add New Contact"),
@@ -16,99 +16,6 @@ void addContactDialog(BuildContext context) {
                   const SizedBox(
                     height: 10,
                   ),
-                  /*
-                  GestureDetector(
-                    onTap: () async {
-                      final action = CupertinoActionSheet(
-                        actions: <Widget>[
-                          CupertinoActionSheetAction(
-                            onPressed: () {
-                              myImagePicker(type: 0).then((value) {
-                                if (value == null) {
-                                  return;
-                                }
-                                setState(() {
-                                  image = File(value);
-                                });
-                                Navigator.pop(context);
-                              });
-                            },
-                            child: const Text("Take Photo"),
-                          ),
-                          CupertinoActionSheetAction(
-                            onPressed: () {
-                              myImagePicker(type: 1).then((value) {
-                                if (value == null) {
-                                  return;
-                                }
-                                setState(() {
-                                  image = File(value);
-                                });
-                                Navigator.pop(context);
-                              });
-                            },
-                            child: const Text("Choose Photo"),
-                          ),
-                        ],
-                        cancelButton: CupertinoActionSheetAction(
-                          isDestructiveAction: true,
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                          child: const Text("Cancel"),
-                        ),
-                      );
-
-                      showCupertinoModalPopup(
-                          context: context, builder: (context) => action);
-                    },
-                    child: Container(
-                        height: 70,
-                        width: 70,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(50),
-                            border: Border.all(
-                                color: CupertinoColors.systemGrey
-                                    .withOpacity(0.4)),
-                            image: const DecorationImage(
-                                image: AssetImage("assets/images/avatar.png"))),
-                        child: Stack(
-                          alignment: Alignment.center,
-                          children: [
-                            image == null
-                                ? Container(
-                                    height: 70,
-                                    width: 70,
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(50),
-                                        border: Border.all(
-                                            color: CupertinoColors.systemGrey
-                                                .withOpacity(0.4)),
-                                        color: CupertinoColors.black
-                                            .withOpacity(0.35)),
-                                  )
-                                : Container(
-                                    height: 70,
-                                    width: 70,
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(50),
-                                        border: Border.all(
-                                            color: CupertinoColors.systemGrey
-                                                .withOpacity(0.4)),
-                                        color: CupertinoColors.black
-                                            .withOpacity(0.35),
-                                        image: DecorationImage(
-                                            fit: BoxFit.cover,
-                                            image: FileImage(image!))),
-                                  ),
-                            const Icon(
-                              CupertinoIcons.camera,
-                              color: CupertinoColors.white,
-                            ),
-                          ],
-                        )),
-                  ),
-                  */
                   const SizedBox(
                     height: 10,
                   ),
@@ -140,26 +47,16 @@ void addContactDialog(BuildContext context) {
               CupertinoDialogAction(
                 child: const Text('Save'),
                 onPressed: () {
-                  // addContact(name: name, number: number);
-                  //check all input not empty
-                  if (name.isEmpty && number.isEmpty) {
-                    myToast(context, msg: "Please give name and number");
-                    return;
-                  }
-                  if (name.isEmpty) {
-                    myToast(context, msg: "Please give the name");
-                    return;
-                  }
-                  if (number.isEmpty) {
-                    myToast(context, msg: "Please give the number");
-                    return;
-                  }
-                  if (number.isNotEmpty && number.length != 11) {
-                    myToast(context, msg: "Please give the 11 digits number");
-                    return;
+                  bool valid =
+                      inputValidation(context, name: name, number: number);
+                  if (valid) {
+                    addContact(name: name, number: number).then((value) {
+                      debugPrint("value: $value");
+                    });
                   }
                 },
               )
             ],
           ));
+  return r;
 }

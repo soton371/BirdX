@@ -2,7 +2,6 @@ import 'package:birdx/database/database_helper.dart';
 
 class Contact {
   int? id;
-  // String image;
   String name;
   String number;
 
@@ -10,7 +9,6 @@ class Contact {
 
   Map<String, dynamic> toMap() {
     return {
-      // DatabaseHelper.columnImage: image,
       DatabaseHelper.columnName: name,
       DatabaseHelper.columnNumber: number,
     };
