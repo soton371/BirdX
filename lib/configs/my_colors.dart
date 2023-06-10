@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 
 class MyColors {
   static Color emptyText = CupertinoColors.systemGrey;
+  static Color delete = CupertinoColors.destructiveRed;
 
   static Color segmentedControlText(BuildContext context) {
     var brightness = MediaQuery.of(context).platformBrightness;

@@ -1,9 +1,9 @@
+import 'package:birdx/configs/my_colors.dart';
+import 'package:birdx/configs/my_sizes.dart';
 import 'package:birdx/models/contact.dart';
-import 'package:birdx/screens/contacts/contact_empty.dart';
 import 'package:birdx/screens/contacts/contact_list.dart';
 import 'package:birdx/screens/summary/summary_screen.dart';
 import 'package:birdx/utilities/contact_crud.dart';
-import 'package:birdx/widgets/add_contact_dialog.dart';
 import 'package:flutter/cupertino.dart';
 
 class ContactScreen extends StatefulWidget {
@@ -29,7 +29,25 @@ class _ContactScreenState extends State<ContactScreen> {
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
       child: contacts.isEmpty
-          ? const ContactEmpty()
+          ? Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Image.asset(
+                    "assets/images/phone_book.png",
+                    height: MySizes.emptyIcon,
+                    width: MySizes.emptyIcon,
+                  ),
+                  Text("There are no any\ncontacts saved yet\n\n",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(color: MyColors.emptyText)),
+                  CupertinoButton.filled(
+                      padding: const EdgeInsets.symmetric(horizontal: 25),
+                      child: const Text("Add Contacts"),
+                      onPressed: () => addContactDialog(context))
+                ],
+              ),
+            )
           : NestedScrollView(
               headerSliverBuilder: (context, scrollIs) => [
                 CupertinoSliverNavigationBar(
@@ -37,15 +55,7 @@ class _ContactScreenState extends State<ContactScreen> {
                   trailing: CupertinoButton(
                       padding: EdgeInsets.zero,
                       child: const Icon(CupertinoIcons.add),
-                      onPressed: () {
-                        addContactDialog(context).then((value) {
-                          getContacts().then((value) {
-                            setState(() {
-                              contacts = value;
-                            });
-                          });
-                        });
-                      }),
+                      onPressed: () {}),
                   leading: CupertinoButton(
                       padding: EdgeInsets.zero,
                       child: const Text("Summary"),
@@ -60,5 +70,65 @@ class _ContactScreenState extends State<ContactScreen> {
               ),
             ),
     );
+  }
+
+  //all function
+  void addContactDialog(BuildContext context) {
+    String name = '';
+    String number = '';
+    showCupertinoDialog(
+        context: context,
+        builder: (context) => CupertinoAlertDialog(
+              title: const Text("Add New Contact"),
+              content: StatefulBuilder(
+                  builder: (BuildContext context, StateSetter setState) {
+                return Column(
+                  children: [
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    CupertinoTextField(
+                      placeholder: "Enter name",
+                      onChanged: (value) {
+                        name = value;
+                      },
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    CupertinoTextField(
+                      placeholder: "Enter number",
+                      keyboardType: TextInputType.number,
+                      onChanged: (value) {
+                        number = value;
+                      },
+                    )
+                  ],
+                );
+              }),
+              actions: [
+                CupertinoDialogAction(
+                  onPressed: () => Navigator.pop(context),
+                  isDestructiveAction: true,
+                  child: const Text('Cancel'),
+                ),
+                CupertinoDialogAction(
+                  child: const Text('Save'),
+                  onPressed: () {
+                    addContact(name: name, number: number).then((value) {
+                      getContacts().then((value) {
+                        setState(() {
+                          contacts = value;
+                        });
+                        Navigator.pop(context);
+                      });
+                    });
+                  },
+                )
+              ],
+            ));
   }
 }
