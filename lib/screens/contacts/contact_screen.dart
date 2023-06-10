@@ -1,10 +1,12 @@
 import 'package:birdx/configs/my_colors.dart';
+import 'package:birdx/configs/my_fonts.dart';
 import 'package:birdx/configs/my_sizes.dart';
 import 'package:birdx/models/contact.dart';
-import 'package:birdx/screens/contacts/contact_list.dart';
+import 'package:birdx/screens/message/message_scr.dart';
 import 'package:birdx/screens/summary/summary_screen.dart';
 import 'package:birdx/utilities/contact_crud.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 class ContactScreen extends StatefulWidget {
   const ContactScreen({super.key});
@@ -65,8 +67,105 @@ class _ContactScreenState extends State<ContactScreen> {
                               builder: (_) => const SummaryScreen()))),
                 ),
               ],
-              body: ContactList(
-                contacts: contacts,
+              body: ListView.builder(
+                padding: const EdgeInsets.all(10),
+                itemCount: contacts.length,
+                itemBuilder: (context, index) => CupertinoContextMenu(
+                  previewBuilder: (context, animation, child) {
+                    return SizedBox(
+                      height: 70,
+                      width: double.infinity,
+                      child: Card(
+                        margin: const EdgeInsets.symmetric(horizontal: 15),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(14)),
+                        child: Row(
+                          children: [
+                            const SizedBox(
+                              width: 10,
+                            ),
+                            const CircleAvatar(
+                              backgroundImage:
+                                  AssetImage('assets/images/avatar.png'),
+                              radius: 23,
+                            ),
+                            const SizedBox(
+                              width: 15,
+                            ),
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  contacts[index].name,
+                                  style: TextStyle(
+                                      fontSize: MyFonts.contactTitleSize,
+                                      fontWeight: MyFonts.contactTitleWeight),
+                                ),
+                                const SizedBox(
+                                  height: 5,
+                                ),
+                                Text(
+                                  contacts[index].number,
+                                  style: TextStyle(color: MyColors.emptyText),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(
+                              width: 15,
+                            ),
+                          ],
+                        ),
+                      ),
+                    );
+                  },
+                  actions: [
+                    CupertinoContextMenuAction(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      trailingIcon: CupertinoIcons.down_arrow,
+                      child: const Text("Update"),
+                    ),
+                    CupertinoContextMenuAction(
+                      onPressed: () {
+                        deleteContact(contacts[index]).then((value) {
+                          getContacts().then((value) {
+                            Navigator.pop(context);
+                            setState(() {
+                              contacts = value;
+                            });
+                          });
+                        });
+                      },
+                      isDestructiveAction: true,
+                      trailingIcon: CupertinoIcons.delete,
+                      child: const Text("Delete"),
+                    )
+                  ],
+                  child: CupertinoListTile(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          CupertinoPageRoute(
+                              builder: (_) => const MessageScreen()));
+                    },
+                    leadingSize: 60,
+                    leadingToTitle: 8,
+                    padding: EdgeInsets.zero,
+                    leading: const CircleAvatar(
+                      backgroundImage: AssetImage('assets/images/avatar.png'),
+                      radius: 23,
+                    ),
+                    title: Text(
+                      contacts[index].name,
+                      style: TextStyle(
+                          fontSize: MyFonts.contactTitleSize,
+                          fontWeight: MyFonts.contactTitleWeight),
+                    ),
+                    subtitle: Text(contacts[index].number),
+                  ),
+                ),
               ),
             ),
     );
