@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'package:birdx/database/database_helper.dart';
 import 'package:birdx/models/contact.dart';
 
@@ -22,8 +21,7 @@ Future<int> addContact(
 Future<int> updateContact(
     {required Contact contact,
     required String newName,
-    required String newNumber,
-    required File newImage}) async {
+    required String newNumber}) async {
   Contact updatedContact = Contact(
     id: contact.id,
     name: newName.isNotEmpty ? newName : contact.name,

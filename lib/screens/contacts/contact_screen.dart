@@ -46,7 +46,7 @@ class _ContactScreenState extends State<ContactScreen> {
                   CupertinoButton.filled(
                       padding: const EdgeInsets.symmetric(horizontal: 25),
                       child: const Text("Add Contacts"),
-                      onPressed: () => addContactDialog(context))
+                      onPressed: () => addContactDialog())
                 ],
               ),
             )
@@ -122,9 +122,10 @@ class _ContactScreenState extends State<ContactScreen> {
                   actions: [
                     CupertinoContextMenuAction(
                       onPressed: () {
-                        Navigator.of(context).pop();
+                        Navigator.pop(context);
+                        updateContactDialog(contacts[index]);
                       },
-                      trailingIcon: CupertinoIcons.down_arrow,
+                      trailingIcon: CupertinoIcons.pen,
                       child: const Text("Update"),
                     ),
                     CupertinoContextMenuAction(
@@ -172,7 +173,7 @@ class _ContactScreenState extends State<ContactScreen> {
   }
 
   //all function
-  void addContactDialog(BuildContext context) {
+  void addContactDialog() {
     String name = '';
     String number = '';
     showCupertinoDialog(
@@ -217,7 +218,66 @@ class _ContactScreenState extends State<ContactScreen> {
                 CupertinoDialogAction(
                   child: const Text('Save'),
                   onPressed: () {
-                    addContact(name: name, number: number).then((value) {
+                    addContact(name: name, number: number).then((value1) {
+                      getContacts().then((value) {
+                        setState(() {
+                          contacts = value;
+                        });
+                        Navigator.pop(context);
+                      });
+                    });
+                  },
+                )
+              ],
+            ));
+  }
+
+  void updateContactDialog(Contact contact) {
+    TextEditingController nameController =
+        TextEditingController(text: contact.name);
+    TextEditingController numberController =
+        TextEditingController(text: contact.number);
+    showCupertinoDialog(
+        context: context,
+        builder: (context) => CupertinoAlertDialog(
+              title: const Text("Update Contact"),
+              content: StatefulBuilder(
+                  builder: (BuildContext context, StateSetter setState) {
+                return Column(
+                  children: [
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    CupertinoTextField(
+                      controller: nameController,
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    CupertinoTextField(
+                      keyboardType: TextInputType.number,
+                      controller: numberController,
+                    )
+                  ],
+                );
+              }),
+              actions: [
+                CupertinoDialogAction(
+                  onPressed: () => Navigator.pop(context),
+                  isDestructiveAction: true,
+                  child: const Text('Cancel'),
+                ),
+                CupertinoDialogAction(
+                  child: const Text('Update'),
+                  onPressed: () {
+                    updateContact(
+                            contact: contact,
+                            newName: nameController.text,
+                            newNumber: numberController.text)
+                        .then((value1) {
                       getContacts().then((value) {
                         setState(() {
                           contacts = value;
