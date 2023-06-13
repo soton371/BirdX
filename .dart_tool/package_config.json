@@ -74,6 +74,12 @@
       "languageVersion": "3.0"
     },
     {
+      "name": "forked_slider_button",
+      "rootUri": "file:///Users/soton/.pub-cache/hosted/pub.dev/forked_slider_button-2.0.2",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "js",
       "rootUri": "file:///Users/soton/.pub-cache/hosted/pub.dev/js-0.6.7",
       "packageUri": "lib/",
@@ -164,6 +170,12 @@
       "languageVersion": "2.14"
     },
     {
+      "name": "shimmer",
+      "rootUri": "file:///Users/soton/.pub-cache/hosted/pub.dev/shimmer-2.0.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "sky_engine",
       "rootUri": "file:///Users/soton/flutter/bin/cache/pkg/sky_engine",
       "packageUri": "lib/",
@@ -230,6 +242,12 @@
       "languageVersion": "2.14"
     },
     {
+      "name": "vibration",
+      "rootUri": "file:///Users/soton/.pub-cache/hosted/pub.dev/vibration-1.7.7",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "win32",
       "rootUri": "file:///Users/soton/.pub-cache/hosted/pub.dev/win32-5.0.3",
       "packageUri": "lib/",
@@ -248,7 +266,7 @@
       "languageVersion": "3.0"
     }
   ],
-  "generated": "2023-06-10T16:43:38.598913Z",
+  "generated": "2023-06-13T15:28:42.377637Z",
   "generator": "pub",
   "generatorVersion": "3.0.1"
 }

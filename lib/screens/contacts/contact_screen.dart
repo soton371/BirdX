@@ -149,7 +149,7 @@ class _ContactScreenState extends State<ContactScreen> {
                       Navigator.push(
                           context,
                           CupertinoPageRoute(
-                              builder: (_) => const MessageScreen()));
+                              builder: (_) => MessageScreen(name: contacts[index].name)));
                     },
                     leadingSize: 60,
                     leadingToTitle: 8,

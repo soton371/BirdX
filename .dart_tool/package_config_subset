@@ -38,6 +38,10 @@ flutter_lints
 2.17
 file:///Users/soton/.pub-cache/hosted/pub.dev/flutter_lints-2.0.1/
 file:///Users/soton/.pub-cache/hosted/pub.dev/flutter_lints-2.0.1/lib/
+forked_slider_button
+2.12
+file:///Users/soton/.pub-cache/hosted/pub.dev/forked_slider_button-2.0.2/
+file:///Users/soton/.pub-cache/hosted/pub.dev/forked_slider_button-2.0.2/lib/
 js
 2.19
 file:///Users/soton/.pub-cache/hosted/pub.dev/js-0.6.7/
@@ -98,6 +102,10 @@ process
 2.14
 file:///Users/soton/.pub-cache/hosted/pub.dev/process-4.2.4/
 file:///Users/soton/.pub-cache/hosted/pub.dev/process-4.2.4/lib/
+shimmer
+2.12
+file:///Users/soton/.pub-cache/hosted/pub.dev/shimmer-2.0.0/
+file:///Users/soton/.pub-cache/hosted/pub.dev/shimmer-2.0.0/lib/
 source_span
 2.14
 file:///Users/soton/.pub-cache/hosted/pub.dev/source_span-1.9.1/
@@ -138,6 +146,10 @@ vector_math
 2.14
 file:///Users/soton/.pub-cache/hosted/pub.dev/vector_math-2.1.4/
 file:///Users/soton/.pub-cache/hosted/pub.dev/vector_math-2.1.4/lib/
+vibration
+2.12
+file:///Users/soton/.pub-cache/hosted/pub.dev/vibration-1.7.7/
+file:///Users/soton/.pub-cache/hosted/pub.dev/vibration-1.7.7/lib/
 win32
 3.0
 file:///Users/soton/.pub-cache/hosted/pub.dev/win32-5.0.3/
