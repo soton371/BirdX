@@ -80,6 +80,12 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "intl",
+      "rootUri": "file:///Users/soton/.pub-cache/hosted/pub.dev/intl-0.18.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "js",
       "rootUri": "file:///Users/soton/.pub-cache/hosted/pub.dev/js-0.6.7",
       "packageUri": "lib/",
@@ -266,7 +272,7 @@
       "languageVersion": "3.0"
     }
   ],
-  "generated": "2023-06-13T15:28:42.377637Z",
+  "generated": "2023-06-14T16:05:52.056813Z",
   "generator": "pub",
   "generatorVersion": "3.0.1"
 }
