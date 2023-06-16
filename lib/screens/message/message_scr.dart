@@ -18,7 +18,8 @@ class _MessageScreenState extends State<MessageScreen> {
   String formattedDate = '';
   String formattedTime = '';
   String initShowDate = DateFormat.MMMEd().format(DateTime.now());
-  String initTime = DateFormat.jm().format(DateTime.now().add(const Duration(minutes: 5)));
+  String initTime =
+      DateFormat.jm().format(DateTime.now().add(const Duration(minutes: 5)));
 
   @override
   Widget build(BuildContext context) {
@@ -89,7 +90,10 @@ class _MessageScreenState extends State<MessageScreen> {
               msg.isEmpty
                   ? const SizedBox()
                   : SliderButton(
-                      action: () {},
+                      action: () async {
+                        
+                      },
+                      dismissible: false,
                       label: const Text(
                         "Slide to send message",
                         style: TextStyle(
@@ -144,10 +148,9 @@ class _MessageScreenState extends State<MessageScreen> {
                               DateFormat.MMMEd().format(_chosenDateTime);
                           formattedTime =
                               DateFormat.jm().format(_chosenDateTime);
-                          debugPrint("formattedDate: $formattedDate, formattedTime: $formattedTime");
-                          setState(() {
-                            
-                          });
+                          debugPrint(
+                              "formattedDate: $formattedDate, formattedTime: $formattedTime");
+                          setState(() {});
                           Navigator.of(ctx).pop();
                         },
                       ),
@@ -156,9 +159,12 @@ class _MessageScreenState extends State<MessageScreen> {
                   SizedBox(
                     height: 250,
                     child: CupertinoDatePicker(
-                        initialDateTime: DateTime.now().add(const Duration(minutes: 5)),
-                        minimumDate: DateTime.now().add(const Duration(minutes: 4)),
-                        maximumDate: DateTime.now().add(const Duration(days: 10)),
+                        initialDateTime:
+                            DateTime.now().add(const Duration(minutes: 5)),
+                        minimumDate:
+                            DateTime.now().add(const Duration(minutes: 4)),
+                        maximumDate:
+                            DateTime.now().add(const Duration(days: 10)),
                         onDateTimeChanged: (val) {
                           setState(() {
                             _chosenDateTime = val;

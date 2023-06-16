@@ -74,6 +74,18 @@
       "languageVersion": "3.0"
     },
     {
+      "name": "flutter_web_plugins",
+      "rootUri": "file:///Users/soton/flutter/packages/flutter_web_plugins",
+      "packageUri": "lib/",
+      "languageVersion": "3.0"
+    },
+    {
+      "name": "fluttertoast",
+      "rootUri": "file:///Users/soton/.pub-cache/hosted/pub.dev/fluttertoast-8.2.2",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "forked_slider_button",
       "rootUri": "file:///Users/soton/.pub-cache/hosted/pub.dev/forked_slider_button-2.0.2",
       "packageUri": "lib/",
@@ -272,7 +284,7 @@
       "languageVersion": "3.0"
     }
   ],
-  "generated": "2023-06-14T16:05:52.056813Z",
+  "generated": "2023-06-16T07:23:03.687016Z",
   "generator": "pub",
   "generatorVersion": "3.0.1"
 }
