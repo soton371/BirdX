@@ -1,4 +1,6 @@
+import 'dart:async';
 import 'package:birdx/configs/my_sizes.dart';
+import 'package:birdx/utilities/time_to_seconds.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:forked_slider_button/forked_slider_button.dart';
@@ -6,8 +8,8 @@ import 'package:intl/intl.dart';
 import 'package:telephony/telephony.dart';
 
 class MessageScreen extends StatefulWidget {
-  const MessageScreen({super.key, this.name});
-  final String? name;
+  const MessageScreen({super.key, required this.name, required this.number});
+  final String? name, number;
 
   @override
   State<MessageScreen> createState() => _MessageScreenState();
@@ -90,12 +92,17 @@ class _MessageScreenState extends State<MessageScreen> {
               //end message box
 
               //add for button
-              msg.isEmpty
+              msg.trim().isEmpty
                   ? const SizedBox()
                   : SliderButton(
                       action: () async {
-                        _telephony.sendSms(
-                            to: "+8801518606399", message: "hi test");
+                        Duration differenceTime =
+                            _chosenDateTime.difference(DateTime.now());
+                        int mySec = timeToSeconds(differenceTime.toString());
+                        Timer(Duration(seconds: mySec), () {
+                          _telephony.sendSms(
+                              to: widget.number ?? '', message: msg);
+                        });
                       },
                       dismissible: false,
                       label: const Text(
@@ -145,15 +152,8 @@ class _MessageScreenState extends State<MessageScreen> {
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                   onPressed: () {
-                    debugPrint("_chosenDateTime: $_chosenDateTime");
-                    Duration difference =
-                        _chosenDateTime.difference(DateTime.now());
-
-                    debugPrint("difference: $difference");
                     formattedDate = DateFormat.MMMEd().format(_chosenDateTime);
                     formattedTime = DateFormat.jm().format(_chosenDateTime);
-                    debugPrint(
-                        "formattedDate: $formattedDate, formattedTime: $formattedTime");
                     setState(() {});
                     Navigator.of(ctx).pop();
                   },
