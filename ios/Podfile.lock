@@ -12,6 +12,8 @@ PODS:
   - sqflite (0.0.3):
     - Flutter
     - FMDB (>= 2.7.5)
+  - telephony (0.0.1):
+    - Flutter
   - Toast (4.0.0)
   - vibration (1.7.5):
     - Flutter
@@ -21,6 +23,7 @@ DEPENDENCIES:
   - fluttertoast (from `.symlinks/plugins/fluttertoast/ios`)
   - path_provider_foundation (from `.symlinks/plugins/path_provider_foundation/darwin`)
   - sqflite (from `.symlinks/plugins/sqflite/ios`)
+  - telephony (from `.symlinks/plugins/telephony/ios`)
   - vibration (from `.symlinks/plugins/vibration/ios`)
 
 SPEC REPOS:
@@ -37,6 +40,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/path_provider_foundation/darwin"
   sqflite:
     :path: ".symlinks/plugins/sqflite/ios"
+  telephony:
+    :path: ".symlinks/plugins/telephony/ios"
   vibration:
     :path: ".symlinks/plugins/vibration/ios"
 
@@ -46,6 +51,7 @@ SPEC CHECKSUMS:
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
   path_provider_foundation: eaf5b3e458fc0e5fbb9940fb09980e853fe058b8
   sqflite: 31f7eba61e3074736dff8807a9b41581e4f7f15a
+  telephony: c41768fae9fb5495781b05a72004106ca33ec777
   Toast: 91b396c56ee72a5790816f40d3a94dd357abc196
   vibration: 7d883d141656a1c1a6d8d238616b2042a51a1241
 

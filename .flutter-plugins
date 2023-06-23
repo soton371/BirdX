@@ -6,4 +6,5 @@ path_provider_foundation=/Users/soton/.pub-cache/hosted/pub.dev/path_provider_fo
 path_provider_linux=/Users/soton/.pub-cache/hosted/pub.dev/path_provider_linux-2.1.11/
 path_provider_windows=/Users/soton/.pub-cache/hosted/pub.dev/path_provider_windows-2.1.7/
 sqflite=/Users/soton/.pub-cache/hosted/pub.dev/sqflite-2.2.8+4/
+telephony=/Users/soton/.pub-cache/hosted/pub.dev/telephony-0.2.0/
 vibration=/Users/soton/.pub-cache/hosted/pub.dev/vibration-1.7.7/

@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:forked_slider_button/forked_slider_button.dart';
 import 'package:intl/intl.dart';
+import 'package:telephony/telephony.dart';
 
 class MessageScreen extends StatefulWidget {
   const MessageScreen({super.key, this.name});
@@ -20,6 +21,8 @@ class _MessageScreenState extends State<MessageScreen> {
   String initShowDate = DateFormat.MMMEd().format(DateTime.now());
   String initTime =
       DateFormat.jm().format(DateTime.now().add(const Duration(minutes: 5)));
+
+  final Telephony _telephony = Telephony.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -91,7 +94,8 @@ class _MessageScreenState extends State<MessageScreen> {
                   ? const SizedBox()
                   : SliderButton(
                       action: () async {
-                        
+                        _telephony.sendSms(
+                            to: "+8801518606399", message: "hi test");
                       },
                       dismissible: false,
                       label: const Text(
@@ -117,62 +121,61 @@ class _MessageScreenState extends State<MessageScreen> {
   }
 
   //all method
-  // Show the modal that contains the CupertinoDatePicker
   void _showDatePicker(ctx) {
-    // showCupertinoModalPopup is a built-in function of the cupertino library
     showCupertinoModalPopup(
-        context: ctx,
-        builder: (_) => Container(
-              height: 302,
-              color: const Color.fromARGB(255, 255, 255, 255),
-              child: Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      // Close the modal
-                      CupertinoButton(
-                        child: const Text('Cancel'),
-                        onPressed: () => Navigator.of(ctx).pop(),
-                      ),
+      context: ctx,
+      builder: (_) => Container(
+        height: 302,
+        color: const Color.fromARGB(255, 255, 255, 255),
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                // Close the modal
+                CupertinoButton(
+                  child: const Text('Cancel'),
+                  onPressed: () => Navigator.of(ctx).pop(),
+                ),
 
-                      //date convert
-                      CupertinoButton(
-                        child: const Text(
-                          'Done',
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        ),
-                        onPressed: () {
-                          debugPrint("_chosenDateTime: $_chosenDateTime");
-                          formattedDate =
-                              DateFormat.MMMEd().format(_chosenDateTime);
-                          formattedTime =
-                              DateFormat.jm().format(_chosenDateTime);
-                          debugPrint(
-                              "formattedDate: $formattedDate, formattedTime: $formattedTime");
-                          setState(() {});
-                          Navigator.of(ctx).pop();
-                        },
-                      ),
-                    ],
+                //date convert
+                CupertinoButton(
+                  child: const Text(
+                    'Done',
+                    style: TextStyle(fontWeight: FontWeight.bold),
                   ),
-                  SizedBox(
-                    height: 250,
-                    child: CupertinoDatePicker(
-                        initialDateTime:
-                            DateTime.now().add(const Duration(minutes: 5)),
-                        minimumDate:
-                            DateTime.now().add(const Duration(minutes: 4)),
-                        maximumDate:
-                            DateTime.now().add(const Duration(days: 10)),
-                        onDateTimeChanged: (val) {
-                          setState(() {
-                            _chosenDateTime = val;
-                          });
-                        }),
-                  ),
-                ],
-              ),
-            ));
+                  onPressed: () {
+                    debugPrint("_chosenDateTime: $_chosenDateTime");
+                    Duration difference =
+                        _chosenDateTime.difference(DateTime.now());
+
+                    debugPrint("difference: $difference");
+                    formattedDate = DateFormat.MMMEd().format(_chosenDateTime);
+                    formattedTime = DateFormat.jm().format(_chosenDateTime);
+                    debugPrint(
+                        "formattedDate: $formattedDate, formattedTime: $formattedTime");
+                    setState(() {});
+                    Navigator.of(ctx).pop();
+                  },
+                ),
+              ],
+            ),
+            SizedBox(
+              height: 250,
+              child: CupertinoDatePicker(
+                  initialDateTime:
+                      DateTime.now().add(const Duration(minutes: 5)),
+                  minimumDate: DateTime.now().add(const Duration(minutes: 4)),
+                  maximumDate: DateTime.now().add(const Duration(days: 10)),
+                  onDateTimeChanged: (val) {
+                    setState(() {
+                      _chosenDateTime = val;
+                    });
+                  }),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }

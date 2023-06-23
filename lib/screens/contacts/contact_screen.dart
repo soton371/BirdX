@@ -5,7 +5,6 @@ import 'package:birdx/models/contact.dart';
 import 'package:birdx/screens/message/message_scr.dart';
 import 'package:birdx/screens/summary/summary_screen.dart';
 import 'package:birdx/utilities/contact_crud.dart';
-import 'package:birdx/utilities/input_validation.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -220,11 +219,11 @@ class _ContactScreenState extends State<ContactScreen> {
                 CupertinoDialogAction(
                   child: const Text('Save'),
                   onPressed: () {
-                    if (!RegExp("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]")
-                        .hasMatch(name[0])) {
-                      myToast(msg: 'Please enter valid name');
-                      return;
-                    }
+                    // if (!RegExp("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]")
+                    //     .hasMatch(name[0])) {
+                    //   myToast(msg: 'Please enter valid name');
+                    //   return;
+                    // }
                     addContact(name: name, number: number).then((value1) {
                       getContacts().then((value) {
                         setState(() {
