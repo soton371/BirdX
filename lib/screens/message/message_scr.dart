@@ -1,11 +1,14 @@
-import 'dart:async';
+// import 'dart:async';
 import 'package:birdx/configs/my_sizes.dart';
+import 'package:birdx/screens/summary/summary_screen.dart';
+import 'package:birdx/utilities/pending_msg_crud.dart';
 import 'package:birdx/utilities/time_to_seconds.dart';
+// import 'package:birdx/utilities/time_to_seconds.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:forked_slider_button/forked_slider_button.dart';
 import 'package:intl/intl.dart';
-import 'package:telephony/telephony.dart';
+// import 'package:telephony/telephony.dart';
 
 class MessageScreen extends StatefulWidget {
   const MessageScreen({super.key, required this.name, required this.number});
@@ -24,7 +27,7 @@ class _MessageScreenState extends State<MessageScreen> {
   String initTime =
       DateFormat.jm().format(DateTime.now().add(const Duration(minutes: 5)));
 
-  final Telephony _telephony = Telephony.instance;
+  // final Telephony _telephony = Telephony.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -95,7 +98,23 @@ class _MessageScreenState extends State<MessageScreen> {
               msg.trim().isEmpty
                   ? const SizedBox()
                   : SliderButton(
-                      action: () async {
+                      action: () {
+                        Duration differenceTime =
+                            _chosenDateTime.difference(DateTime.now());
+                        int mySec = timeToSeconds(differenceTime.toString());
+                        addPendingMsg(
+                                name: widget.name ?? '',
+                                number: widget.number ?? '',
+                                message: msg,
+                                duration: mySec.toString(),
+                                time: "$formattedDate / $formattedDate")
+                            .then((value) {
+                          Navigator.pushReplacement(
+                              context,
+                              CupertinoPageRoute(
+                                  builder: (_) => const SummaryScreen()));
+                        });
+                        /*
                         Duration differenceTime =
                             _chosenDateTime.difference(DateTime.now());
                         int mySec = timeToSeconds(differenceTime.toString());
@@ -103,6 +122,7 @@ class _MessageScreenState extends State<MessageScreen> {
                           _telephony.sendSms(
                               to: widget.number ?? '', message: msg);
                         });
+                        */
                       },
                       dismissible: false,
                       label: const Text(
