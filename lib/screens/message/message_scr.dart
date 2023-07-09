@@ -107,7 +107,7 @@ class _MessageScreenState extends State<MessageScreen> {
                                 number: widget.number ?? '',
                                 message: msg,
                                 duration: mySec.toString(),
-                                time: "$formattedDate / $formattedDate")
+                                time: "$formattedDate / $formattedTime")
                             .then((value) {
                           Navigator.pushReplacement(
                               context,
