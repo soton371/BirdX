@@ -1,6 +1,7 @@
 import 'package:birdx/configs/my_colors.dart';
 import 'package:birdx/configs/my_fonts.dart';
 import 'package:birdx/models/pending_msg_mod.dart';
+import 'package:birdx/screens/summary/summary_empty.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -15,7 +16,8 @@ class PendingScreen extends StatefulWidget {
 class _PendingScreenState extends State<PendingScreen> {
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
+    return widget.pendingMsgs.isEmpty ? const SummaryEmpty(isPending: 0,):
+    ListView.builder(
         padding: const EdgeInsets.all(10),
         itemCount: widget.pendingMsgs.length,
         itemBuilder: (context, index) {
@@ -85,8 +87,8 @@ class _PendingScreenState extends State<PendingScreen> {
               ),
               trailing: Column(
                 children: [
-                  Text(data[index].time.split('/').first,style: const TextStyle(fontSize: 10,color: Colors.blueGrey)),
-                  Text(data[index].time.split('/').last,style: const TextStyle(fontSize: 10,color: Colors.blueGrey)),
+                  Text(data[index].time.split('/').first,style: const TextStyle(fontSize: 10,color: CupertinoColors.systemGrey)),
+                  Text(data[index].time.split('/').last,style: const TextStyle(fontSize: 10,color: CupertinoColors.systemGrey)),
                 ],
               ),
             ),

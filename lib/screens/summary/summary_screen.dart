@@ -1,7 +1,7 @@
 import 'package:birdx/configs/my_colors.dart';
 import 'package:birdx/models/pending_msg_mod.dart';
 import 'package:birdx/screens/summary/pending_screen.dart';
-import 'package:birdx/screens/summary/summary_empty.dart';
+import 'package:birdx/screens/summary/sent_screen.dart';
 import 'package:birdx/utilities/pending_msg_crud.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -61,8 +61,8 @@ class _SummaryScreenState extends State<SummaryScreen> {
                 }),
           ),
         ],
-        body:pendingMsgList.isEmpty ? SummaryEmpty(isPending: _sliding??0,):
-        PendingScreen(pendingMsgs: pendingMsgList,),
+        body:_sliding==0 ?
+        PendingScreen(pendingMsgs: pendingMsgList,):const SentScreen(sentMsgs: [],),
       ),
     );
   }
