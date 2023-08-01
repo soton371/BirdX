@@ -11,14 +11,17 @@ Future<int> addPendingMsg(
     required String number,
     required String message,
     required String duration,
-    required String time}) async {
+    required String time,
+    required String statusIs
+    }) async {
   
   PendingMsgModel newPendingMsg = PendingMsgModel(
     name: name,
     number: number,
     message: message,
     durationInSec: duration,
-    time: time
+    time: time,
+    statusIs: statusIs
   );
   int result = await DatabaseHelper.instance.insertPendingMsg(newPendingMsg);
   return result;
@@ -30,7 +33,9 @@ Future<int> updatePendingMsg(
     required String newNumber,
     required String newMessage,
     required String newDuration,
-    required String newTime}) async {
+    required String newTime,
+    required String newStatusIs,
+    }) async {
   PendingMsgModel updatedPendingMsg = PendingMsgModel(
     id: pendingMsgModel.id,
     name: newName.isNotEmpty ? newName : pendingMsgModel.name,
@@ -38,6 +43,7 @@ Future<int> updatePendingMsg(
     message: newMessage.isNotEmpty ? newMessage : pendingMsgModel.message,
     durationInSec: newDuration.isNotEmpty ? newDuration : pendingMsgModel.durationInSec,
     time: newTime.isNotEmpty ? newTime : pendingMsgModel.time,
+    statusIs: newStatusIs.isNotEmpty ? newStatusIs : pendingMsgModel.statusIs,
   );
   int result = await DatabaseHelper.instance.updatePendingMsg(updatedPendingMsg);
 
