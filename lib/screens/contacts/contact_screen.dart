@@ -41,12 +41,12 @@ class _ContactScreenState extends State<ContactScreen> {
                     height: MySizes.emptyIcon,
                     width: MySizes.emptyIcon,
                   ),
-                  Text("There are no any\ncontacts saved yet\n\n",
+                  Text("There are no any\nrecipients saved yet\n\n",
                       textAlign: TextAlign.center,
                       style: TextStyle(color: MyColors.emptyText)),
                   CupertinoButton.filled(
                       padding: const EdgeInsets.symmetric(horizontal: 25),
-                      child: const Text("Add Contacts"),
+                      child: const Text("Add Recipient"),
                       onPressed: () => addContactDialog())
                 ],
               ),
@@ -220,7 +220,7 @@ class _ContactScreenState extends State<ContactScreen> {
                 CupertinoDialogAction(
                   child: const Text('Save'),
                   onPressed: () {
-                    if (name.trim().isEmpty || name.trim().length <2) {
+                    if (name.trim().isEmpty || name.trim().length <3) {
                       myToast(msg: 'Please enter valid name');
                       return;
                     }
@@ -250,7 +250,7 @@ class _ContactScreenState extends State<ContactScreen> {
     showCupertinoDialog(
         context: context,
         builder: (context) => CupertinoAlertDialog(
-              title: const Text("Update Contact"),
+              title: const Text("Update Recipient"),
               content: StatefulBuilder(
                   builder: (BuildContext context, StateSetter setState) {
                 return Column(
