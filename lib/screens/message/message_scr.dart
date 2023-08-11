@@ -1,5 +1,6 @@
 // import 'dart:async';
 import 'package:birdx/configs/my_sizes.dart';
+import 'package:birdx/models/pending_msg_mod.dart';
 import 'package:birdx/screens/summary/summary_screen.dart';
 import 'package:birdx/utilities/pending_msg_crud.dart';
 import 'package:birdx/utilities/time_to_seconds.dart';
@@ -13,7 +14,8 @@ import 'package:intl/intl.dart';
 class MessageScreen extends StatefulWidget {
   const MessageScreen(
       {super.key, required this.name, required this.number, this.pendingMsg});
-  final String? name, number, pendingMsg;
+  final String? name, number;
+  final PendingMsgModel? pendingMsg;
 
   @override
   State<MessageScreen> createState() => _MessageScreenState();
@@ -28,13 +30,17 @@ class _MessageScreenState extends State<MessageScreen> {
   String initShowDate = DateFormat.MMMEd().format(DateTime.now());
   String initTime =
       DateFormat.jm().format(DateTime.now().add(const Duration(minutes: 5)));
-
+  int mySec = 0;
   // final Telephony _telephony = Telephony.instance;
   @override
   void initState() {
     super.initState();
-    msg = widget.pendingMsg ?? '';
-    msgController = TextEditingController(text: msg);
+    var m = widget.pendingMsg;
+    if (m != null) {
+      msg = m.message;
+      msgController = TextEditingController(text: msg);
+      mySec = int.parse(m.durationInSec);
+    }
   }
 
   @override
@@ -106,15 +112,28 @@ class _MessageScreenState extends State<MessageScreen> {
               //add for button
               msg.trim().isEmpty
                   ? const SizedBox()
-                  : (widget.pendingMsg ?? '').isNotEmpty
+                  : widget.pendingMsg != null
                       ? CupertinoButton.filled(
-                          onPressed: () {}, child: const Text("Update"))
+                          onPressed: () {
+                            var g = widget.pendingMsg;
+                            if (g != null) {
+                              updatePendingMsg(
+                                  pendingMsgModel: g,
+                                  newName: widget.name ?? '',
+                                  newNumber: widget.number ?? '',
+                                  newMessage: msg,
+                                  newDuration: mySec.toString(),
+                                  newTime: "$formattedDate / $formattedTime",
+                                  newStatusIs: "0");
+                              Navigator.pushReplacement(context, CupertinoPageRoute(builder: (_)=>const SummaryScreen()));
+                            }
+                          },
+                          child: const Text("Update"))
                       : SliderButton(
                           action: () {
                             Duration differenceTime =
                                 _chosenDateTime.difference(DateTime.now());
-                            int mySec =
-                                timeToSeconds(differenceTime.toString());
+                            mySec = timeToSeconds(differenceTime.toString());
                             addPendingMsg(
                                     name: widget.name ?? '',
                                     number: widget.number ?? '',

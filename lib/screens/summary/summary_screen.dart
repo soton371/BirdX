@@ -1,8 +1,6 @@
 import 'package:birdx/configs/my_colors.dart';
-import 'package:birdx/models/pending_msg_mod.dart';
 import 'package:birdx/screens/summary/pending_screen.dart';
 import 'package:birdx/screens/summary/sent_screen.dart';
-import 'package:birdx/utilities/pending_msg_crud.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -15,17 +13,6 @@ class SummaryScreen extends StatefulWidget {
 
 class _SummaryScreenState extends State<SummaryScreen> {
   int? _sliding = 0;
-  List<PendingMsgModel> pendingMsgList = [];
-
-  @override
-  void initState() {
-    super.initState();
-    getPendingMsgs().then((value) {
-      setState(() {
-        pendingMsgList = value;
-      });
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -62,7 +49,7 @@ class _SummaryScreenState extends State<SummaryScreen> {
           ),
         ],
         body:_sliding==0 ?
-        PendingScreen(pendingMsgs: pendingMsgList,):const SentScreen(sentMsgs: [],),
+        PendingScreen():const SentScreen(sentMsgs: [],),
       ),
     );
   }

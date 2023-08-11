@@ -8,25 +8,34 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class PendingScreen extends StatefulWidget {
-  PendingScreen({super.key, required this.pendingMsgs});
-  List<PendingMsgModel> pendingMsgs;
+  const PendingScreen({super.key});
 
   @override
   State<PendingScreen> createState() => _PendingScreenState();
 }
 
 class _PendingScreenState extends State<PendingScreen> {
+  List<PendingMsgModel> pendingMsgs = [];
+  @override
+  void initState() {
+    super.initState();
+    getPendingMsgs().then((value) {
+      setState(() {
+        pendingMsgs = value;
+      });
+    });
+  }
   @override
   Widget build(BuildContext context) {
-    return widget.pendingMsgs.isEmpty
+    return pendingMsgs.isEmpty
         ? const SummaryEmpty(
             isPending: 0,
           )
         : ListView.builder(
             padding: const EdgeInsets.all(10),
-            itemCount: widget.pendingMsgs.length,
+            itemCount: pendingMsgs.length,
             itemBuilder: (context, index) {
-              var data = widget.pendingMsgs[index];
+              var data = pendingMsgs[index];
               return CupertinoContextMenu(
                 previewBuilder: (context, animation, child) {
                   return SizedBox(
@@ -55,7 +64,7 @@ class _PendingScreenState extends State<PendingScreen> {
                           context,
                           CupertinoPageRoute(
                               builder: (_) => MessageScreen(
-                                  name: data.name, number: data.number, pendingMsg: data.message,)));
+                                  name: data.name, number: data.number, pendingMsg: data,)));
                     },
                     trailingIcon: CupertinoIcons.pen,
                     child: const Text("Edit"),
@@ -66,7 +75,7 @@ class _PendingScreenState extends State<PendingScreen> {
                         getPendingMsgs().then((value) {
                           Navigator.pop(context);
                           setState(() {
-                            widget.pendingMsgs = value;
+                            pendingMsgs = value;
                           });
                         });
                       });
