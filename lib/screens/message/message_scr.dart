@@ -11,8 +11,9 @@ import 'package:intl/intl.dart';
 // import 'package:telephony/telephony.dart';
 
 class MessageScreen extends StatefulWidget {
-  const MessageScreen({super.key, required this.name, required this.number});
-  final String? name, number;
+  const MessageScreen(
+      {super.key, required this.name, required this.number, this.pendingMsg});
+  final String? name, number, pendingMsg;
 
   @override
   State<MessageScreen> createState() => _MessageScreenState();
@@ -20,6 +21,7 @@ class MessageScreen extends StatefulWidget {
 
 class _MessageScreenState extends State<MessageScreen> {
   String msg = '';
+  TextEditingController msgController = TextEditingController();
   DateTime _chosenDateTime = DateTime.now();
   String formattedDate = '';
   String formattedTime = '';
@@ -28,6 +30,12 @@ class _MessageScreenState extends State<MessageScreen> {
       DateFormat.jm().format(DateTime.now().add(const Duration(minutes: 5)));
 
   // final Telephony _telephony = Telephony.instance;
+  @override
+  void initState() {
+    super.initState();
+    msg = widget.pendingMsg ?? '';
+    msgController = TextEditingController(text: msg);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -82,6 +90,7 @@ class _MessageScreenState extends State<MessageScreen> {
                     ),
                     CupertinoTextField(
                       placeholder: "Type Message",
+                      controller: msgController,
                       maxLines: 5,
                       onChanged: (v) {
                         setState(() {
@@ -97,26 +106,29 @@ class _MessageScreenState extends State<MessageScreen> {
               //add for button
               msg.trim().isEmpty
                   ? const SizedBox()
-                  : SliderButton(
-                      action: () {
-                        Duration differenceTime =
-                            _chosenDateTime.difference(DateTime.now());
-                        int mySec = timeToSeconds(differenceTime.toString());
-                        addPendingMsg(
-                                name: widget.name ?? '',
-                                number: widget.number ?? '',
-                                message: msg,
-                                duration: mySec.toString(),
-                                time: "$formattedDate / $formattedTime",
-                                statusIs: "0"
-                                )
-                            .then((value) {
-                          Navigator.pushReplacement(
-                              context,
-                              CupertinoPageRoute(
-                                  builder: (_) => const SummaryScreen()));
-                        });
-                        /*
+                  : (widget.pendingMsg ?? '').isNotEmpty
+                      ? CupertinoButton.filled(
+                          onPressed: () {}, child: const Text("Update"))
+                      : SliderButton(
+                          action: () {
+                            Duration differenceTime =
+                                _chosenDateTime.difference(DateTime.now());
+                            int mySec =
+                                timeToSeconds(differenceTime.toString());
+                            addPendingMsg(
+                                    name: widget.name ?? '',
+                                    number: widget.number ?? '',
+                                    message: msg,
+                                    duration: mySec.toString(),
+                                    time: "$formattedDate / $formattedTime",
+                                    statusIs: "0")
+                                .then((value) {
+                              Navigator.pushReplacement(
+                                  context,
+                                  CupertinoPageRoute(
+                                      builder: (_) => const SummaryScreen()));
+                            });
+                            /*
                         Duration differenceTime =
                             _chosenDateTime.difference(DateTime.now());
                         int mySec = timeToSeconds(differenceTime.toString());
@@ -125,22 +137,22 @@ class _MessageScreenState extends State<MessageScreen> {
                               to: widget.number ?? '', message: msg);
                         });
                         */
-                      },
-                      dismissible: false,
-                      label: const Text(
-                        "Slide to send message",
-                        style: TextStyle(
-                            color: Color(0xff4a4a4a),
-                            fontWeight: FontWeight.w500,
-                            fontSize: 17),
-                      ),
-                      icon: const Icon(CupertinoIcons.forward),
-                      height: 55,
-                      buttonSize: 50,
-                      width: double.maxFinite,
-                      alignLabel: Alignment.center,
-                      radius: 10,
-                    ),
+                          },
+                          dismissible: false,
+                          label: const Text(
+                            "Slide to send message",
+                            style: TextStyle(
+                                color: Color(0xff4a4a4a),
+                                fontWeight: FontWeight.w500,
+                                fontSize: 17),
+                          ),
+                          icon: const Icon(CupertinoIcons.forward),
+                          height: 55,
+                          buttonSize: 50,
+                          width: double.maxFinite,
+                          alignLabel: Alignment.center,
+                          radius: 10,
+                        ),
               //end for button
             ],
           ),

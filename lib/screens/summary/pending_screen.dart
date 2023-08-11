@@ -1,6 +1,7 @@
 import 'package:birdx/configs/my_colors.dart';
 import 'package:birdx/configs/my_fonts.dart';
 import 'package:birdx/models/pending_msg_mod.dart';
+import 'package:birdx/screens/message/message_scr.dart';
 import 'package:birdx/screens/summary/summary_empty.dart';
 import 'package:birdx/utilities/pending_msg_crud.dart';
 import 'package:flutter/cupertino.dart';
@@ -50,7 +51,11 @@ class _PendingScreenState extends State<PendingScreen> {
                   CupertinoContextMenuAction(
                     onPressed: () {
                       Navigator.pop(context);
-                      // updateContactDialog(contacts[index]);
+                      Navigator.push(
+                          context,
+                          CupertinoPageRoute(
+                              builder: (_) => MessageScreen(
+                                  name: data.name, number: data.number, pendingMsg: data.message,)));
                     },
                     trailingIcon: CupertinoIcons.pen,
                     child: const Text("Edit"),
