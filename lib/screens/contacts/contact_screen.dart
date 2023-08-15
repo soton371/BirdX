@@ -181,7 +181,7 @@ class _ContactScreenState extends State<ContactScreen> {
     showCupertinoDialog(
         context: context,
         builder: (context) => CupertinoAlertDialog(
-              title: const Text("Add New Contact"),
+              title: const Text("Add New Recipient"),
               content: StatefulBuilder(
                   builder: (BuildContext context, StateSetter setState) {
                 return Column(

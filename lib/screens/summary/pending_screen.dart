@@ -105,6 +105,7 @@ class _PendingScreenState extends State<PendingScreen> {
                   ),
                   trailing: Column(
                     children: [
+                      Text(data.time),
                       Text(data.time.split('/').first,
                           style: const TextStyle(
                               fontSize: 10, color: CupertinoColors.systemGrey)),
