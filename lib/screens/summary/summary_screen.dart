@@ -49,7 +49,7 @@ class _SummaryScreenState extends State<SummaryScreen> {
           ),
         ],
         body:_sliding==0 ?
-        PendingScreen():const SentScreen(sentMsgs: [],),
+        const PendingScreen():const SentScreen(sentMsgs: [],),
       ),
     );
   }

@@ -54,7 +54,7 @@ class _ContactScreenState extends State<ContactScreen> {
           : NestedScrollView(
               headerSliverBuilder: (context, scrollIs) => [
                 CupertinoSliverNavigationBar(
-                  largeTitle: const Text("Contacts"),
+                  largeTitle: const Text("Recipients"),
                   trailing: CupertinoButton(
                       padding: EdgeInsets.zero,
                       onPressed: addContactDialog,

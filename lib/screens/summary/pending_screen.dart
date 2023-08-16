@@ -25,6 +25,7 @@ class _PendingScreenState extends State<PendingScreen> {
       });
     });
   }
+
   @override
   Widget build(BuildContext context) {
     return pendingMsgs.isEmpty
@@ -64,7 +65,10 @@ class _PendingScreenState extends State<PendingScreen> {
                           context,
                           CupertinoPageRoute(
                               builder: (_) => MessageScreen(
-                                  name: data.name, number: data.number, pendingMsg: data,)));
+                                    name: data.name,
+                                    number: data.number,
+                                    pendingMsg: data,
+                                  )));
                     },
                     trailingIcon: CupertinoIcons.pen,
                     child: const Text("Edit"),
@@ -105,7 +109,6 @@ class _PendingScreenState extends State<PendingScreen> {
                   ),
                   trailing: Column(
                     children: [
-                      Text(data.time),
                       Text(data.time.split('/').first,
                           style: const TextStyle(
                               fontSize: 10, color: CupertinoColors.systemGrey)),

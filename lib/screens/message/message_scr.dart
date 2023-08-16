@@ -125,7 +125,10 @@ class _MessageScreenState extends State<MessageScreen> {
                                   newDuration: mySec.toString(),
                                   newTime: "$formattedDate / $formattedTime",
                                   newStatusIs: "0");
-                              Navigator.pushReplacement(context, CupertinoPageRoute(builder: (_)=>const SummaryScreen()));
+                              Navigator.pushReplacement(
+                                  context,
+                                  CupertinoPageRoute(
+                                      builder: (_) => const SummaryScreen()));
                             }
                           },
                           child: const Text("Update"))
@@ -207,6 +210,8 @@ class _MessageScreenState extends State<MessageScreen> {
                   onPressed: () {
                     formattedDate = DateFormat.MMMEd().format(_chosenDateTime);
                     formattedTime = DateFormat.jm().format(_chosenDateTime);
+                    debugPrint(
+                        "formattedDate: $formattedDate , formattedTime: $formattedTime");
                     setState(() {});
                     Navigator.of(ctx).pop();
                   },
