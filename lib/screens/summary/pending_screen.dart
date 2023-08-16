@@ -20,9 +20,13 @@ class _PendingScreenState extends State<PendingScreen> {
   void initState() {
     super.initState();
     getPendingMsgs().then((value) {
-      setState(() {
-        pendingMsgs = value;
-      });
+      for (var element in value) {
+        debugPrint("pending element: ${element.statusIs}");
+        if (element.statusIs == "0") {
+          pendingMsgs.add(element);
+        }
+      }
+      setState(() {});
     });
   }
 
