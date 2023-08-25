@@ -1,8 +1,11 @@
+import 'dart:async';
+
 import 'package:birdx/configs/my_colors.dart';
 import 'package:birdx/configs/my_fonts.dart';
 import 'package:birdx/models/pending_msg_mod.dart';
 import 'package:birdx/screens/message/message_scr.dart';
 import 'package:birdx/screens/summary/summary_empty.dart';
+import 'package:birdx/screens/summary/summary_screen.dart';
 import 'package:birdx/utilities/pending_msg_crud.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -41,6 +44,22 @@ class _PendingScreenState extends State<PendingScreen> {
             itemCount: pendingMsgs.length,
             itemBuilder: (context, index) {
               var data = pendingMsgs[index];
+              Timer(Duration(seconds: int.parse(data.durationInSec)), () {
+                // _telephony.sendSms(
+                //     to: widget.number ?? '', message: msg);
+                updatePendingMsg(
+                        pendingMsgModel: data,
+                        newName: data.name,
+                        newNumber: data.number,
+                        newMessage: data.message,
+                        newDuration: data.durationInSec,//check time
+                        newTime: data.time,
+                        newStatusIs: "1")
+                    .then((value) {
+                  Navigator.pushReplacement(context,
+                      MaterialPageRoute(builder: (_) => const SummaryScreen()));
+                });
+              });
               return CupertinoContextMenu(
                 previewBuilder: (context, animation, child) {
                   return SizedBox(

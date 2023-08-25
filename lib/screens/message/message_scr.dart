@@ -1,15 +1,12 @@
-// import 'dart:async';
 import 'package:birdx/configs/my_sizes.dart';
 import 'package:birdx/models/pending_msg_mod.dart';
 import 'package:birdx/screens/summary/summary_screen.dart';
 import 'package:birdx/utilities/pending_msg_crud.dart';
 import 'package:birdx/utilities/time_to_seconds.dart';
-// import 'package:birdx/utilities/time_to_seconds.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:forked_slider_button/forked_slider_button.dart';
 import 'package:intl/intl.dart';
-// import 'package:telephony/telephony.dart';
 
 class MessageScreen extends StatefulWidget {
   const MessageScreen(
@@ -150,6 +147,7 @@ class _MessageScreenState extends State<MessageScreen> {
                                   CupertinoPageRoute(
                                       builder: (_) => const SummaryScreen()));
                             });
+                            
                             /*
                         Duration differenceTime =
                             _chosenDateTime.difference(DateTime.now());
