@@ -17,7 +17,7 @@ dependencies:
 
 
   cupertino_icons: ^1.0.2
-  # flutter_native_splash: ^2.3.1
+  flutter_native_splash: ^2.3.1
   sqflite: ^2.2.8+4
   path: ^1.8.3
   path_provider: ^2.0.15
@@ -35,9 +35,8 @@ dev_dependencies:
 
 #for native splash screen
 flutter_native_splash:
-  color: "#f2f2f2"
-  color_dark: "#0d0d0d"
-  image: assets/images/avatar.png
+  color: "#ffffff"
+  image: assets/images/parrot2.png
   ios: true
 
 flutter:
