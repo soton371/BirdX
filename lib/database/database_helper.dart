@@ -23,6 +23,7 @@ class DatabaseHelper {
   static const pendingColumnDurationInSec = 'duration';
   static const pendingColumnTime = 'time';
   static const pendingColumnStatusIs = 'statusIs';
+  static const pendingColumnDateTime = 'dateTime';
 
   DatabaseHelper._privateConstructor();
   static final DatabaseHelper instance = DatabaseHelper._privateConstructor();
@@ -59,7 +60,8 @@ class DatabaseHelper {
             $pendingColumnMessage TEXT NOT NULL,
             $pendingColumnDurationInSec TEXT NOT NULL,
             $pendingColumnTime TEXT NOT NULL,
-            $pendingColumnStatusIs TEXT NOT NULL
+            $pendingColumnStatusIs TEXT NOT NULL,
+            $pendingColumnDateTime TEXT NOT NULL
           )
           ''');
   }
@@ -129,7 +131,8 @@ class DatabaseHelper {
         message: maps[i][pendingColumnMessage],
         durationInSec: maps[i][pendingColumnDurationInSec],
         time: maps[i][pendingColumnTime],
-        statusIs: maps[i][pendingColumnStatusIs]
+        statusIs: maps[i][pendingColumnStatusIs],
+        dateTime: maps[i][pendingColumnDateTime],
       );
     });
   }

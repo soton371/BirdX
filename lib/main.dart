@@ -11,7 +11,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CupertinoApp(
-      title: 'BirdX',
+      title: 'Parrot',
       debugShowCheckedModeBanner: false,
       theme: CupertinoThemeData(
           brightness: MediaQuery.of(context).platformBrightness,

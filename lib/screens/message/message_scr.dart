@@ -2,6 +2,7 @@ import 'package:birdx/configs/my_sizes.dart';
 import 'package:birdx/models/pending_msg_mod.dart';
 import 'package:birdx/screens/summary/summary_screen.dart';
 import 'package:birdx/utilities/pending_msg_crud.dart';
+import 'package:birdx/utilities/string_to_datetime.dart';
 import 'package:birdx/utilities/time_to_seconds.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -9,8 +10,8 @@ import 'package:forked_slider_button/forked_slider_button.dart';
 import 'package:intl/intl.dart';
 
 class MessageScreen extends StatefulWidget {
-  const MessageScreen(
-      {super.key, required this.name, required this.number, this.pendingMsg});
+  const MessageScreen({super.key, required this.name, required this.number, this.pendingMsg});
+
   final String? name, number;
   final PendingMsgModel? pendingMsg;
 
@@ -25,10 +26,11 @@ class _MessageScreenState extends State<MessageScreen> {
   String formattedDate = '';
   String formattedTime = '';
   String initShowDate = DateFormat.MMMEd().format(DateTime.now());
-  String initTime =
-      DateFormat.jm().format(DateTime.now().add(const Duration(minutes: 5)));
+  String initTime = DateFormat.jm().format(DateTime.now().add(const Duration(minutes: 5)));
   int mySec = 0;
+
   // final Telephony _telephony = Telephony.instance;
+
   @override
   void initState() {
     super.initState();
@@ -37,7 +39,14 @@ class _MessageScreenState extends State<MessageScreen> {
       msg = m.message;
       msgController = TextEditingController(text: msg);
       mySec = int.parse(m.durationInSec);
+      _chosenDateTime = DateTime.parse(m.dateTime);
+      formattedDate = DateFormat.MMMEd().format(_chosenDateTime);
+      formattedTime = DateFormat.jm().format(_chosenDateTime);
+      debugPrint("formattedDate: $formattedDate formattedTime: $formattedTime");
+      return;
     }
+    formattedDate = DateFormat.MMMEd().format(_chosenDateTime);
+    formattedTime = DateFormat.jm().format(_chosenDateTime);
   }
 
   @override
@@ -60,12 +69,7 @@ class _MessageScreenState extends State<MessageScreen> {
                     children: [
                       Text(
                         formattedDate.isEmpty ? initShowDate : formattedDate,
-                        style: TextStyle(
-                            fontSize: Theme.of(context)
-                                .textTheme
-                                .headlineSmall!
-                                .fontSize,
-                            fontWeight: FontWeight.w600),
+                        style: TextStyle(fontSize: Theme.of(context).textTheme.headlineSmall!.fontSize, fontWeight: FontWeight.w600),
                       ),
                       Text(
                         formattedTime.isEmpty ? initTime : formattedTime,
@@ -73,10 +77,7 @@ class _MessageScreenState extends State<MessageScreen> {
                       )
                     ],
                   ),
-                  CupertinoButton(
-                      padding: EdgeInsets.zero,
-                      onPressed: () => _showDatePicker(context),
-                      child: const Icon(CupertinoIcons.pen))
+                  CupertinoButton(padding: EdgeInsets.zero, onPressed: () => _showDatePicker(context), child: const Icon(CupertinoIcons.pen))
                 ],
               ),
               //end date time picker
@@ -86,8 +87,7 @@ class _MessageScreenState extends State<MessageScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('\n\nMessage',
-                        style: Theme.of(context).textTheme.titleMedium),
+                    Text('\n\nMessage', style: Theme.of(context).textTheme.titleMedium),
                     const SizedBox(
                       height: 8,
                     ),
@@ -121,18 +121,15 @@ class _MessageScreenState extends State<MessageScreen> {
                                   newMessage: msg,
                                   newDuration: mySec.toString(),
                                   newTime: "$formattedDate / $formattedTime",
-                                  newStatusIs: "0");
-                              Navigator.pushReplacement(
-                                  context,
-                                  CupertinoPageRoute(
-                                      builder: (_) => const SummaryScreen()));
+                                  newStatusIs: "0",
+                                  newDateTime: _chosenDateTime.toString());
+                              Navigator.pushReplacement(context, CupertinoPageRoute(builder: (_) => const SummaryScreen()));
                             }
                           },
                           child: const Text("Update"))
                       : SliderButton(
                           action: () {
-                            Duration differenceTime =
-                                _chosenDateTime.difference(DateTime.now());
+                            Duration differenceTime = _chosenDateTime.difference(DateTime.now());
                             mySec = timeToSeconds(differenceTime.toString());
                             addPendingMsg(
                                     name: widget.name ?? '',
@@ -140,14 +137,12 @@ class _MessageScreenState extends State<MessageScreen> {
                                     message: msg,
                                     duration: mySec.toString(),
                                     time: "$formattedDate / $formattedTime",
-                                    statusIs: "0")
+                                    statusIs: "0",
+                                    dateTime: _chosenDateTime.toString())
                                 .then((value) {
-                              Navigator.pushReplacement(
-                                  context,
-                                  CupertinoPageRoute(
-                                      builder: (_) => const SummaryScreen()));
+                              Navigator.pushReplacement(context, CupertinoPageRoute(builder: (_) => const SummaryScreen()));
                             });
-                            
+
                             /*
                         Duration differenceTime =
                             _chosenDateTime.difference(DateTime.now());
@@ -161,10 +156,7 @@ class _MessageScreenState extends State<MessageScreen> {
                           dismissible: false,
                           label: const Text(
                             "Slide to send message",
-                            style: TextStyle(
-                                color: Color(0xff4a4a4a),
-                                fontWeight: FontWeight.w500,
-                                fontSize: 17),
+                            style: TextStyle(color: Color(0xff4a4a4a), fontWeight: FontWeight.w500, fontSize: 17),
                           ),
                           icon: const Icon(CupertinoIcons.forward),
                           height: 55,
@@ -208,8 +200,7 @@ class _MessageScreenState extends State<MessageScreen> {
                   onPressed: () {
                     formattedDate = DateFormat.MMMEd().format(_chosenDateTime);
                     formattedTime = DateFormat.jm().format(_chosenDateTime);
-                    debugPrint(
-                        "formattedDate: $formattedDate , formattedTime: $formattedTime");
+                    debugPrint("formattedDate: $formattedDate , formattedTime: $formattedTime");
                     setState(() {});
                     Navigator.of(ctx).pop();
                   },
@@ -219,8 +210,7 @@ class _MessageScreenState extends State<MessageScreen> {
             SizedBox(
               height: 250,
               child: CupertinoDatePicker(
-                  initialDateTime:
-                      DateTime.now().add(const Duration(minutes: 5)),
+                  initialDateTime: DateTime.now().add(const Duration(minutes: 5)),
                   minimumDate: DateTime.now().add(const Duration(minutes: 4)),
                   maximumDate: DateTime.now().add(const Duration(days: 10)),
                   onDateTimeChanged: (val) {

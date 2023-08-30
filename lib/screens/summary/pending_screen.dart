@@ -54,7 +54,9 @@ class _PendingScreenState extends State<PendingScreen> {
                         newMessage: data.message,
                         newDuration: data.durationInSec,//check time
                         newTime: data.time,
-                        newStatusIs: "1")
+                        newStatusIs: "1",
+                  newDateTime: data.dateTime
+                )
                     .then((value) {
                   Navigator.pushReplacement(context,
                       MaterialPageRoute(builder: (_) => const SummaryScreen()));

@@ -8,8 +8,9 @@ class PendingMsgModel {
   String durationInSec;
   String time;
   String statusIs;  //statusIs = 0 means pending statusIs = 1 means sent
+  String dateTime;
 
-  PendingMsgModel({this.id, required this.name, required this.number, required this.message, required this.durationInSec, required this.time, required this.statusIs});
+  PendingMsgModel({this.id, required this.name, required this.number, required this.message, required this.durationInSec, required this.time, required this.statusIs, required this.dateTime});
 
   Map<String, dynamic> toMap() {
     return {
@@ -19,6 +20,7 @@ class PendingMsgModel {
       DatabaseHelper.pendingColumnDurationInSec: durationInSec,
       DatabaseHelper.pendingColumnTime: time,
       DatabaseHelper.pendingColumnStatusIs: statusIs,
+      DatabaseHelper.pendingColumnDateTime: dateTime,
     };
   }
 }

@@ -12,30 +12,24 @@ Future<int> addPendingMsg(
     required String message,
     required String duration,
     required String time,
-    required String statusIs
-    }) async {
-  
-  PendingMsgModel newPendingMsg = PendingMsgModel(
-    name: name,
-    number: number,
-    message: message,
-    durationInSec: duration,
-    time: time,
-    statusIs: statusIs
-  );
+    required String statusIs,
+    required String dateTime}) async {
+  PendingMsgModel newPendingMsg =
+      PendingMsgModel(name: name, number: number, message: message, durationInSec: duration, time: time, statusIs: statusIs, dateTime: dateTime);
   int result = await DatabaseHelper.instance.insertPendingMsg(newPendingMsg);
   return result;
 }
 
-Future<int> updatePendingMsg(
-    {required PendingMsgModel pendingMsgModel,
-    required String newName,
-    required String newNumber,
-    required String newMessage,
-    required String newDuration,
-    required String newTime,
-    required String newStatusIs,
-    }) async {
+Future<int> updatePendingMsg({
+  required PendingMsgModel pendingMsgModel,
+  required String newName,
+  required String newNumber,
+  required String newMessage,
+  required String newDuration,
+  required String newTime,
+  required String newStatusIs,
+  required String newDateTime,
+}) async {
   PendingMsgModel updatedPendingMsg = PendingMsgModel(
     id: pendingMsgModel.id,
     name: newName.isNotEmpty ? newName : pendingMsgModel.name,
@@ -44,6 +38,7 @@ Future<int> updatePendingMsg(
     durationInSec: newDuration.isNotEmpty ? newDuration : pendingMsgModel.durationInSec,
     time: newTime.isNotEmpty ? newTime : pendingMsgModel.time,
     statusIs: newStatusIs.isNotEmpty ? newStatusIs : pendingMsgModel.statusIs,
+    dateTime: newDateTime.isNotEmpty ? newDateTime : pendingMsgModel.dateTime,
   );
   int result = await DatabaseHelper.instance.updatePendingMsg(updatedPendingMsg);
 
