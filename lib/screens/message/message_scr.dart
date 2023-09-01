@@ -34,7 +34,6 @@ class _MessageScreenState extends State<MessageScreen> {
       DateFormat.jm().format(DateTime.now().add(const Duration(minutes: 5)));
   int mySec = 0;
 
-  // final Telephony _telephony = Telephony.instance;
 
   @override
   void initState() {
@@ -169,16 +168,6 @@ class _MessageScreenState extends State<MessageScreen> {
                                   CupertinoPageRoute(
                                       builder: (_) => const SummaryScreen()));
                             });
-
-                            /*
-                        Duration differenceTime =
-                            _chosenDateTime.difference(DateTime.now());
-                        int mySec = timeToSeconds(differenceTime.toString());
-                        Timer(Duration(seconds: mySec), () {
-                          _telephony.sendSms(
-                              to: widget.number ?? '', message: msg);
-                        });
-                        */
                           },
                           dismissible: false,
                           label: const Text(
@@ -243,7 +232,7 @@ class _MessageScreenState extends State<MessageScreen> {
               child: CupertinoDatePicker(
                   initialDateTime:
                       DateTime.now().add(const Duration(minutes: 5)),
-                  minimumDate: DateTime.now().add(const Duration(minutes: 4)),
+                  minimumDate: DateTime.now().add(const Duration(minutes: 2)),
                   maximumDate: DateTime.now().add(const Duration(days: 60)),
                   onDateTimeChanged: (val) {
                     setState(() {

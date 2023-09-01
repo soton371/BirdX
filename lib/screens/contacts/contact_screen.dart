@@ -9,6 +9,7 @@ import 'package:birdx/utilities/my_toast.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:telephony/telephony.dart';
 
 class ContactScreen extends StatefulWidget {
   const ContactScreen({super.key});
@@ -19,6 +20,11 @@ class ContactScreen extends StatefulWidget {
 
 class _ContactScreenState extends State<ContactScreen> {
   List<Contact> contacts = [];
+  final Telephony _telephony = Telephony.instance;
+  Future<void> initPlatformState() async {
+    final bool? result = await _telephony.requestPhoneAndSmsPermissions;
+    debugPrint("result: $result");
+  }
   @override
   void initState() {
     super.initState();
@@ -27,6 +33,7 @@ class _ContactScreenState extends State<ContactScreen> {
         contacts = value;
       });
     });
+    initPlatformState();
   }
 
   @override

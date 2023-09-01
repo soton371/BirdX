@@ -11,6 +11,7 @@ import 'package:birdx/utilities/pending_msg_crud.dart';
 import 'package:birdx/utilities/time_to_seconds.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:telephony/telephony.dart';
 
 class PendingScreen extends StatefulWidget {
   const PendingScreen({super.key});
@@ -21,6 +22,7 @@ class PendingScreen extends StatefulWidget {
 
 class _PendingScreenState extends State<PendingScreen> {
   List<PendingMsgModel> pendingMsgs = [];
+  final Telephony _telephony = Telephony.instance;
   @override
   void initState() {
     super.initState();
@@ -52,9 +54,9 @@ class _PendingScreenState extends State<PendingScreen> {
               int durationInSec = timeToSeconds(differenceTime);
               debugPrint("durationInSec: $durationInSec");
               Timer(Duration(seconds: durationInSec), () {
-                // _telephony.sendSms(
-                //     to: widget.number ?? '', message: msg);
-                myToast(msg: "data.message: ${data.message}");
+                _telephony.sendSms(
+                    to: data.number, message: data.message);
+                // myToast(msg: "data.message: ${data.message}");
                 updatePendingMsg(
                         pendingMsgModel: data,
                         newName: data.name,
@@ -66,19 +68,8 @@ class _PendingScreenState extends State<PendingScreen> {
                   newDateTime: data.dateTime
                 )
                     .then((value) {
-                      //remove function in pending list then value return msg id
                   Navigator.pushReplacement(context,
                       MaterialPageRoute(builder: (_) => const SummaryScreen()));
-                  // getPendingMsgs().then((value) {
-                  //   for (var element in value) {
-                  //     debugPrint("pending element: ${element.statusIs}");
-                  //     if (element.statusIs == "0") {
-                  //       pendingMsgs.add(element);
-                  //       //here send code
-                  //     }
-                  //   }
-                  //   setState(() {});
-                  // });
                 });
               });
               return CupertinoContextMenu(
