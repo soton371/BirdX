@@ -22,11 +22,11 @@
 		</data>
 		<key>Modules/path_provider_foundation.swiftmodule/Project/arm64-apple-ios-simulator.swiftsourceinfo</key>
 		<data>
-		0X9OwwcUYgPRmn0evyxGoHCx84c=
+		9UdSrxT1qRDI8L2Sofm5Ipn4WQQ=
 		</data>
 		<key>Modules/path_provider_foundation.swiftmodule/Project/x86_64-apple-ios-simulator.swiftsourceinfo</key>
 		<data>
-		2R1u808r0KB8MQLU5Hh9Wun5Hk4=
+		TQCMTxW8TQiPBQg9t3hRFbh0p/o=
 		</data>
 		<key>Modules/path_provider_foundation.swiftmodule/arm64-apple-ios-simulator.abi.json</key>
 		<data>
@@ -38,7 +38,7 @@
 		</data>
 		<key>Modules/path_provider_foundation.swiftmodule/arm64-apple-ios-simulator.swiftmodule</key>
 		<data>
-		6d7KqIGUApwgjaXd9LU+CN/4710=
+		7AFkWv6UuVt/gwF5lmMmNflhthw=
 		</data>
 		<key>Modules/path_provider_foundation.swiftmodule/x86_64-apple-ios-simulator.abi.json</key>
 		<data>
@@ -50,7 +50,7 @@
 		</data>
 		<key>Modules/path_provider_foundation.swiftmodule/x86_64-apple-ios-simulator.swiftmodule</key>
 		<data>
-		OkMqV4nRQC2DLrIcPXm6IVeWZmU=
+		rKnoK/6FDmQmzYgxd9eYrQrR99w=
 		</data>
 	</dict>
 	<key>files2</key>
@@ -80,14 +80,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			CnzGhkz0d0I92itqj9O71eqZpJMPAVieB4lTMNa8MeI=
+			Ozej/ldPnVVaab+ie/D+TZwPHBFEEXmLRk5aEJajc0I=
 			</data>
 		</dict>
 		<key>Modules/path_provider_foundation.swiftmodule/Project/x86_64-apple-ios-simulator.swiftsourceinfo</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			1iQxNQTlTuB3DSKVDQ7U9YQYjiUmmHxg2rHCA7MENLo=
+			y191Mv/bF+v9qpeRMKmYWTZAECPeZA/eImPaZOoTCiY=
 			</data>
 		</dict>
 		<key>Modules/path_provider_foundation.swiftmodule/arm64-apple-ios-simulator.abi.json</key>
@@ -108,7 +108,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			x91jiwnIKShds6ppZNgz9/37UXN7baffDbvAJmKm8xg=
+			vZk3f4cjsbPDc2V0/8QQWhuOPO1r+4F8OIFRBLjXSVY=
 			</data>
 		</dict>
 		<key>Modules/path_provider_foundation.swiftmodule/x86_64-apple-ios-simulator.abi.json</key>
@@ -129,7 +129,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			JhJU1l51/V0qQRomaj4ezHvZGPOGYACUgSiexCas7oE=
+			efN/Ic9uKBxpcBwArzKJGjRN6P/Xa7SyPX7+/XBEdFs=
 			</data>
 		</dict>
 	</dict>

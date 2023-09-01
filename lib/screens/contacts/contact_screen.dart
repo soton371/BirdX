@@ -8,6 +8,7 @@ import 'package:birdx/utilities/contact_crud.dart';
 import 'package:birdx/utilities/my_toast.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class ContactScreen extends StatefulWidget {
   const ContactScreen({super.key});
@@ -204,6 +205,9 @@ class _ContactScreenState extends State<ContactScreen> {
                     CupertinoTextField(
                       placeholder: "Enter number",
                       keyboardType: TextInputType.number,
+                      inputFormatters: [
+                        FilteringTextInputFormatter.allow(RegExp('^[0-9]*')),
+                      ],
                       onChanged: (value) {
                         number = value;
                       },

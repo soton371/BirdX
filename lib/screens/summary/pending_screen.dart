@@ -6,7 +6,9 @@ import 'package:birdx/models/pending_msg_mod.dart';
 import 'package:birdx/screens/message/message_scr.dart';
 import 'package:birdx/screens/summary/summary_empty.dart';
 import 'package:birdx/screens/summary/summary_screen.dart';
+import 'package:birdx/utilities/my_toast.dart';
 import 'package:birdx/utilities/pending_msg_crud.dart';
+import 'package:birdx/utilities/time_to_seconds.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -27,6 +29,7 @@ class _PendingScreenState extends State<PendingScreen> {
         debugPrint("pending element: ${element.statusIs}");
         if (element.statusIs == "0") {
           pendingMsgs.add(element);
+          //here send code
         }
       }
       setState(() {});
@@ -44,9 +47,14 @@ class _PendingScreenState extends State<PendingScreen> {
             itemCount: pendingMsgs.length,
             itemBuilder: (context, index) {
               var data = pendingMsgs[index];
-              Timer(Duration(seconds: int.parse(data.durationInSec)), () {
+              debugPrint("data.durationInSec: ${data.durationInSec}");
+              String differenceTime = DateTime.parse(data.dateTime).difference(DateTime.now()).toString();
+              int durationInSec = timeToSeconds(differenceTime);
+              debugPrint("durationInSec: $durationInSec");
+              Timer(Duration(seconds: durationInSec), () {
                 // _telephony.sendSms(
                 //     to: widget.number ?? '', message: msg);
+                myToast(msg: "data.message: ${data.message}");
                 updatePendingMsg(
                         pendingMsgModel: data,
                         newName: data.name,
@@ -58,8 +66,19 @@ class _PendingScreenState extends State<PendingScreen> {
                   newDateTime: data.dateTime
                 )
                     .then((value) {
+                      //remove function in pending list then value return msg id
                   Navigator.pushReplacement(context,
                       MaterialPageRoute(builder: (_) => const SummaryScreen()));
+                  // getPendingMsgs().then((value) {
+                  //   for (var element in value) {
+                  //     debugPrint("pending element: ${element.statusIs}");
+                  //     if (element.statusIs == "0") {
+                  //       pendingMsgs.add(element);
+                  //       //here send code
+                  //     }
+                  //   }
+                  //   setState(() {});
+                  // });
                 });
               });
               return CupertinoContextMenu(

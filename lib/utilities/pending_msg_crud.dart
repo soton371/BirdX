@@ -1,5 +1,6 @@
 import 'package:birdx/database/database_helper.dart';
 import 'package:birdx/models/pending_msg_mod.dart';
+import 'package:flutter/material.dart';
 
 Future<List<PendingMsgModel>> getPendingMsgs() async {
   List<PendingMsgModel> contactList = await DatabaseHelper.instance.getPendingMsg();
@@ -17,6 +18,7 @@ Future<int> addPendingMsg(
   PendingMsgModel newPendingMsg =
       PendingMsgModel(name: name, number: number, message: message, durationInSec: duration, time: time, statusIs: statusIs, dateTime: dateTime);
   int result = await DatabaseHelper.instance.insertPendingMsg(newPendingMsg);
+  debugPrint("newPendingMsg result: $result");
   return result;
 }
 
@@ -41,11 +43,12 @@ Future<int> updatePendingMsg({
     dateTime: newDateTime.isNotEmpty ? newDateTime : pendingMsgModel.dateTime,
   );
   int result = await DatabaseHelper.instance.updatePendingMsg(updatedPendingMsg);
-
+  debugPrint("updatedPendingMsg result: $result");
   return result;
 }
 
 Future<int> deletePendingMsg(PendingMsgModel pendingMsgModel) async {
   int result = await DatabaseHelper.instance.deletePending(pendingMsgModel.id!);
+  debugPrint("deletePendingMsg result: $result");
   return result;
 }

@@ -40,10 +40,6 @@
 		<data>
 		pTLE9ET9pJKyH2fDkkrsQbhaofA=
 		</data>
-		<key>flutter_assets/assets/images/parrot.png</key>
-		<data>
-		odban6kEJBl6SJ2LCHmobOfT8Zk=
-		</data>
 		<key>flutter_assets/assets/images/parrot2.png</key>
 		<data>
 		m3g8uhwhqt4SMiLm6XjttuiYDO0=
@@ -62,7 +58,7 @@
 		</data>
 		<key>flutter_assets/kernel_blob.bin</key>
 		<data>
-		p4VUdiLLt25XADtSWNho7Wxp3Tw=
+		mH0ns1aOAGj09Gc0JvQkdnlrUtY=
 		</data>
 		<key>flutter_assets/packages/cupertino_icons/assets/CupertinoIcons.ttf</key>
 		<data>
@@ -136,13 +132,6 @@
 			lk/0C3XQEOxVVyQiKdg/yUcrBPySRFZGD98AGazHihE=
 			</data>
 		</dict>
-		<key>flutter_assets/assets/images/parrot.png</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			9EZxgNlhtSXPNUzAkW5IqpgeNJjpmQQEG0S+2mI8IZE=
-			</data>
-		</dict>
 		<key>flutter_assets/assets/images/parrot2.png</key>
 		<dict>
 			<key>hash2</key>
@@ -175,7 +164,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			LqChf7Nso7pozKMvrrNUopWaSd2ab06CXrHaQ4rHS78=
+			fsN3e43u4wmVRJjl+pRYOo3iL47ocg8rdNA7bMUHop4=
 			</data>
 		</dict>
 		<key>flutter_assets/packages/cupertino_icons/assets/CupertinoIcons.ttf</key>
