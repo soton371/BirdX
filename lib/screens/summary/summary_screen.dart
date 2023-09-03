@@ -1,4 +1,3 @@
-import 'package:birdx/configs/my_colors.dart';
 import 'package:birdx/screens/summary/pending_screen.dart';
 import 'package:birdx/screens/summary/sent_screen.dart';
 import 'package:flutter/cupertino.dart';

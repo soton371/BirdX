@@ -6,7 +6,6 @@ import 'package:birdx/models/pending_msg_mod.dart';
 import 'package:birdx/screens/message/message_scr.dart';
 import 'package:birdx/screens/summary/summary_empty.dart';
 import 'package:birdx/screens/summary/summary_screen.dart';
-import 'package:birdx/utilities/my_toast.dart';
 import 'package:birdx/utilities/pending_msg_crud.dart';
 import 'package:birdx/utilities/time_to_seconds.dart';
 import 'package:flutter/cupertino.dart';
@@ -20,9 +19,11 @@ class PendingScreen extends StatefulWidget {
   State<PendingScreen> createState() => _PendingScreenState();
 }
 
-class _PendingScreenState extends State<PendingScreen> {
+class _PendingScreenState extends State<PendingScreen>
+    with WidgetsBindingObserver {
   List<PendingMsgModel> pendingMsgs = [];
   final Telephony _telephony = Telephony.instance;
+
   @override
   void initState() {
     super.initState();
@@ -31,11 +32,90 @@ class _PendingScreenState extends State<PendingScreen> {
         debugPrint("pending element: ${element.statusIs}");
         if (element.statusIs == "0") {
           pendingMsgs.add(element);
-          //here send code
         }
       }
       setState(() {});
     });
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    super.didChangeAppLifecycleState(state);
+
+    if (state == AppLifecycleState.paused) {
+      for (var data in pendingMsgs) {
+        DateTime fetchDT = DateTime.parse(data.dateTime);
+        String differenceTime =
+        fetchDT.difference(DateTime.now()).toString();
+        int durationInSec = timeToSeconds(differenceTime);
+        if (fetchDT.isAfter(DateTime.now())) {
+          Future.delayed(
+            Duration(seconds: durationInSec),
+                () {
+              _telephony.sendSms(to: data.number, message: data.message);
+              updatePendingMsg(
+                  pendingMsgModel: data,
+                  newName: data.name,
+                  newNumber: data.number,
+                  newMessage: data.message,
+                  newDuration: data.durationInSec,
+                  newTime: data.time,
+                  newStatusIs: "1",
+                  newDateTime: data.dateTime)
+                  .then((value) {
+                Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                        builder: (_) => const SummaryScreen()));
+              });
+            },
+          );
+        } else {
+          deletePendingMsg(data);
+        }
+      }
+    }
+
+    if (state == AppLifecycleState.detached) {
+      for (var data in pendingMsgs) {
+        DateTime fetchDT = DateTime.parse(data.dateTime);
+        String differenceTime =
+        fetchDT.difference(DateTime.now()).toString();
+        int durationInSec = timeToSeconds(differenceTime);
+        if (fetchDT.isAfter(DateTime.now())) {
+          Future.delayed(
+            Duration(seconds: durationInSec),
+                () {
+              _telephony.sendSms(to: data.number, message: data.message);
+              updatePendingMsg(
+                  pendingMsgModel: data,
+                  newName: data.name,
+                  newNumber: data.number,
+                  newMessage: data.message,
+                  newDuration: data.durationInSec,
+                  newTime: data.time,
+                  newStatusIs: "1",
+                  newDateTime: data.dateTime)
+                  .then((value) {
+                Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                        builder: (_) => const SummaryScreen()));
+              });
+            },
+          );
+        } else {
+          deletePendingMsg(data);
+        }
+      }
+    }
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
   }
 
   @override
@@ -49,29 +129,36 @@ class _PendingScreenState extends State<PendingScreen> {
             itemCount: pendingMsgs.length,
             itemBuilder: (context, index) {
               var data = pendingMsgs[index];
-              debugPrint("data.durationInSec: ${data.durationInSec}");
-              String differenceTime = DateTime.parse(data.dateTime).difference(DateTime.now()).toString();
+              DateTime fetchDT = DateTime.parse(data.dateTime);
+              String differenceTime =
+                  fetchDT.difference(DateTime.now()).toString();
               int durationInSec = timeToSeconds(differenceTime);
-              debugPrint("durationInSec: $durationInSec");
-              Timer(Duration(seconds: durationInSec), () {
-                _telephony.sendSms(
-                    to: data.number, message: data.message);
-                // myToast(msg: "data.message: ${data.message}");
-                updatePendingMsg(
-                        pendingMsgModel: data,
-                        newName: data.name,
-                        newNumber: data.number,
-                        newMessage: data.message,
-                        newDuration: data.durationInSec,//check time
-                        newTime: data.time,
-                        newStatusIs: "1",
-                  newDateTime: data.dateTime
-                )
-                    .then((value) {
-                  Navigator.pushReplacement(context,
-                      MaterialPageRoute(builder: (_) => const SummaryScreen()));
-                });
-              });
+              if (fetchDT.isAfter(DateTime.now())) {
+                Future.delayed(
+                  Duration(seconds: durationInSec),
+                  () {
+                    _telephony.sendSms(to: data.number, message: data.message);
+                    updatePendingMsg(
+                            pendingMsgModel: data,
+                            newName: data.name,
+                            newNumber: data.number,
+                            newMessage: data.message,
+                            newDuration: data.durationInSec,
+                            newTime: data.time,
+                            newStatusIs: "1",
+                            newDateTime: data.dateTime)
+                        .then((value) {
+                      Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (_) => const SummaryScreen()));
+                    });
+                  },
+                );
+              } else {
+                deletePendingMsg(data);
+              }
+
               return CupertinoContextMenu(
                 previewBuilder: (context, animation, child) {
                   return SizedBox(

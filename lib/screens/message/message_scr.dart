@@ -158,11 +158,6 @@ class _MessageScreenState extends State<MessageScreen> {
                                     statusIs: "0",
                                     dateTime: _chosenDateTime.toString())
                                 .then((value) {
-                              // Timer(Duration(seconds: mySec), () {
-                              //   myToast(msg: "msg: $msg");
-                              //   // _telephony.sendSms(
-                              //   //     to: widget.number ?? '', message: msg);
-                              // });
                               Navigator.pushReplacement(
                                   context,
                                   CupertinoPageRoute(
