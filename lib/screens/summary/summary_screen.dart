@@ -29,14 +29,13 @@ class _SummaryScreenState extends State<SummaryScreen> {
                         fontSize:
                             Theme.of(context).textTheme.titleSmall!.fontSize,
                         fontWeight: FontWeight.w600,
-                        color: MyColors.segmentedControlText(context)),
+                    ),
                   ),
                   1: Text(
                     'Sent',
                     style: TextStyle(
                       fontSize: Theme.of(context).textTheme.titleSmall!.fontSize,
                       fontWeight: FontWeight.w600,
-                      color: MyColors.segmentedControlText(context),
                     ),
                   ),
                 },

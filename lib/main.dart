@@ -10,13 +10,13 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CupertinoApp(
+    return const CupertinoApp(
       title: 'Parrot',
       debugShowCheckedModeBanner: false,
       theme: CupertinoThemeData(
-          brightness: MediaQuery.of(context).platformBrightness,
+          brightness: Brightness.light,
           ),
-      home: const ContactScreen(),
+      home: ContactScreen(),
     );
   }
 }
