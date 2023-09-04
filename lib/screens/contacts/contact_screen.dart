@@ -22,7 +22,7 @@ class _ContactScreenState extends State<ContactScreen> {
   List<Contact> contacts = [];
   final Telephony _telephony = Telephony.instance;
   Future<void> initPlatformState() async {
-    final bool? result = await _telephony.requestPhoneAndSmsPermissions;
+    await _telephony.requestPhoneAndSmsPermissions;
   }
   @override
   void initState() {

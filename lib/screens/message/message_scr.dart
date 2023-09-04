@@ -22,12 +22,12 @@ class MessageScreen extends StatefulWidget {
 class _MessageScreenState extends State<MessageScreen> {
   String msg = '';
   TextEditingController msgController = TextEditingController();
-  DateTime _chosenDateTime = DateTime.now().add(const Duration(minutes: 5));
+  DateTime _chosenDateTime = DateTime.now().add(const Duration(minutes: 2));
   String formattedDate = '';
   String formattedTime = '';
   String initShowDate = DateFormat.MMMEd().format(DateTime.now());
   String initTime =
-      DateFormat.jm().format(DateTime.now().add(const Duration(minutes: 5)));
+      DateFormat.jm().format(DateTime.now().add(const Duration(minutes: 2)));
   int mySec = 0;
 
 
@@ -42,7 +42,6 @@ class _MessageScreenState extends State<MessageScreen> {
       _chosenDateTime = DateTime.parse(m.dateTime);
       formattedDate = DateFormat.MMMEd().format(_chosenDateTime);
       formattedTime = DateFormat.jm().format(_chosenDateTime);
-      debugPrint("formattedDate: $formattedDate formattedTime: $formattedTime");
       return;
     }
     formattedDate = DateFormat.MMMEd().format(_chosenDateTime);
@@ -144,7 +143,6 @@ class _MessageScreenState extends State<MessageScreen> {
                             Duration differenceTime =
                                 _chosenDateTime.difference(DateTime.now());
                             mySec = timeToSeconds(differenceTime.toString());
-                            debugPrint("differenceTime: $differenceTime & mySec: $mySec");
                             addPendingMsg(
                                     name: widget.name ?? '',
                                     number: widget.number ?? '',
@@ -222,7 +220,7 @@ class _MessageScreenState extends State<MessageScreen> {
               height: 250,
               child: CupertinoDatePicker(
                   initialDateTime:
-                      DateTime.now().add(const Duration(minutes: 5)),
+                      DateTime.now().add(const Duration(minutes: 3)),
                   minimumDate: DateTime.now().add(const Duration(minutes: 2)),
                   maximumDate: DateTime.now().add(const Duration(days: 60)),
                   onDateTimeChanged: (val) {

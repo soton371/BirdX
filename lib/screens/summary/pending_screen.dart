@@ -29,7 +29,6 @@ class _PendingScreenState extends State<PendingScreen>
     super.initState();
     getPendingMsgs().then((value) {
       for (var element in value) {
-        debugPrint("pending element: ${element.statusIs}");
         if (element.statusIs == "0") {
           pendingMsgs.add(element);
         }
@@ -46,28 +45,26 @@ class _PendingScreenState extends State<PendingScreen>
     if (state == AppLifecycleState.paused) {
       for (var data in pendingMsgs) {
         DateTime fetchDT = DateTime.parse(data.dateTime);
-        String differenceTime =
-        fetchDT.difference(DateTime.now()).toString();
+        String differenceTime = fetchDT.difference(DateTime.now()).toString();
         int durationInSec = timeToSeconds(differenceTime);
         if (fetchDT.isAfter(DateTime.now())) {
           Future.delayed(
             Duration(seconds: durationInSec),
-                () {
+            () {
               _telephony.sendSms(to: data.number, message: data.message);
+              // debugPrint("paused state send message");
               updatePendingMsg(
-                  pendingMsgModel: data,
-                  newName: data.name,
-                  newNumber: data.number,
-                  newMessage: data.message,
-                  newDuration: data.durationInSec,
-                  newTime: data.time,
-                  newStatusIs: "1",
-                  newDateTime: data.dateTime)
+                      pendingMsgModel: data,
+                      newName: data.name,
+                      newNumber: data.number,
+                      newMessage: data.message,
+                      newDuration: data.durationInSec,
+                      newTime: data.time,
+                      newStatusIs: "1",
+                      newDateTime: data.dateTime)
                   .then((value) {
-                Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                        builder: (_) => const SummaryScreen()));
+                Navigator.pushReplacement(context,
+                    MaterialPageRoute(builder: (_) => const SummaryScreen()));
               });
             },
           );
@@ -80,28 +77,26 @@ class _PendingScreenState extends State<PendingScreen>
     if (state == AppLifecycleState.detached) {
       for (var data in pendingMsgs) {
         DateTime fetchDT = DateTime.parse(data.dateTime);
-        String differenceTime =
-        fetchDT.difference(DateTime.now()).toString();
+        String differenceTime = fetchDT.difference(DateTime.now()).toString();
         int durationInSec = timeToSeconds(differenceTime);
         if (fetchDT.isAfter(DateTime.now())) {
           Future.delayed(
             Duration(seconds: durationInSec),
-                () {
+            () {
               _telephony.sendSms(to: data.number, message: data.message);
+              // debugPrint("detached state send message");
               updatePendingMsg(
-                  pendingMsgModel: data,
-                  newName: data.name,
-                  newNumber: data.number,
-                  newMessage: data.message,
-                  newDuration: data.durationInSec,
-                  newTime: data.time,
-                  newStatusIs: "1",
-                  newDateTime: data.dateTime)
+                      pendingMsgModel: data,
+                      newName: data.name,
+                      newNumber: data.number,
+                      newMessage: data.message,
+                      newDuration: data.durationInSec,
+                      newTime: data.time,
+                      newStatusIs: "1",
+                      newDateTime: data.dateTime)
                   .then((value) {
-                Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                        builder: (_) => const SummaryScreen()));
+                Navigator.pushReplacement(context,
+                    MaterialPageRoute(builder: (_) => const SummaryScreen()));
               });
             },
           );
@@ -115,6 +110,7 @@ class _PendingScreenState extends State<PendingScreen>
   @override
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
+    // debugPrint("WidgetsBinding.instance.removeObserver(this)");
     super.dispose();
   }
 
@@ -138,6 +134,7 @@ class _PendingScreenState extends State<PendingScreen>
                   Duration(seconds: durationInSec),
                   () {
                     _telephony.sendSms(to: data.number, message: data.message);
+                    // debugPrint("ListView.builder with send message");
                     updatePendingMsg(
                             pendingMsgModel: data,
                             newName: data.name,
@@ -183,7 +180,7 @@ class _PendingScreenState extends State<PendingScreen>
                   CupertinoContextMenuAction(
                     onPressed: () {
                       Navigator.pop(context);
-                      Navigator.push(
+                      Navigator.pushReplacement(
                           context,
                           CupertinoPageRoute(
                               builder: (_) => MessageScreen(
