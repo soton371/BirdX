@@ -27,7 +27,7 @@ class _MessageScreenState extends State<MessageScreen> {
   String formattedTime = '';
   String initShowDate = DateFormat.MMMEd().format(DateTime.now());
   String initTime =
-      DateFormat.jm().format(DateTime.now().add(const Duration(minutes: 2)));
+      DateFormat.jms().format(DateTime.now().add(const Duration(minutes: 2)));
   int mySec = 0;
 
 
@@ -41,11 +41,11 @@ class _MessageScreenState extends State<MessageScreen> {
       mySec = int.parse(m.durationInSec);
       _chosenDateTime = DateTime.parse(m.dateTime);
       formattedDate = DateFormat.MMMEd().format(_chosenDateTime);
-      formattedTime = DateFormat.jm().format(_chosenDateTime);
+      formattedTime = DateFormat.jms().format(_chosenDateTime);
       return;
     }
     formattedDate = DateFormat.MMMEd().format(_chosenDateTime);
-    formattedTime = DateFormat.jm().format(_chosenDateTime);
+    formattedTime = DateFormat.jms().format(_chosenDateTime);
   }
 
   @override
@@ -207,7 +207,7 @@ class _MessageScreenState extends State<MessageScreen> {
                   ),
                   onPressed: () {
                     formattedDate = DateFormat.MMMEd().format(_chosenDateTime);
-                    formattedTime = DateFormat.jm().format(_chosenDateTime);
+                    formattedTime = DateFormat.jms().format(_chosenDateTime);
                     debugPrint(
                         "formattedDate: $formattedDate , formattedTime: $formattedTime");
                     setState(() {});

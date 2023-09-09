@@ -29,12 +29,16 @@ class _PendingScreenState extends State<PendingScreen>
     super.initState();
     getPendingMsgs().then((value) {
       for (var element in value) {
-        if (element.statusIs == "0") {
+        DateTime fetchDT = DateTime.parse(element.dateTime);
+        if (element.statusIs == "0" || element.statusIs == "3") {
           pendingMsgs.add(element);
+        }else if(element.statusIs == "0" && !fetchDT.isAfter(DateTime.now())){
+          updatePendingMsg(pendingMsgModel: element, newName: element.name, newNumber: element.number, newMessage: element.message, newDuration: element.durationInSec, newTime: element.time, newStatusIs: "3", newDateTime: element.dateTime);
         }
       }
       setState(() {});
     });
+
     WidgetsBinding.instance.addObserver(this);
   }
 
@@ -43,67 +47,11 @@ class _PendingScreenState extends State<PendingScreen>
     super.didChangeAppLifecycleState(state);
 
     if (state == AppLifecycleState.paused) {
-      for (var data in pendingMsgs) {
-        DateTime fetchDT = DateTime.parse(data.dateTime);
-        String differenceTime = fetchDT.difference(DateTime.now()).toString();
-        int durationInSec = timeToSeconds(differenceTime);
-        if (fetchDT.isAfter(DateTime.now())) {
-          Future.delayed(
-            Duration(seconds: durationInSec),
-            () {
-              _telephony.sendSms(to: data.number, message: data.message);
-              // debugPrint("paused state send message");
-              updatePendingMsg(
-                      pendingMsgModel: data,
-                      newName: data.name,
-                      newNumber: data.number,
-                      newMessage: data.message,
-                      newDuration: data.durationInSec,
-                      newTime: data.time,
-                      newStatusIs: "1",
-                      newDateTime: data.dateTime)
-                  .then((value) {
-                Navigator.pushReplacement(context,
-                    MaterialPageRoute(builder: (_) => const SummaryScreen()));
-              });
-            },
-          );
-        } else {
-          deletePendingMsg(data);
-        }
-      }
+      debugPrint("AppLifecycleState.paused");
     }
 
     if (state == AppLifecycleState.detached) {
-      for (var data in pendingMsgs) {
-        DateTime fetchDT = DateTime.parse(data.dateTime);
-        String differenceTime = fetchDT.difference(DateTime.now()).toString();
-        int durationInSec = timeToSeconds(differenceTime);
-        if (fetchDT.isAfter(DateTime.now())) {
-          Future.delayed(
-            Duration(seconds: durationInSec),
-            () {
-              _telephony.sendSms(to: data.number, message: data.message);
-              // debugPrint("detached state send message");
-              updatePendingMsg(
-                      pendingMsgModel: data,
-                      newName: data.name,
-                      newNumber: data.number,
-                      newMessage: data.message,
-                      newDuration: data.durationInSec,
-                      newTime: data.time,
-                      newStatusIs: "1",
-                      newDateTime: data.dateTime)
-                  .then((value) {
-                Navigator.pushReplacement(context,
-                    MaterialPageRoute(builder: (_) => const SummaryScreen()));
-              });
-            },
-          );
-        } else {
-          deletePendingMsg(data);
-        }
-      }
+      debugPrint("AppLifecycleState.detached");
     }
   }
 
@@ -129,12 +77,11 @@ class _PendingScreenState extends State<PendingScreen>
               String differenceTime =
                   fetchDT.difference(DateTime.now()).toString();
               int durationInSec = timeToSeconds(differenceTime);
-              if (fetchDT.isAfter(DateTime.now())) {
                 Future.delayed(
                   Duration(seconds: durationInSec),
                   () {
-                    _telephony.sendSms(to: data.number, message: data.message);
-                    // debugPrint("ListView.builder with send message");
+                    // _telephony.sendSms(to: data.number, message: data.message);
+                    debugPrint("ListView.builder with send message");
                     updatePendingMsg(
                             pendingMsgModel: data,
                             newName: data.name,
@@ -152,9 +99,7 @@ class _PendingScreenState extends State<PendingScreen>
                     });
                   },
                 );
-              } else {
-                deletePendingMsg(data);
-              }
+              // }
 
               return CupertinoContextMenu(
                 previewBuilder: (context, animation, child) {
@@ -227,10 +172,13 @@ class _PendingScreenState extends State<PendingScreen>
                     maxLines: 1,
                   ),
                   trailing: Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       Text(data.time.split('/').first,
                           style: const TextStyle(
                               fontSize: 10, color: CupertinoColors.systemGrey)),
+                      data.statusIs == "3"? const Text("failed",style: TextStyle(
+                          fontSize: 10, color: CupertinoColors.systemRed)):
                       Text(data.time.split('/').last,
                           style: const TextStyle(
                               fontSize: 10, color: CupertinoColors.systemGrey)),
