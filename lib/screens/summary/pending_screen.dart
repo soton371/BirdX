@@ -1,11 +1,10 @@
-import 'dart:async';
-
 import 'package:birdx/configs/my_colors.dart';
 import 'package:birdx/configs/my_fonts.dart';
 import 'package:birdx/models/pending_msg_mod.dart';
 import 'package:birdx/screens/message/message_scr.dart';
 import 'package:birdx/screens/summary/summary_empty.dart';
 import 'package:birdx/screens/summary/summary_screen.dart';
+import 'package:birdx/services/my_background_services.dart';
 import 'package:birdx/utilities/pending_msg_crud.dart';
 import 'package:birdx/utilities/time_to_seconds.dart';
 import 'package:flutter/cupertino.dart';
@@ -19,8 +18,7 @@ class PendingScreen extends StatefulWidget {
   State<PendingScreen> createState() => _PendingScreenState();
 }
 
-class _PendingScreenState extends State<PendingScreen>
-    with WidgetsBindingObserver {
+class _PendingScreenState extends State<PendingScreen> with WidgetsBindingObserver {
   List<PendingMsgModel> pendingMsgs = [];
   final Telephony _telephony = Telephony.instance;
 
@@ -28,17 +26,28 @@ class _PendingScreenState extends State<PendingScreen>
   void initState() {
     super.initState();
     getPendingMsgs().then((value) {
+      if (value.isEmpty) {
+        return;
+      }
       for (var element in value) {
         DateTime fetchDT = DateTime.parse(element.dateTime);
         if (element.statusIs == "0" || element.statusIs == "3") {
           pendingMsgs.add(element);
-        }else if(element.statusIs == "0" && !fetchDT.isAfter(DateTime.now())){
-          updatePendingMsg(pendingMsgModel: element, newName: element.name, newNumber: element.number, newMessage: element.message, newDuration: element.durationInSec, newTime: element.time, newStatusIs: "3", newDateTime: element.dateTime);
+        } else if (element.statusIs == "0" && !fetchDT.isAfter(DateTime.now())) {
+          updatePendingMsg(
+              pendingMsgModel: element,
+              newName: element.name,
+              newNumber: element.number,
+              newMessage: element.message,
+              newDuration: element.durationInSec,
+              newTime: element.time,
+              newStatusIs: "3",
+              newDateTime: element.dateTime);
         }
       }
       setState(() {});
     });
-
+    MyBackgroundServices().stopBackgroundTask();
     WidgetsBinding.instance.addObserver(this);
   }
 
@@ -47,18 +56,21 @@ class _PendingScreenState extends State<PendingScreen>
     super.didChangeAppLifecycleState(state);
 
     if (state == AppLifecycleState.paused) {
-      debugPrint("AppLifecycleState.paused");
+      if (pendingMsgs.isEmpty) {
+        MyBackgroundServices().stopBackgroundTask();
+        return;
+      }
+      MyBackgroundServices().startBackgroundTask();
     }
 
-    if (state == AppLifecycleState.detached) {
-      debugPrint("AppLifecycleState.detached");
+    if (state == AppLifecycleState.resumed) {
+      MyBackgroundServices().stopBackgroundTask();
     }
   }
 
   @override
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
-    // debugPrint("WidgetsBinding.instance.removeObserver(this)");
     super.dispose();
   }
 
@@ -74,31 +86,27 @@ class _PendingScreenState extends State<PendingScreen>
             itemBuilder: (context, index) {
               var data = pendingMsgs[index];
               DateTime fetchDT = DateTime.parse(data.dateTime);
-              String differenceTime =
-                  fetchDT.difference(DateTime.now()).toString();
+              String differenceTime = fetchDT.difference(DateTime.now()).toString();
               int durationInSec = timeToSeconds(differenceTime);
-                Future.delayed(
-                  Duration(seconds: durationInSec),
-                  () {
-                    // _telephony.sendSms(to: data.number, message: data.message);
-                    debugPrint("ListView.builder with send message");
-                    updatePendingMsg(
-                            pendingMsgModel: data,
-                            newName: data.name,
-                            newNumber: data.number,
-                            newMessage: data.message,
-                            newDuration: data.durationInSec,
-                            newTime: data.time,
-                            newStatusIs: "1",
-                            newDateTime: data.dateTime)
-                        .then((value) {
-                      Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                              builder: (_) => const SummaryScreen()));
-                    });
-                  },
-                );
+              Future.delayed(
+                Duration(seconds: durationInSec),
+                () {
+                  _telephony.sendSms(to: data.number, message: data.message);
+                  // MyNotificationServices().showLocalNotification(title: "Send", body: data.message);
+                  updatePendingMsg(
+                          pendingMsgModel: data,
+                          newName: data.name,
+                          newNumber: data.number,
+                          newMessage: data.message,
+                          newDuration: data.durationInSec,
+                          newTime: data.time,
+                          newStatusIs: "1",
+                          newDateTime: data.dateTime)
+                      .then((value) {
+                    Navigator.pushReplacement(context, CupertinoPageRoute(builder: (_) => const SummaryScreen()));
+                  });
+                },
+              );
               // }
 
               return CupertinoContextMenu(
@@ -108,8 +116,7 @@ class _PendingScreenState extends State<PendingScreen>
                     width: double.infinity,
                     child: Card(
                       margin: const EdgeInsets.symmetric(horizontal: 15),
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(14)),
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(
@@ -163,9 +170,7 @@ class _PendingScreenState extends State<PendingScreen>
                   ),
                   title: Text(
                     data.name,
-                    style: TextStyle(
-                        fontSize: MyFonts.contactTitleSize,
-                        fontWeight: MyFonts.contactTitleWeight),
+                    style: TextStyle(fontSize: MyFonts.contactTitleSize, fontWeight: MyFonts.contactTitleWeight),
                   ),
                   subtitle: Text(
                     data.message,
@@ -174,18 +179,15 @@ class _PendingScreenState extends State<PendingScreen>
                   trailing: Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
-                      Text(data.time.split('/').first,
-                          style: const TextStyle(
-                              fontSize: 10, color: CupertinoColors.systemGrey)),
-                      data.statusIs == "3"? const Text("failed",style: TextStyle(
-                          fontSize: 10, color: CupertinoColors.systemRed)):
-                      Text(data.time.split('/').last,
-                          style: const TextStyle(
-                              fontSize: 10, color: CupertinoColors.systemGrey)),
+                      Text(data.time.split('/').first, style: const TextStyle(fontSize: 10, color: CupertinoColors.systemGrey)),
+                      data.statusIs == "3"
+                          ? const Text("failed", style: TextStyle(fontSize: 10, color: CupertinoColors.systemRed))
+                          : Text(data.time.split('/').last, style: const TextStyle(fontSize: 10, color: CupertinoColors.systemGrey)),
                     ],
                   ),
                 ),
               );
             });
   }
+
 }

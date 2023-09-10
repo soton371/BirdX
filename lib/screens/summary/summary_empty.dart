@@ -1,5 +1,6 @@
 import 'package:birdx/configs/my_colors.dart';
 import 'package:birdx/configs/my_sizes.dart';
+import 'package:birdx/services/my_background_services.dart';
 import 'package:flutter/cupertino.dart';
 
 class SummaryEmpty extends StatelessWidget {
@@ -8,6 +9,7 @@ class SummaryEmpty extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    MyBackgroundServices().stopBackgroundTask();
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,

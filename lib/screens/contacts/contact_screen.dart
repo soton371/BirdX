@@ -2,10 +2,13 @@ import 'package:birdx/configs/my_colors.dart';
 import 'package:birdx/configs/my_fonts.dart';
 import 'package:birdx/configs/my_sizes.dart';
 import 'package:birdx/models/contact.dart';
+import 'package:birdx/models/pending_msg_mod.dart';
 import 'package:birdx/screens/message/message_scr.dart';
 import 'package:birdx/screens/summary/summary_screen.dart';
+import 'package:birdx/services/my_background_services.dart';
 import 'package:birdx/utilities/contact_crud.dart';
 import 'package:birdx/utilities/my_toast.dart';
+import 'package:birdx/utilities/pending_msg_crud.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -18,7 +21,7 @@ class ContactScreen extends StatefulWidget {
   State<ContactScreen> createState() => _ContactScreenState();
 }
 
-class _ContactScreenState extends State<ContactScreen> {
+class _ContactScreenState extends State<ContactScreen> with WidgetsBindingObserver{
   List<Contact> contacts = [];
   final Telephony _telephony = Telephony.instance;
   Future<void> initPlatformState() async {
@@ -33,6 +36,41 @@ class _ContactScreenState extends State<ContactScreen> {
       });
     });
     initPlatformState();
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    super.didChangeAppLifecycleState(state);
+    if (state == AppLifecycleState.paused) {
+      getPendingMsgs().then((value) {
+        if(value.isEmpty){
+          MyBackgroundServices().stopBackgroundTask();
+          return;
+        }
+        List<PendingMsgModel> pendingMsgs = [];
+        for (var element in value) {
+          DateTime fetchDT = DateTime.parse(element.dateTime);
+          if (element.statusIs == "0"&& fetchDT.isAfter(DateTime.now())) {
+            pendingMsgs.add(element);
+          }else if(element.statusIs == "0" && !fetchDT.isAfter(DateTime.now())){
+            updatePendingMsg(pendingMsgModel: element, newName: element.name, newNumber: element.number, newMessage: element.message, newDuration: element.durationInSec, newTime: element.time, newStatusIs: "3", newDateTime: element.dateTime);
+          }
+        }
+        if(pendingMsgs.isEmpty){
+          MyBackgroundServices().stopBackgroundTask();
+        }else{
+          MyBackgroundServices().startBackgroundTask();
+        }
+      });
+
+    }
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
   }
 
   @override

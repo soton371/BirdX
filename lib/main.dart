@@ -1,7 +1,10 @@
 import 'package:birdx/screens/contacts/contact_screen.dart';
+import 'package:birdx/services/my_notification_services.dart';
 import 'package:flutter/cupertino.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  MyNotificationServices().initializeNotifications();
   runApp(const MyApp());
 }
 
