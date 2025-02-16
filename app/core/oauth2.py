@@ -15,9 +15,11 @@ from app.schemas import auth_schema
 from app.models import auth_model
 
 
-def sendOTPSmtp(recipientMail: str)->(str | None):
+def generateOTP(length: int = 6)-> str | None:
+    return ''.join(random.choices(string.digits, k=length))
+
+def sendOTPSmtp(recipientMail: str, otp: str)->(str | None):
     try:
-        otp = ''.join(random.choices(string.digits, k=4))
         smtpServer = smtplib.SMTP(
             config.settings.smtp_host, config.settings.smtp_port)
         smtpServer.starttls()
@@ -31,7 +33,7 @@ def sendOTPSmtp(recipientMail: str)->(str | None):
         smtpServer.send_message(msg)
         return otp
     except Exception as e:
-        print(f"sendPasswordSmtp e: {e}")
+        print(f"sendOTPSmtp e: {e}")
         return None
 
 

@@ -40,14 +40,20 @@ def sendOTPService(payload: auth_schema.SendOTP, db: Session):
     if not exist_user:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
                             detail=f'User with this {payload.email} invalid')
+    
+    my_otp = oauth2.generateOTP()
+    if my_otp is None:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST,
+                            detail=f'Failed to generate OTP')
+    
+    store_otp = app_redis.storeOTP(email=payload.email, otp=my_otp)
+    if not store_otp:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST,
+                            detail=f'Failed to store OTP')
 
-    otp_sent = oauth2.sendOTPSmtp(payload.email)
+    otp_sent = oauth2.sendOTPSmtp(recipientMail=payload.email, otp= my_otp)
     if otp_sent is None:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST,
                             detail=f'Failed to send OTP to this email {payload.email}')
     
-    store_otp = app_redis.storeOTP(email=payload.email, otp=otp_sent)
-    if not store_otp:
-        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST,
-                            detail=f'Failed to store OTP')
 
