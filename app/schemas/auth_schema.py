@@ -27,3 +27,7 @@ class TokenOut(BaseModel):
 
 class TokenData(BaseModel):
     email: Optional[str] = None
+
+
+class SendOTP(BaseModel):
+    email: EmailStr

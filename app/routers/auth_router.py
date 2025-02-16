@@ -29,3 +29,16 @@ async def adminLogin(payload: auth_schema.AdminLogin, response: Response, db: Se
         return ResponseFailed()
     
     
+@router.post(app_constants.send_otp)
+async def sendOTP(payload: auth_schema.SendOTP, db: Session = Depends(get_db)):
+    try:
+        auth_service.sendOTPService(payload=payload, db=db)
+        return ResponseSuccess(status_code=status.HTTP_200_OK, message="OTP sent successfully")
+
+    except HTTPException as e:
+        return ResponseFailed(status_code=e.status_code, message=e.detail)
+    
+    except Exception as error:
+        debugPrint(f"sendPassword error: {error}")
+        return ResponseFailed()
+    

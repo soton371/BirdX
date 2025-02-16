@@ -49,3 +49,4 @@ async def root():
 # function & method: functionName
 # class: ClassName
 # http://127.0.0.1:8000
+# redis install in own machine then pip install redis then check redis-server or redis-cli
