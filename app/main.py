@@ -43,10 +43,10 @@ async def root():
 
 
 #source .venv/bin/activate
-#uvicorn app.main:app --host 192.168.0.104 --port 8000 --reload
+#uvicorn app.main:app --host 192.168.0.105 --port 8000 --reload
 #fastapi dev app/main.py
 # variable: variable_name
 # function & method: functionName
 # class: ClassName
 # http://127.0.0.1:8000
-# redis install in own machine then pip install redis then check redis-server or redis-cli
+# redis install in own machine | brew install redis | then | pip install redis | then check | redis-server | or | redis-cli

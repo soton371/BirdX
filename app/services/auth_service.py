@@ -1,8 +1,9 @@
 from fastapi import HTTPException, status, Response
-from app.core import oauth2, utilities
+from app.core import oauth2, utilities, app_redis
 from app.models import auth_model
 from app.schemas import auth_schema
 from sqlalchemy.orm import Session
+
 
 
 def adminLoginService(payload: auth_schema.AdminLogin, db: Session, response: Response):
@@ -40,9 +41,13 @@ def sendOTPService(payload: auth_schema.SendOTP, db: Session):
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
                             detail=f'User with this {payload.email} invalid')
 
-    password_sent = oauth2.sendOTPSmtp(payload.email)
-    if not password_sent:
+    otp_sent = oauth2.sendOTPSmtp(payload.email)
+    if otp_sent is None:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST,
                             detail=f'Failed to send OTP to this email {payload.email}')
-    # set otp in redis    
+    
+    store_otp = app_redis.storeOTP(email=payload.email, otp=otp_sent)
+    if not store_otp:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST,
+                            detail=f'Failed to store OTP')
 
