@@ -31,3 +31,6 @@ class TokenData(BaseModel):
 
 class SendOTP(BaseModel):
     email: EmailStr
+
+class VerifyOTP(SendOTP):
+    otp: str

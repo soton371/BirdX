@@ -16,3 +16,8 @@ def getOTP(email: str | None)-> (str | None):
     if email is None:
         return None
     return redis_client.get(f"birdx_otp:{email}")
+
+def deleteOTP(email: str):
+    redis_client.delete(f"birdx_otp:{email}")
+
+

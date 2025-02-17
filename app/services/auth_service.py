@@ -57,3 +57,18 @@ def sendOTPService(payload: auth_schema.SendOTP, db: Session):
                             detail=f'Failed to send OTP to this email {payload.email}')
     
 
+
+
+def verifyOTPService(payload: auth_schema.VerifyOTP, db: Session):
+    store_otp = app_redis.getOTP(payload.email)
+    if store_otp is None:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
+                            detail='OTP expired or not found')
+    
+    if store_otp == payload.otp:
+        app_redis.deleteOTP(payload.email)
+    else:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST,
+                            detail='Invalid OTP')
+    
+    

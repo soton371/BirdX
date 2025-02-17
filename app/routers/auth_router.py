@@ -42,3 +42,14 @@ async def sendOTP(payload: auth_schema.SendOTP, db: Session = Depends(get_db)):
         debugPrint(f"sendPassword error: {error}")
         return ResponseFailed()
     
+@router.post(app_constants.verify_otp)
+async def verifyOTP(payload: auth_schema.VerifyOTP, db: Session = Depends(get_db)):
+    try:
+        auth_service.verifyOTPService(payload=payload, db=db)
+        return ResponseSuccess(status_code=status.HTTP_200_OK, message="OTP verified successfully")
+    except HTTPException as e:
+        return ResponseFailed(status_code=e.status_code, message=e.detail)
+    
+    except Exception as error:
+        debugPrint(f"sendPassword error: {error}")
+        return ResponseFailed()
