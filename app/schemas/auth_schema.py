@@ -34,3 +34,4 @@ class SendOTP(BaseModel):
 
 class VerifyOTP(SendOTP):
     otp: str
+

@@ -65,13 +65,16 @@ def verifyAccessToken(token: str, credential_exception) -> auth_schema.TokenData
 
         if admin_email is None:
             raise credential_exception
-
+        
         token_data = auth_schema.TokenData(email=admin_email)
+        return token_data
+    except jwt.ExpiredSignatureError:
+        raise HTTPException(status_code=400, detail="Token expired")
+    except jwt.InvalidTokenError:
+        raise HTTPException(status_code=400, detail="Invalid token")
     except Exception as e:
         debugPrint(f"error verify_access_token: {e} line: {e.__traceback__}")
         raise credential_exception
-
-    return token_data
 
 
 def getCurrentUser(token: str = Depends(oauth2_scheme), db: Session = Depends(database.get_db)):
