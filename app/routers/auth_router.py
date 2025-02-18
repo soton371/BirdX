@@ -20,7 +20,7 @@ async def adminLogin(payload: auth_schema.AdminLoginRequest, response: Response,
     try:
         data = auth_service.adminLoginService(
             payload=payload, db=db, response=response)
-        return ResponseSuccess(status_code=status.HTTP_200_OK, data=data)
+        return ResponseSuccess(status_code=status.HTTP_200_OK, data=data, message="Login successfully")
 
     except HTTPException as e:
         return ResponseFailed(status_code=e.status_code, message=e.detail)
