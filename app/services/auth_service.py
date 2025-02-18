@@ -68,3 +68,10 @@ def verifyOTPService(payload: auth_schema.VerifyOTPRequest, db: Session):
     else:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST,
                             detail='Invalid OTP')
+    access_token = oauth2.createAccessToken(email=payload.email)
+    data = auth_schema.TokenDataResponse(
+        access_token=access_token).model_dump() 
+    if not data:
+        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                            detail='Internal server error')
+    return data

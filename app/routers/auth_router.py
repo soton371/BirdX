@@ -46,8 +46,8 @@ async def sendOTP(payload: auth_schema.SendOTPRequest, db: Session = Depends(get
 @router.post(app_constants.verify_otp)
 async def verifyOTP(payload: auth_schema.VerifyOTPRequest, db: Session = Depends(get_db)):
     try:
-        auth_service.verifyOTPService(payload=payload, db=db)
-        return ResponseSuccess(status_code=status.HTTP_200_OK, message="OTP verified successfully")
+        data = auth_service.verifyOTPService(payload=payload, db=db)
+        return ResponseSuccess(status_code=status.HTTP_200_OK, message="OTP verified successfully", data=data)
     except HTTPException as e:
         return ResponseFailed(status_code=e.status_code, message=e.detail)
 
