@@ -4,8 +4,9 @@ from app.core.app_response import ResponseFailed, ResponseSuccess
 from app.core.database import get_db
 from app.core.debug_print import debugPrint
 from app.schemas import auth_schema
-from app.core import app_constants
+from app.core import app_constants,oauth2
 from app.services import auth_service
+from app.models import auth_model
 
 
 router = APIRouter(
@@ -25,7 +26,7 @@ async def adminLogin(payload: auth_schema.AdminLoginRequest, response: Response,
         return ResponseFailed(status_code=e.status_code, message=e.detail)
 
     except Exception as error:
-        debugPrint(f"login error: {error}")
+        debugPrint(f"adminLogin error: {error}")
         return ResponseFailed()
 
 
@@ -39,7 +40,7 @@ async def sendOTP(payload: auth_schema.SendOTPRequest, db: Session = Depends(get
         return ResponseFailed(status_code=e.status_code, message=e.detail)
 
     except Exception as error:
-        debugPrint(f"sendPassword error: {error}")
+        debugPrint(f"sendOTP error: {error}")
         return ResponseFailed()
 
 
@@ -52,5 +53,20 @@ async def verifyOTP(payload: auth_schema.VerifyOTPRequest, db: Session = Depends
         return ResponseFailed(status_code=e.status_code, message=e.detail)
 
     except Exception as error:
-        debugPrint(f"sendPassword error: {error}")
+        debugPrint(f"verifyOTP error: {error}")
         return ResponseFailed()
+
+
+@router.post(app_constants.reset_password)
+async def resetPassword(payload: auth_schema.ResetPasswordRequest, db: Session = Depends(get_db), current_user: auth_model.Admin = Depends(oauth2.getCurrentUser)):
+    try:
+        auth_service.resetPasswordService(payload=payload, db=db,current_user=current_user)
+        return ResponseSuccess(status_code=status.HTTP_200_OK, message="Password reset successfully")
+    except HTTPException as e:
+        return ResponseFailed(status_code=e.status_code, message=e.detail)
+
+    except Exception as error:
+        debugPrint(f"resetPassword error: {error}")
+        return ResponseFailed()
+    
+

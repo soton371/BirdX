@@ -75,3 +75,19 @@ def verifyOTPService(payload: auth_schema.VerifyOTPRequest, db: Session):
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
                             detail='Internal server error')
     return data
+
+
+def resetPasswordService(payload: auth_schema.ResetPasswordRequest, db: Session, current_user: auth_model.Admin):
+    exist_user = db.query(auth_model.Admin).filter(
+        auth_model.Admin.email == current_user.email).first()
+    if not exist_user:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
+                            detail=f'Invalid request')
+    hashed_password = utilities.hashedPassword(password=payload.password)
+
+    if hashed_password is None:
+        raise HTTPException(status_code=status.HTTP_417_EXPECTATION_FAILED,
+                            detail=f'Failed to generate password')
+    exist_user.password = hashed_password
+    db.commit()
+

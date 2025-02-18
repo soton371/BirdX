@@ -7,8 +7,12 @@ from typing import Optional
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 
-def hashedPassword(password: str) -> str:
-    return pwd_context.hash(password)
+def hashedPassword(password: str) -> (str | None):
+    try:
+        return pwd_context.hash(password)
+    except Exception as error:
+        print(f'hashedPassword error: {error}')
+        return None
 
 def verifyPassword(plainPassword: str, hashedPassword: str) -> bool:
     return pwd_context.verify(plainPassword, hashedPassword)

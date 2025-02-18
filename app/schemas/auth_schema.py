@@ -34,3 +34,6 @@ class SendOTPRequest(BaseModel):
 
 class VerifyOTPRequest(SendOTPRequest):
     otp: str
+
+class ResetPasswordRequest(BaseModel):
+    password: str

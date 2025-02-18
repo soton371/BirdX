@@ -84,10 +84,10 @@ def getCurrentUser(token: str = Depends(oauth2_scheme), db: Session = Depends(da
 
     verifyToken = verifyAccessToken(token, credential_exception)
 
-    user = db.query(auth_model.Admin).filter(
+    userAdmin = db.query(auth_model.Admin).filter(
         auth_model.Admin.email == verifyToken.email).first()
 
-    if not user:
+    if not userAdmin:
         raise credential_exception
 
-    return user
+    return userAdmin
