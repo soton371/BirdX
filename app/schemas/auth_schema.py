@@ -3,35 +3,34 @@ from typing import Optional
 from pydantic import BaseModel, EmailStr
 
 
-class AdminLogin(BaseModel):
+class AdminLoginRequest(BaseModel):
     email: EmailStr
     password: str
-    
 
 
-class AdminOut(BaseModel):
+class AdminLoginResponse(BaseModel):
     id: int
     email: EmailStr
     name: Optional[str] = None
     created_at: Optional[datetime] = None
     updated_at: Optional[datetime] = None
-    
+
     class Config:
         from_attributes = True
 
 
-class TokenOut(BaseModel):
+class TokenDataResponse(BaseModel):
     access_token: str
     token_type: Optional[str] = "Bearer"
 
 
-class TokenData(BaseModel):
+class TokenDataRequest(BaseModel):
     email: Optional[str] = None
 
 
-class SendOTP(BaseModel):
+class SendOTPRequest(BaseModel):
     email: EmailStr
 
-class VerifyOTP(SendOTP):
-    otp: str
 
+class VerifyOTPRequest(SendOTPRequest):
+    otp: str

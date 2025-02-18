@@ -15,10 +15,11 @@ from app.schemas import auth_schema
 from app.models import auth_model
 
 
-def generateOTP(length: int = 6)-> str | None:
+def generateOTP(length: int = 6) -> str | None:
     return ''.join(random.choices(string.digits, k=length))
 
-def sendOTPSmtp(recipientMail: str, otp: str)->(str | None):
+
+def sendOTPSmtp(recipientMail: str, otp: str) -> (str | None):
     try:
         smtpServer = smtplib.SMTP(
             config.settings.smtp_host, config.settings.smtp_port)
@@ -58,15 +59,15 @@ def createRefreshToken(email: str):
     return jwt.encode({"email": email, "exp": expire}, SECRET_KEY, algorithm=ALGORITHM)
 
 
-def verifyAccessToken(token: str, credential_exception) -> auth_schema.TokenData:
+def verifyAccessToken(token: str, credential_exception) -> auth_schema.TokenDataRequest:
     try:
         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
         admin_email = payload.get('email')
 
         if admin_email is None:
             raise credential_exception
-        
-        token_data = auth_schema.TokenData(email=admin_email)
+
+        token_data = auth_schema.TokenDataRequest(email=admin_email)
         return token_data
     except jwt.ExpiredSignatureError:
         raise HTTPException(status_code=400, detail="Token expired")
