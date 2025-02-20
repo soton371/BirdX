@@ -14,3 +14,6 @@ class Admin(Base):
     password = Column(String, nullable=True)
     created_at = Column(TIMESTAMP(timezone=True), server_default=text('now()'))
     updated_at = Column(TIMESTAMP(timezone=True), server_default=text('now()'), onupdate=func.now())
+
+
+    

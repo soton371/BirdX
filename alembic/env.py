@@ -6,6 +6,7 @@ from sqlalchemy import pool
 from alembic import context
 
 from app.models.auth_model import Base
+from app.models.filtered_entities_model import Base
 from app.core.config import settings
 
 # this is the Alembic Config object, which provides
