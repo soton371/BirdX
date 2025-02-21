@@ -41,3 +41,19 @@ async def getBrands(db: Session = Depends(get_db)):
     except Exception as error:
         debugPrint(f"getBrands error: {error}")
         return ResponseFailed()
+    
+
+
+@router.delete(f"{app_constants.brands}"+"/{brand_id}")
+async def deleteBrand(brand_id: int, db: Session = Depends(get_db), current_user: auth_model.Admin = Depends(oauth2.getCurrentUser)):
+    try:
+        filtered_entities_service.deleteBrandService(brand_id=brand_id, db=db)
+        return ResponseSuccess(status_code=status.HTTP_200_OK, message=f'The brand has been successfully deleted.')
+
+    except HTTPException as e:
+        return ResponseFailed(status_code=e.status_code, message=e.detail)
+
+    except Exception as error:
+        debugPrint(f"deleteBrand error: {error}")
+        return ResponseFailed()
+    

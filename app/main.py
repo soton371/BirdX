@@ -44,7 +44,7 @@ async def root():
 
 
 #source .venv/bin/activate
-#uvicorn app.main:app --host 192.168.0.105 --port 8000 --reload
+#uvicorn app.main:app --host 192.168.0.104 --port 8000 --reload
 #fastapi dev app/main.py
 # variable: variable_name
 # function & method: functionName

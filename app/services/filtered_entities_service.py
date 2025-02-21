@@ -31,3 +31,13 @@ def getBrandsService(db: Session):
         for brand in query.all()
     ]
     return result
+
+
+def deleteBrandService(brand_id: int, db: Session):
+    query = db.query(brands_db).filter(brand_id == brands_db.id)
+    if not query.first():
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f'Brand not found with id {brand_id}')
+    query.delete(synchronize_session=False)
+    db.commit()
+
+    
