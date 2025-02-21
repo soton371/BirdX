@@ -14,3 +14,15 @@ class BrandsResponse(BrandsRequest):
 
 # ===================== End Brand =====================
     
+
+# ===================== Processor Types =====================
+class ProcessorTypesRequest(BaseModel):
+    name: str
+
+class ProcessorTypesResponse(ProcessorTypesRequest):
+    id: int
+
+    class Config:
+        from_attributes = True
+
+# ===================== End Processor Types =====================
