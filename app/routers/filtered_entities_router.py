@@ -25,7 +25,19 @@ async def brandCreate(brand_req: filtered_entities_schema.BrandsRequest, db: Ses
         return ResponseFailed(status_code=e.status_code, message=e.detail)
 
     except Exception as error:
-        debugPrint(f"adminLogin error: {error}")
+        debugPrint(f"brandCreate error: {error}")
         return ResponseFailed()
     
 
+@router.get(app_constants.brands)
+async def getBrands(db: Session = Depends(get_db)):
+    try:
+        data = filtered_entities_service.getBrandsService(db=db)
+        return ResponseSuccess(status_code=status.HTTP_200_OK, data=data)
+
+    except HTTPException as e:
+        return ResponseFailed(status_code=e.status_code, message=e.detail)
+
+    except Exception as error:
+        debugPrint(f"getBrands error: {error}")
+        return ResponseFailed()

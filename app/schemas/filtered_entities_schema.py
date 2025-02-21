@@ -9,5 +9,8 @@ class BrandsRequest(BaseModel):
 class BrandsResponse(BrandsRequest):
     id: int
 
+    class Config:
+        from_attributes = True
+
 
     
