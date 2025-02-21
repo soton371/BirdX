@@ -2,7 +2,7 @@ from fastapi import FastAPI, Request, status
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.exceptions import RequestValidationError
 from app.core.app_response import ResponseFailed
-from app.routers import auth_router
+from app.routers import auth_router, filtered_entities_router
 from starlette.exceptions import HTTPException as StarletteHTTPException #for handle all exception
 
 
@@ -34,6 +34,7 @@ async def http_exception_handler(request: Request, exc: StarletteHTTPException):
 
 
 app.include_router(auth_router.router)
+app.include_router(filtered_entities_router.router)
 
 
 
