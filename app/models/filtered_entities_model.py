@@ -9,4 +9,4 @@ class Brands(Base):
     __tablename__ = "brands"
 
     id = Column(Integer, primary_key=True, nullable=False)
-    name = Column(String, nullable=True)
+    name = Column(String, nullable=False, unique=True)
