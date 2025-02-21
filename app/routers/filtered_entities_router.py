@@ -57,3 +57,18 @@ async def deleteBrand(brand_id: int, db: Session = Depends(get_db), current_user
         debugPrint(f"deleteBrand error: {error}")
         return ResponseFailed()
     
+
+
+@router.patch(f"{app_constants.brands}"+"/{brand_id}")
+async def updateBrand(brand_id: int, brand_req: filtered_entities_schema.BrandsRequest, db: Session = Depends(get_db), current_user: auth_model.Admin = Depends(oauth2.getCurrentUser)):
+    try:
+        filtered_entities_service.updateBrandService(brand_id=brand_id, brand_req=brand_req, db=db)
+        return ResponseSuccess(status_code=status.HTTP_200_OK, message=f'The brand has been successfully updated.')
+
+    except HTTPException as e:
+        return ResponseFailed(status_code=e.status_code, message=e.detail)
+
+    except Exception as error:
+        debugPrint(f"updateBrand error: {error}")
+        return ResponseFailed()
+    
