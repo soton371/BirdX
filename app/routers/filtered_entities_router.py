@@ -14,7 +14,7 @@ router = APIRouter(
     tags=['Filtered Entities']
 )
 
-
+# ===================== Brand =====================
 @router.post(app_constants.brands)
 async def brandCreate(brand_req: filtered_entities_schema.BrandsRequest, db: Session = Depends(get_db), current_user: auth_model.Admin = Depends(oauth2.getCurrentUser)):
     try:
@@ -72,3 +72,4 @@ async def updateBrand(brand_id: int, brand_req: filtered_entities_schema.BrandsR
         debugPrint(f"updateBrand error: {error}")
         return ResponseFailed()
     
+# ===================== End Brand =====================

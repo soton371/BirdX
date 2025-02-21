@@ -4,6 +4,8 @@ from app.schemas import filtered_entities_schema
 from sqlalchemy.orm import Session
 from sqlalchemy import func
 
+
+# ===================== Brand =====================
 brands_db = filtered_entities_model.Brands
 
 def brandCreateService(brand_req: filtered_entities_schema.BrandsRequest, db: Session):
@@ -49,3 +51,5 @@ def updateBrandService(brand_id: int, brand_req: filtered_entities_schema.Brands
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f'Brand not found with id {brand_id}')
     query.name = brand_req.name.strip()
     db.commit()
+
+# ===================== End Brand =====================
