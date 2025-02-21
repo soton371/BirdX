@@ -8,3 +8,4 @@ reset_password = "/reset_password"
 
 # for filtered entities
 brands = "/brands"
+processor_types = "/processor_types"
