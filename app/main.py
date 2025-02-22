@@ -52,3 +52,4 @@ async def root():
 # http://127.0.0.1:8000
 # redis install in own machine | brew install redis | then | pip install redis | then check | redis-server | or | redis-cli
 # found hole conflict http status
+# alembic revision --autogenerate -m 'auto-vote' || alembic upgrade head

@@ -18,3 +18,10 @@ class ProcessorTypes(Base):
     id = Column(Integer, primary_key=True, nullable=False)
     name = Column(String, nullable=False, unique=True)
 
+
+class ProcessorModels(Base):
+    __tablename__ = "processor_models"
+
+    id = Column(Integer, primary_key=True, nullable=False)
+    name = Column(String, nullable=False, unique=True)
+
