@@ -186,7 +186,7 @@ async def deleteProcessorModel(id: int, db: Session = Depends(get_db), current_u
     
 
 
-@router.patch(f"{app_constants.processor_types}"+"/{id}")
+@router.patch(f"{app_constants.processor_models}"+"/{id}")
 async def updateProcessorModel(id: int, req: filtered_entities_schema.ProcessorModelsRequest, db: Session = Depends(get_db), current_user: auth_model.Admin = Depends(oauth2.getCurrentUser)):
     try:
         filtered_entities_service.updateProcessorModelService(id=id, req=req, db=db)

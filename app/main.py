@@ -13,8 +13,8 @@ app.add_middleware(
     allow_origins=["*"],
     # allow_origins=["http://localhost:8000", "https://yourfrontend.com"],
     allow_credentials=True,
-    allow_methods=["GET", "POST"],
-    allow_headers=["Content-Type", "Authorization"],
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 @app.exception_handler(RequestValidationError)
