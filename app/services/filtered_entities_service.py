@@ -108,3 +108,53 @@ def updateProcessorTypeService(id: int, req: filtered_entities_schema.ProcessorT
 
 # ===================== End Processor Type =====================
 
+
+
+
+# ===================== Processor Models =====================
+processor_models_db = filtered_entities_model.ProcessorModels
+
+def createProcessorModelService(req: filtered_entities_schema.ProcessorModelsRequest, db: Session):
+    if not req.name.strip():
+        raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail="Processor model name cannot be empty.")
+    
+    exist_data = db.query(processor_models_db).filter(
+        func.lower(func.trim(processor_models_db.name)) == func.lower(func.trim(req.name))
+    ).first()
+    
+
+    if exist_data:
+        raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail=f"Processor model '{req.name}' already exists.")
+
+    new_data = filtered_entities_model.ProcessorModels(**req.model_dump())
+    db.add(new_data)
+    db.commit()
+    db.refresh(new_data)
+
+
+def getProcessorModelsService(db: Session):
+    query = db.query(processor_models_db)
+    result = [
+        filtered_entities_schema.ProcessorModelsResponse.model_validate(data).model_dump()
+        for data in query.all()
+    ]
+    return result
+
+
+def deleteProcessorModelService(id: int, db: Session):
+    query = db.query(processor_models_db).filter(id == processor_models_db.id)
+    if not query.first():
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f'Processor model not found with id {id}')
+    query.delete(synchronize_session=False)
+    db.commit()
+
+
+def updateProcessorModelService(id: int, req: filtered_entities_schema.ProcessorModelsRequest, db: Session):
+    if not req.name.strip():
+        raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail="Processor model name cannot be empty.")
+    query = db.query(processor_models_db).filter(id == processor_models_db.id).first()
+    if not query:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f'Processor model not found with id {id}')
+    query.name = req.name.strip()
+    db.commit()
+# ===================== End Processor Models =====================

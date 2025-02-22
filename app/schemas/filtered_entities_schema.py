@@ -26,3 +26,18 @@ class ProcessorTypesResponse(ProcessorTypesRequest):
         from_attributes = True
 
 # ===================== End Processor Types =====================
+
+
+
+# ===================== Processor Models =====================
+class ProcessorModelsRequest(BaseModel):
+    name: str
+
+class ProcessorModelsResponse(ProcessorModelsRequest):
+    id: int
+
+    class Config:
+        from_attributes = True
+
+# ===================== End Processor Models =====================
+
