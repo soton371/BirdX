@@ -39,3 +39,10 @@ class DisplayTypes(Base):
     id = Column(Integer, primary_key=True, nullable=False)
     name = Column(String, nullable=False, unique=True)
 
+
+class SpecialFeatures(Base):
+    __tablename__ = "special_features"
+
+    id = Column(Integer, primary_key=True, nullable=False)
+    name = Column(String, nullable=False, unique=True)
+
