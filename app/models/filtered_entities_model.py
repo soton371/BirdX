@@ -31,3 +31,11 @@ class GenerationSeries(Base):
 
     id = Column(Integer, primary_key=True, nullable=False)
     name = Column(String, nullable=False, unique=True)
+
+
+class DisplayTypes(Base):
+    __tablename__ = "display_types"
+
+    id = Column(Integer, primary_key=True, nullable=False)
+    name = Column(String, nullable=False, unique=True)
+
