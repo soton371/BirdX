@@ -261,3 +261,67 @@ async def updateGenerationSeries(id: int, req: filtered_entities_schema.Generati
         return ResponseFailed()
     
 # ===================== End Generation Series =====================
+
+
+
+# ===================== Display Types =====================
+@router.post(app_constants.display_types)
+async def createDisplayTypes(req: filtered_entities_schema.DisplayTypesRequest, db: Session = Depends(get_db), current_user: auth_model.Admin = Depends(oauth2.getCurrentUser)):
+    try:
+        filtered_entities_service.createDisplayTypesService(req=req, db=db)
+        return ResponseSuccess(status_code=status.HTTP_200_OK, message="The display type has been successfully created.")
+
+    except HTTPException as e:
+        return ResponseFailed(status_code=e.status_code, message=e.detail)
+
+    except Exception as error:
+        debugPrint(f"createDisplayTypes error: {error}")
+        return ResponseFailed()
+    
+
+@router.get(app_constants.display_types)
+async def getDisplayTypes(db: Session = Depends(get_db)):
+    try:
+        data = filtered_entities_service.getDisplayTypesService(db=db)
+        return ResponseSuccess(status_code=status.HTTP_200_OK, data=data)
+
+    except HTTPException as e:
+        return ResponseFailed(status_code=e.status_code, message=e.detail)
+
+    except Exception as error:
+        debugPrint(f"getDisplayTypes error: {error}")
+        return ResponseFailed()
+    
+
+
+@router.delete(f"{app_constants.display_types}"+"/{id}")
+async def deleteDisplayTypes(id: int, db: Session = Depends(get_db), current_user: auth_model.Admin = Depends(oauth2.getCurrentUser)):
+    try:
+        filtered_entities_service.deleteDisplayTypesService(id=id, db=db)
+        return ResponseSuccess(status_code=status.HTTP_200_OK, message=f'The display type has been successfully deleted.')
+
+    except HTTPException as e:
+        return ResponseFailed(status_code=e.status_code, message=e.detail)
+
+    except Exception as error:
+        debugPrint(f"deleteDisplayTypes error: {error}")
+        return ResponseFailed()
+    
+
+
+@router.patch(f"{app_constants.display_types}"+"/{id}")
+async def updateDisplayTypes(id: int, req: filtered_entities_schema.DisplayTypesRequest, db: Session = Depends(get_db), current_user: auth_model.Admin = Depends(oauth2.getCurrentUser)):
+    try:
+        filtered_entities_service.updateDisplayTypesService(id=id, req=req, db=db)
+        return ResponseSuccess(status_code=status.HTTP_200_OK, message=f'The display type has been successfully updated.')
+
+    except HTTPException as e:
+        return ResponseFailed(status_code=e.status_code, message=e.detail)
+
+    except Exception as error:
+        debugPrint(f"updateDisplayTypes error: {error}")
+        return ResponseFailed()
+    
+# ===================== End Display Types =====================
+
+

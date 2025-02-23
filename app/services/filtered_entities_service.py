@@ -273,7 +273,7 @@ def deleteDisplayTypesService(id: int, db: Session):
     query = db.query(display_types_db).filter(id == display_types_db.id)
     if not query.first():
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
-                            detail=f'Display types not found with id {id}')
+                            detail=f'Display type not found with id {id}')
     query.delete(synchronize_session=False)
     db.commit()
 
@@ -281,12 +281,12 @@ def deleteDisplayTypesService(id: int, db: Session):
 def updateDisplayTypesService(id: int, req: filtered_entities_schema.DisplayTypesRequest, db: Session):
     if not req.name.strip():
         raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
-                            detail="Display types name cannot be empty.")
+                            detail="Display type name cannot be empty.")
     query = db.query(display_types_db).filter(
         id == display_types_db.id).first()
     if not query:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
-                            detail=f'Display types not found with id {id}')
+                            detail=f'Display type not found with id {id}')
     query.name = req.name.strip()
     db.commit()
 # ===================== End Display Types =====================

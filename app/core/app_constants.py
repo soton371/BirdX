@@ -11,3 +11,6 @@ brands = "/brands"
 processor_types = "/processor_types"
 processor_models = "/processor_models"
 generation_series = "/generation_series"
+display_types = "/display_types"
+
+
