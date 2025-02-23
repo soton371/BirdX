@@ -10,4 +10,4 @@ reset_password = "/reset_password"
 brands = "/brands"
 processor_types = "/processor_types"
 processor_models = "/processor_models"
-
+generation_series = "/generation_series"

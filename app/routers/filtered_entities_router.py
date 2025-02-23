@@ -201,3 +201,63 @@ async def updateProcessorModel(id: int, req: filtered_entities_schema.ProcessorM
     
 # ===================== End Processor Models =====================
 
+
+# ===================== Generation Series =====================
+@router.post(app_constants.generation_series)
+async def createGenerationSeries(req: filtered_entities_schema.GenerationSeriesRequest, db: Session = Depends(get_db), current_user: auth_model.Admin = Depends(oauth2.getCurrentUser)):
+    try:
+        filtered_entities_service.createGenerationSeriesService(req=req, db=db)
+        return ResponseSuccess(status_code=status.HTTP_200_OK, message="The generation/series has been successfully created.")
+
+    except HTTPException as e:
+        return ResponseFailed(status_code=e.status_code, message=e.detail)
+
+    except Exception as error:
+        debugPrint(f"createGenerationSeries error: {error}")
+        return ResponseFailed()
+    
+
+@router.get(app_constants.generation_series)
+async def getGenerationSeries(db: Session = Depends(get_db)):
+    try:
+        data = filtered_entities_service.getGenerationSeriesService(db=db)
+        return ResponseSuccess(status_code=status.HTTP_200_OK, data=data)
+
+    except HTTPException as e:
+        return ResponseFailed(status_code=e.status_code, message=e.detail)
+
+    except Exception as error:
+        debugPrint(f"getGenerationSeries error: {error}")
+        return ResponseFailed()
+    
+
+
+@router.delete(f"{app_constants.generation_series}"+"/{id}")
+async def deleteGenerationSeries(id: int, db: Session = Depends(get_db), current_user: auth_model.Admin = Depends(oauth2.getCurrentUser)):
+    try:
+        filtered_entities_service.deleteGenerationSeriesService(id=id, db=db)
+        return ResponseSuccess(status_code=status.HTTP_200_OK, message=f'The generation/series has been successfully deleted.')
+
+    except HTTPException as e:
+        return ResponseFailed(status_code=e.status_code, message=e.detail)
+
+    except Exception as error:
+        debugPrint(f"deleteGenerationSeries error: {error}")
+        return ResponseFailed()
+    
+
+
+@router.patch(f"{app_constants.generation_series}"+"/{id}")
+async def updateGenerationSeries(id: int, req: filtered_entities_schema.GenerationSeriesRequest, db: Session = Depends(get_db), current_user: auth_model.Admin = Depends(oauth2.getCurrentUser)):
+    try:
+        filtered_entities_service.updateGenerationSeriesService(id=id, req=req, db=db)
+        return ResponseSuccess(status_code=status.HTTP_200_OK, message=f'The generation/series has been successfully updated.')
+
+    except HTTPException as e:
+        return ResponseFailed(status_code=e.status_code, message=e.detail)
+
+    except Exception as error:
+        debugPrint(f"updateGenerationSeries error: {error}")
+        return ResponseFailed()
+    
+# ===================== End Generation Series =====================
