@@ -41,3 +41,16 @@ class ProcessorModelsResponse(ProcessorModelsRequest):
 
 # ===================== End Processor Models =====================
 
+
+
+# ===================== Generation Series =====================
+class GenerationSeriesRequest(BaseModel):
+    name: str
+
+class GenerationSeriesResponse(GenerationSeriesRequest):
+    id: int
+
+    class Config:
+        from_attributes = True
+
+# ===================== End Generation Series =====================
