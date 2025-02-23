@@ -54,3 +54,18 @@ class GenerationSeriesResponse(GenerationSeriesRequest):
         from_attributes = True
 
 # ===================== End Generation Series =====================
+
+
+
+# ===================== Display Types =====================
+class DisplayTypesRequest(BaseModel):
+    name: str
+
+class DisplayTypesResponse(DisplayTypesRequest):
+    id: int
+
+    class Config:
+        from_attributes = True
+
+# ===================== End Display Types =====================
+
