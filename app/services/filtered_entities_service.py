@@ -232,3 +232,61 @@ def updateGenerationSeriesService(id: int, req: filtered_entities_schema.Generat
     query.name = req.name.strip()
     db.commit()
 # ===================== End Generation Series =====================
+
+
+
+# ===================== Display Types =====================
+display_types_db = filtered_entities_model.DisplayTypes
+
+
+def createDisplayTypesService(req: filtered_entities_schema.DisplayTypesRequest, db: Session):
+    if not req.name.strip():
+        raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+                            detail="Display type cannot be empty.")
+
+    exist_data = db.query(display_types_db).filter(
+        func.lower(func.trim(display_types_db.name)
+                   ) == func.lower(func.trim(req.name))
+    ).first()
+
+    if exist_data:
+        raise HTTPException(status_code=status.HTTP_409_CONFLICT,
+                            detail=f"Display type '{req.name}' already exists.")
+
+    new_data = filtered_entities_model.DisplayTypes(**req.model_dump())
+    db.add(new_data)
+    db.commit()
+    db.refresh(new_data)
+
+
+def getDisplayTypesService(db: Session):
+    query = db.query(display_types_db)
+    result = [
+        filtered_entities_schema.DisplayTypesResponse.model_validate(
+            data).model_dump()
+        for data in query.all()
+    ]
+    return result
+
+
+def deleteDisplayTypesService(id: int, db: Session):
+    query = db.query(display_types_db).filter(id == display_types_db.id)
+    if not query.first():
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
+                            detail=f'Display types not found with id {id}')
+    query.delete(synchronize_session=False)
+    db.commit()
+
+
+def updateDisplayTypesService(id: int, req: filtered_entities_schema.DisplayTypesRequest, db: Session):
+    if not req.name.strip():
+        raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+                            detail="Display types name cannot be empty.")
+    query = db.query(display_types_db).filter(
+        id == display_types_db.id).first()
+    if not query:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
+                            detail=f'Display types not found with id {id}')
+    query.name = req.name.strip()
+    db.commit()
+# ===================== End Display Types =====================
