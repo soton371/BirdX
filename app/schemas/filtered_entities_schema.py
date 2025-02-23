@@ -69,3 +69,16 @@ class DisplayTypesResponse(DisplayTypesRequest):
 
 # ===================== End Display Types =====================
 
+
+# ===================== Special Features =====================
+class SpecialFeaturesRequest(BaseModel):
+    name: str
+
+class SpecialFeaturesResponse(SpecialFeaturesRequest):
+    id: int
+
+    class Config:
+        from_attributes = True
+
+# ===================== End Special Features =====================
+
