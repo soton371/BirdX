@@ -325,3 +325,63 @@ async def updateDisplayTypes(id: int, req: filtered_entities_schema.DisplayTypes
 # ===================== End Display Types =====================
 
 
+
+# ===================== Special Features =====================
+@router.post(app_constants.special_features)
+async def createSpecialFeatures(req: filtered_entities_schema.SpecialFeaturesRequest, db: Session = Depends(get_db), current_user: auth_model.Admin = Depends(oauth2.getCurrentUser)):
+    try:
+        filtered_entities_service.createSpecialFeaturesService(req=req, db=db)
+        return ResponseSuccess(status_code=status.HTTP_200_OK, message="The special feature has been successfully created.")
+
+    except HTTPException as e:
+        return ResponseFailed(status_code=e.status_code, message=e.detail)
+
+    except Exception as error:
+        debugPrint(f"createSpecialFeatures error: {error}")
+        return ResponseFailed()
+    
+
+@router.get(app_constants.special_features)
+async def getSpecialFeatures(db: Session = Depends(get_db)):
+    try:
+        data = filtered_entities_service.getSpecialFeaturesService(db=db)
+        return ResponseSuccess(status_code=status.HTTP_200_OK, data=data)
+
+    except HTTPException as e:
+        return ResponseFailed(status_code=e.status_code, message=e.detail)
+
+    except Exception as error:
+        debugPrint(f"getSpecialFeatures error: {error}")
+        return ResponseFailed()
+    
+
+
+@router.delete(f"{app_constants.special_features}"+"/{id}")
+async def deleteSpecialFeatures(id: int, db: Session = Depends(get_db), current_user: auth_model.Admin = Depends(oauth2.getCurrentUser)):
+    try:
+        filtered_entities_service.deleteSpecialFeaturesService(id=id, db=db)
+        return ResponseSuccess(status_code=status.HTTP_200_OK, message=f'The special feature has been successfully deleted.')
+
+    except HTTPException as e:
+        return ResponseFailed(status_code=e.status_code, message=e.detail)
+
+    except Exception as error:
+        debugPrint(f"deleteSpecialFeatures error: {error}")
+        return ResponseFailed()
+    
+
+
+@router.patch(f"{app_constants.special_features}"+"/{id}")
+async def updateSpecialFeatures(id: int, req: filtered_entities_schema.SpecialFeaturesRequest, db: Session = Depends(get_db), current_user: auth_model.Admin = Depends(oauth2.getCurrentUser)):
+    try:
+        filtered_entities_service.updateSpecialFeaturesService(id=id, req=req, db=db)
+        return ResponseSuccess(status_code=status.HTTP_200_OK, message=f'The special feature has been successfully updated.')
+
+    except HTTPException as e:
+        return ResponseFailed(status_code=e.status_code, message=e.detail)
+
+    except Exception as error:
+        debugPrint(f"updateSpecialFeatures error: {error}")
+        return ResponseFailed()
+# ===================== End Special Features =====================
+
