@@ -290,3 +290,62 @@ def updateDisplayTypesService(id: int, req: filtered_entities_schema.DisplayType
     query.name = req.name.strip()
     db.commit()
 # ===================== End Display Types =====================
+
+
+
+
+# ===================== Special Features =====================
+special_features_db = filtered_entities_model.SpecialFeatures
+
+
+def createSpecialFeaturesService(req: filtered_entities_schema.SpecialFeaturesRequest, db: Session):
+    if not req.name.strip():
+        raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+                            detail="Special feature cannot be empty.")
+
+    exist_data = db.query(special_features_db).filter(
+        func.lower(func.trim(special_features_db.name)
+                   ) == func.lower(func.trim(req.name))
+    ).first()
+
+    if exist_data:
+        raise HTTPException(status_code=status.HTTP_409_CONFLICT,
+                            detail=f"Special feature '{req.name}' already exists.")
+
+    new_data = filtered_entities_model.SpecialFeatures(**req.model_dump())
+    db.add(new_data)
+    db.commit()
+    db.refresh(new_data)
+
+
+def getSpecialFeaturesService(db: Session):
+    query = db.query(special_features_db)
+    result = [
+        filtered_entities_schema.SpecialFeaturesResponse.model_validate(
+            data).model_dump()
+        for data in query.all()
+    ]
+    return result
+
+
+def deleteSpecialFeaturesService(id: int, db: Session):
+    query = db.query(special_features_db).filter(id == special_features_db.id)
+    if not query.first():
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
+                            detail=f'Special feature not found with id {id}')
+    query.delete(synchronize_session=False)
+    db.commit()
+
+
+def updateSpecialFeaturesService(id: int, req: filtered_entities_schema.SpecialFeaturesRequest, db: Session):
+    if not req.name.strip():
+        raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+                            detail="Special feature name cannot be empty.")
+    query = db.query(special_features_db).filter(
+        id == special_features_db.id).first()
+    if not query:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
+                            detail=f'Special feature not found with id {id}')
+    query.name = req.name.strip()
+    db.commit()
+# ===================== End Special Features =====================
