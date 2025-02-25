@@ -110,3 +110,17 @@ class RamTypesResponse(RamTypesRequest):
 
 # ===================== End Ram Types =====================
 
+
+
+# ===================== HDD=====================
+class HDDRequest(BaseModel):
+    name: str
+
+class HDDResponse(HDDRequest):
+    id: int
+
+    class Config:
+        from_attributes = True
+
+# ===================== End HDD =====================
+

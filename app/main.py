@@ -53,3 +53,4 @@ async def root():
 # redis install in own machine | brew install redis | then | pip install redis | then check | redis-server | or | redis-cli
 # found hole conflict http status
 # alembic revision --autogenerate -m 'auto-vote' || alembic upgrade head
+
