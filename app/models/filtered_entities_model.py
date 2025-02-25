@@ -51,3 +51,10 @@ class RamSizes(Base):
 
     id = Column(Integer, primary_key=True, nullable=False)
     name = Column(String, nullable=False, unique=True)
+
+
+class RamTypes(Base):
+    __tablename__ = "ram_types"
+
+    id = Column(Integer, primary_key=True, nullable=False)
+    name = Column(String, nullable=False, unique=True)
