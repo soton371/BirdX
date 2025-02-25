@@ -397,7 +397,7 @@ def deleteRamSizesService(id: int, db: Session):
 def updateRamSizesService(id: int, req: filtered_entities_schema.RamSizesRequest, db: Session):
     if not req.name.strip():
         raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
-                            detail="Ram size name cannot be empty.")
+                            detail="Ram size cannot be empty.")
     query = db.query(ram_sizes_db).filter(
         id == ram_sizes_db.id).first()
     if not query:
@@ -406,3 +406,61 @@ def updateRamSizesService(id: int, req: filtered_entities_schema.RamSizesRequest
     query.name = req.name.strip()
     db.commit()
 # ===================== End Ram Sizes =====================
+
+
+# ===================== Ram Types =====================
+ram_types_db = filtered_entities_model.RamTypes
+
+
+def createRamTypesService(req: filtered_entities_schema.RamTypesRequest, db: Session):
+    if not req.name.strip():
+        raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+                            detail="Ram type cannot be empty.")
+
+    exist_data = db.query(ram_types_db).filter(
+        func.lower(func.trim(ram_types_db.name)
+                   ) == func.lower(func.trim(req.name))
+    ).first()
+
+    if exist_data:
+        raise HTTPException(status_code=status.HTTP_409_CONFLICT,
+                            detail=f"Ram type '{req.name}' already exists.")
+
+    new_data = filtered_entities_model.RamTypes(**req.model_dump())
+    db.add(new_data)
+    db.commit()
+    db.refresh(new_data)
+
+
+def getRamTypesService(db: Session):
+    query = db.query(ram_types_db)
+    result = [
+        filtered_entities_schema.RamTypesResponse.model_validate(
+            data).model_dump()
+        for data in query.all()
+    ]
+    return result
+
+
+def deleteRamTypesService(id: int, db: Session):
+    query = db.query(ram_types_db).filter(id == ram_types_db.id)
+    if not query.first():
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
+                            detail=f'Ram type not found with id {id}')
+    query.delete(synchronize_session=False)
+    db.commit()
+
+
+def updateRamTypesService(id: int, req: filtered_entities_schema.RamTypesRequest, db: Session):
+    if not req.name.strip():
+        raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+                            detail="Ram type cannot be empty.")
+    query = db.query(ram_types_db).filter(
+        id == ram_types_db.id).first()
+    if not query:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
+                            detail=f'Ram type not found with id {id}')
+    query.name = req.name.strip()
+    db.commit()
+# ===================== End Ram Types =====================
+
