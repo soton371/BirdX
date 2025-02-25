@@ -349,3 +349,60 @@ def updateSpecialFeaturesService(id: int, req: filtered_entities_schema.SpecialF
     query.name = req.name.strip()
     db.commit()
 # ===================== End Special Features =====================
+
+
+# ===================== Ram Sizes =====================
+ram_sizes_db = filtered_entities_model.RamSizes
+
+
+def createRamSizesService(req: filtered_entities_schema.RamSizesRequest, db: Session):
+    if not req.name.strip():
+        raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+                            detail="Ram size cannot be empty.")
+
+    exist_data = db.query(ram_sizes_db).filter(
+        func.lower(func.trim(ram_sizes_db.name)
+                   ) == func.lower(func.trim(req.name))
+    ).first()
+
+    if exist_data:
+        raise HTTPException(status_code=status.HTTP_409_CONFLICT,
+                            detail=f"Ram size '{req.name}' already exists.")
+
+    new_data = filtered_entities_model.RamSizes(**req.model_dump())
+    db.add(new_data)
+    db.commit()
+    db.refresh(new_data)
+
+
+def getRamSizesService(db: Session):
+    query = db.query(ram_sizes_db)
+    result = [
+        filtered_entities_schema.RamSizesResponse.model_validate(
+            data).model_dump()
+        for data in query.all()
+    ]
+    return result
+
+
+def deleteRamSizesService(id: int, db: Session):
+    query = db.query(ram_sizes_db).filter(id == ram_sizes_db.id)
+    if not query.first():
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
+                            detail=f'Ram size not found with id {id}')
+    query.delete(synchronize_session=False)
+    db.commit()
+
+
+def updateRamSizesService(id: int, req: filtered_entities_schema.RamSizesRequest, db: Session):
+    if not req.name.strip():
+        raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+                            detail="Ram size name cannot be empty.")
+    query = db.query(ram_sizes_db).filter(
+        id == ram_sizes_db.id).first()
+    if not query:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
+                            detail=f'Ram size not found with id {id}')
+    query.name = req.name.strip()
+    db.commit()
+# ===================== End Ram Sizes =====================
