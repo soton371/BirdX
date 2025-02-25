@@ -14,4 +14,5 @@ generation_series = "/generation_series"
 display_types = "/display_types"
 special_features = "/special_features"
 ram_sizes = "/ram_sizes"
+ram_types = "/ram_types"
 
