@@ -46,3 +46,8 @@ class SpecialFeatures(Base):
     id = Column(Integer, primary_key=True, nullable=False)
     name = Column(String, nullable=False, unique=True)
 
+class RamSizes(Base):
+    __tablename__ = "ram_sizes"
+
+    id = Column(Integer, primary_key=True, nullable=False)
+    name = Column(String, nullable=False, unique=True)
