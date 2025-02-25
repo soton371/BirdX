@@ -508,3 +508,64 @@ async def updateRamTypes(id: int, req: filtered_entities_schema.RamTypesRequest,
         return ResponseFailed()
 # ===================== End Ram Types =====================
 
+
+
+# ===================== HDD =====================
+@router.post(app_constants.hdd)
+async def createHDD(req: filtered_entities_schema.HDDRequest, db: Session = Depends(get_db), current_user: auth_model.Admin = Depends(oauth2.getCurrentUser)):
+    try:
+        filtered_entities_service.createHDDService(req=req, db=db)
+        return ResponseSuccess(status_code=status.HTTP_200_OK, message="The hdd has been successfully created.")
+
+    except HTTPException as e:
+        return ResponseFailed(status_code=e.status_code, message=e.detail)
+
+    except Exception as error:
+        debugPrint(f"createHDD error: {error}")
+        return ResponseFailed()
+    
+
+@router.get(app_constants.hdd)
+async def getHDD(db: Session = Depends(get_db)):
+    try:
+        data = filtered_entities_service.getHDDService(db=db)
+        return ResponseSuccess(status_code=status.HTTP_200_OK, data=data)
+
+    except HTTPException as e:
+        return ResponseFailed(status_code=e.status_code, message=e.detail)
+
+    except Exception as error:
+        debugPrint(f"getHDD error: {error}")
+        return ResponseFailed()
+    
+
+
+@router.delete(f"{app_constants.hdd}"+"/{id}")
+async def deleteHDD(id: int, db: Session = Depends(get_db), current_user: auth_model.Admin = Depends(oauth2.getCurrentUser)):
+    try:
+        filtered_entities_service.deleteHDDService(id=id, db=db)
+        return ResponseSuccess(status_code=status.HTTP_200_OK, message=f'The HDD has been successfully deleted.')
+
+    except HTTPException as e:
+        return ResponseFailed(status_code=e.status_code, message=e.detail)
+
+    except Exception as error:
+        debugPrint(f"deleteHDD error: {error}")
+        return ResponseFailed()
+    
+
+
+@router.patch(f"{app_constants.hdd}"+"/{id}")
+async def updateHDD(id: int, req: filtered_entities_schema.HDDRequest, db: Session = Depends(get_db), current_user: auth_model.Admin = Depends(oauth2.getCurrentUser)):
+    try:
+        filtered_entities_service.updateHDDService(id=id, req=req, db=db)
+        return ResponseSuccess(status_code=status.HTTP_200_OK, message=f'The HDD has been successfully updated.')
+
+    except HTTPException as e:
+        return ResponseFailed(status_code=e.status_code, message=e.detail)
+
+    except Exception as error:
+        debugPrint(f"updateHDD error: {error}")
+        return ResponseFailed()
+# ===================== End HDD =====================
+
