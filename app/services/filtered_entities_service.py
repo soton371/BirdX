@@ -464,3 +464,61 @@ def updateRamTypesService(id: int, req: filtered_entities_schema.RamTypesRequest
     db.commit()
 # ===================== End Ram Types =====================
 
+
+
+# ===================== HDD =====================
+hdd_db = filtered_entities_model.HDD
+
+
+def createHDDService(req: filtered_entities_schema.HDDRequest, db: Session):
+    if not req.name.strip():
+        raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+                            detail="HDD cannot be empty.")
+
+    exist_data = db.query(hdd_db).filter(
+        func.lower(func.trim(hdd_db.name)
+                   ) == func.lower(func.trim(req.name))
+    ).first()
+
+    if exist_data:
+        raise HTTPException(status_code=status.HTTP_409_CONFLICT,
+                            detail=f"HDD '{req.name}' already exists.")
+
+    new_data = filtered_entities_model.HDD(**req.model_dump())
+    db.add(new_data)
+    db.commit()
+    db.refresh(new_data)
+
+
+def getHDDService(db: Session):
+    query = db.query(hdd_db)
+    result = [
+        filtered_entities_schema.HDDResponse.model_validate(
+            data).model_dump()
+        for data in query.all()
+    ]
+    return result
+
+
+def deleteHDDService(id: int, db: Session):
+    query = db.query(hdd_db).filter(id == hdd_db.id)
+    if not query.first():
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
+                            detail=f'HDD not found with id {id}')
+    query.delete(synchronize_session=False)
+    db.commit()
+
+
+def updateHDDService(id: int, req: filtered_entities_schema.HDDRequest, db: Session):
+    if not req.name.strip():
+        raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+                            detail="HDD cannot be empty.")
+    query = db.query(hdd_db).filter(
+        id == hdd_db.id).first()
+    if not query:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
+                            detail=f'HDD not found with id {id}')
+    query.name = req.name.strip()
+    db.commit()
+# ===================== End HDD =====================
+
