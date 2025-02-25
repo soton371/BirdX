@@ -97,3 +97,16 @@ class RamSizesResponse(RamSizesRequest):
 
 # ===================== End Ram Sizes =====================
 
+
+# ===================== Ram Types =====================
+class RamTypesRequest(BaseModel):
+    name: str
+
+class RamTypesResponse(RamTypesRequest):
+    id: int
+
+    class Config:
+        from_attributes = True
+
+# ===================== End Ram Types =====================
+
