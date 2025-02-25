@@ -385,3 +385,65 @@ async def updateSpecialFeatures(id: int, req: filtered_entities_schema.SpecialFe
         return ResponseFailed()
 # ===================== End Special Features =====================
 
+
+
+
+# ===================== Ram Sizes =====================
+@router.post(app_constants.ram_sizes)
+async def createRamSizes(req: filtered_entities_schema.RamSizesRequest, db: Session = Depends(get_db), current_user: auth_model.Admin = Depends(oauth2.getCurrentUser)):
+    try:
+        filtered_entities_service.createRamSizesService(req=req, db=db)
+        return ResponseSuccess(status_code=status.HTTP_200_OK, message="The ram size has been successfully created.")
+
+    except HTTPException as e:
+        return ResponseFailed(status_code=e.status_code, message=e.detail)
+
+    except Exception as error:
+        debugPrint(f"createRamSizes error: {error}")
+        return ResponseFailed()
+    
+
+@router.get(app_constants.ram_sizes)
+async def getRamSizes(db: Session = Depends(get_db)):
+    try:
+        data = filtered_entities_service.getRamSizesService(db=db)
+        return ResponseSuccess(status_code=status.HTTP_200_OK, data=data)
+
+    except HTTPException as e:
+        return ResponseFailed(status_code=e.status_code, message=e.detail)
+
+    except Exception as error:
+        debugPrint(f"getRamSizes error: {error}")
+        return ResponseFailed()
+    
+
+
+@router.delete(f"{app_constants.ram_sizes}"+"/{id}")
+async def deleteRamSizes(id: int, db: Session = Depends(get_db), current_user: auth_model.Admin = Depends(oauth2.getCurrentUser)):
+    try:
+        filtered_entities_service.deleteRamSizesService(id=id, db=db)
+        return ResponseSuccess(status_code=status.HTTP_200_OK, message=f'The ram size has been successfully deleted.')
+
+    except HTTPException as e:
+        return ResponseFailed(status_code=e.status_code, message=e.detail)
+
+    except Exception as error:
+        debugPrint(f"deleteRamSizes error: {error}")
+        return ResponseFailed()
+    
+
+
+@router.patch(f"{app_constants.ram_sizes}"+"/{id}")
+async def updateRamSizes(id: int, req: filtered_entities_schema.RamSizesRequest, db: Session = Depends(get_db), current_user: auth_model.Admin = Depends(oauth2.getCurrentUser)):
+    try:
+        filtered_entities_service.updateRamSizesService(id=id, req=req, db=db)
+        return ResponseSuccess(status_code=status.HTTP_200_OK, message=f'The ram size has been successfully updated.')
+
+    except HTTPException as e:
+        return ResponseFailed(status_code=e.status_code, message=e.detail)
+
+    except Exception as error:
+        debugPrint(f"updateRamSizes error: {error}")
+        return ResponseFailed()
+# ===================== End Ram Sizes =====================
+
