@@ -82,3 +82,18 @@ class SpecialFeaturesResponse(SpecialFeaturesRequest):
 
 # ===================== End Special Features =====================
 
+
+
+
+# ===================== Ram Sizes =====================
+class RamSizesRequest(BaseModel):
+    name: str
+
+class RamSizesResponse(RamSizesRequest):
+    id: int
+
+    class Config:
+        from_attributes = True
+
+# ===================== End Ram Sizes =====================
+
