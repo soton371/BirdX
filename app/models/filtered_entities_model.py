@@ -65,3 +65,12 @@ class HDD(Base):
 
     id = Column(Integer, primary_key=True, nullable=False)
     name = Column(String, nullable=False, unique=True)
+
+
+
+class SSD(Base):
+    __tablename__ = "ssd"
+
+    id = Column(Integer, primary_key=True, nullable=False)
+    name = Column(String, nullable=False, unique=True)
+
