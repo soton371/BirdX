@@ -124,3 +124,16 @@ class HDDResponse(HDDRequest):
 
 # ===================== End HDD =====================
 
+
+
+# ===================== SSD=====================
+class SSDRequest(BaseModel):
+    name: str
+
+class SSDResponse(HDDRequest):
+    id: int
+
+    class Config:
+        from_attributes = True
+
+# ===================== End SSD =====================
