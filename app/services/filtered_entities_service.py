@@ -522,3 +522,61 @@ def updateHDDService(id: int, req: filtered_entities_schema.HDDRequest, db: Sess
     db.commit()
 # ===================== End HDD =====================
 
+
+
+# ===================== HDD =====================
+ssd_db = filtered_entities_model.SSD
+
+
+def createSSDService(req: filtered_entities_schema.SSDRequest, db: Session):
+    if not req.name.strip():
+        raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+                            detail="SSD cannot be empty.")
+
+    exist_data = db.query(ssd_db).filter(
+        func.lower(func.trim(ssd_db.name)
+                   ) == func.lower(func.trim(req.name))
+    ).first()
+
+    if exist_data:
+        raise HTTPException(status_code=status.HTTP_409_CONFLICT,
+                            detail=f"SSD '{req.name}' already exists.")
+
+    new_data = filtered_entities_model.SSD(**req.model_dump())
+    db.add(new_data)
+    db.commit()
+    db.refresh(new_data)
+
+
+def getSSDService(db: Session):
+    query = db.query(ssd_db)
+    result = [
+        filtered_entities_schema.SSDResponse.model_validate(
+            data).model_dump()
+        for data in query.all()
+    ]
+    return result
+
+
+def deleteSSDService(id: int, db: Session):
+    query = db.query(ssd_db).filter(id == ssd_db.id)
+    if not query.first():
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
+                            detail=f'SSD not found with id {id}')
+    query.delete(synchronize_session=False)
+    db.commit()
+
+
+def updateSSDService(id: int, req: filtered_entities_schema.SSDRequest, db: Session):
+    if not req.name.strip():
+        raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+                            detail="SSD cannot be empty.")
+    query = db.query(ssd_db).filter(
+        id == ssd_db.id).first()
+    if not query:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
+                            detail=f'SSD not found with id {id}')
+    query.name = req.name.strip()
+    db.commit()
+# ===================== End HDD =====================
+
