@@ -52,6 +52,16 @@ def updateBrandService(brand_id: int, brand_req: filtered_entities_schema.Brands
     if not brand_req.name.strip():
         raise HTTPException(
             status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail="Brand name cannot be empty.")
+    
+    exist_brand = db.query(brands_db).filter(
+        func.lower(func.trim(brands_db.name)) == func.lower(
+            func.trim(brand_req.name))
+    ).first()
+
+    if exist_brand:
+        raise HTTPException(status_code=status.HTTP_409_CONFLICT,
+                            detail=f"Brand '{brand_req.name}' already exists.")
+
     query = db.query(brands_db).filter(brand_id == brands_db.id).first()
     if not query:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
@@ -109,6 +119,16 @@ def updateProcessorTypeService(id: int, req: filtered_entities_schema.ProcessorT
     if not req.name.strip():
         raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
                             detail="Processor type name cannot be empty.")
+    
+    exist_data = db.query(processor_type_db).filter(
+        func.lower(func.trim(processor_type_db.name)
+                   ) == func.lower(func.trim(req.name))
+    ).first()
+
+    if exist_data:
+        raise HTTPException(status_code=status.HTTP_409_CONFLICT,
+                            detail=f"Processor type '{req.name}' already exists.")
+
     query = db.query(processor_type_db).filter(
         id == processor_type_db.id).first()
     if not query:
@@ -167,6 +187,16 @@ def updateProcessorModelService(id: int, req: filtered_entities_schema.Processor
     if not req.name.strip():
         raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
                             detail="Processor model name cannot be empty.")
+    
+    exist_data = db.query(processor_models_db).filter(
+        func.lower(func.trim(processor_models_db.name)
+                   ) == func.lower(func.trim(req.name))
+    ).first()
+
+    if exist_data:
+        raise HTTPException(status_code=status.HTTP_409_CONFLICT,
+                            detail=f"Processor model '{req.name}' already exists.")
+
     query = db.query(processor_models_db).filter(
         id == processor_models_db.id).first()
     if not query:
@@ -224,6 +254,16 @@ def updateGenerationSeriesService(id: int, req: filtered_entities_schema.Generat
     if not req.name.strip():
         raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
                             detail="Generation/Series name cannot be empty.")
+    
+    exist_data = db.query(generation_series_db).filter(
+        func.lower(func.trim(generation_series_db.name)
+                   ) == func.lower(func.trim(req.name))
+    ).first()
+
+    if exist_data:
+        raise HTTPException(status_code=status.HTTP_409_CONFLICT,
+                            detail=f"Generation/Series '{req.name}' already exists.")
+
     query = db.query(generation_series_db).filter(
         id == generation_series_db.id).first()
     if not query:
@@ -282,6 +322,16 @@ def updateDisplayTypesService(id: int, req: filtered_entities_schema.DisplayType
     if not req.name.strip():
         raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
                             detail="Display type name cannot be empty.")
+    
+    exist_data = db.query(display_types_db).filter(
+        func.lower(func.trim(display_types_db.name)
+                   ) == func.lower(func.trim(req.name))
+    ).first()
+
+    if exist_data:
+        raise HTTPException(status_code=status.HTTP_409_CONFLICT,
+                            detail=f"Display type '{req.name}' already exists.")
+
     query = db.query(display_types_db).filter(
         id == display_types_db.id).first()
     if not query:
@@ -341,6 +391,16 @@ def updateSpecialFeaturesService(id: int, req: filtered_entities_schema.SpecialF
     if not req.name.strip():
         raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
                             detail="Special feature name cannot be empty.")
+    
+    exist_data = db.query(special_features_db).filter(
+        func.lower(func.trim(special_features_db.name)
+                   ) == func.lower(func.trim(req.name))
+    ).first()
+
+    if exist_data:
+        raise HTTPException(status_code=status.HTTP_409_CONFLICT,
+                            detail=f"Special feature '{req.name}' already exists.")
+
     query = db.query(special_features_db).filter(
         id == special_features_db.id).first()
     if not query:
@@ -398,6 +458,16 @@ def updateRamSizesService(id: int, req: filtered_entities_schema.RamSizesRequest
     if not req.name.strip():
         raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
                             detail="Ram size cannot be empty.")
+    
+    exist_data = db.query(ram_sizes_db).filter(
+        func.lower(func.trim(ram_sizes_db.name)
+                   ) == func.lower(func.trim(req.name))
+    ).first()
+
+    if exist_data:
+        raise HTTPException(status_code=status.HTTP_409_CONFLICT,
+                            detail=f"Ram size '{req.name}' already exists.")
+
     query = db.query(ram_sizes_db).filter(
         id == ram_sizes_db.id).first()
     if not query:
@@ -455,6 +525,16 @@ def updateRamTypesService(id: int, req: filtered_entities_schema.RamTypesRequest
     if not req.name.strip():
         raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
                             detail="Ram type cannot be empty.")
+    
+    exist_data = db.query(ram_types_db).filter(
+        func.lower(func.trim(ram_types_db.name)
+                   ) == func.lower(func.trim(req.name))
+    ).first()
+
+    if exist_data:
+        raise HTTPException(status_code=status.HTTP_409_CONFLICT,
+                            detail=f"Ram type '{req.name}' already exists.")
+
     query = db.query(ram_types_db).filter(
         id == ram_types_db.id).first()
     if not query:
@@ -513,6 +593,16 @@ def updateHDDService(id: int, req: filtered_entities_schema.HDDRequest, db: Sess
     if not req.name.strip():
         raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
                             detail="HDD cannot be empty.")
+    
+    exist_data = db.query(hdd_db).filter(
+        func.lower(func.trim(hdd_db.name)
+                   ) == func.lower(func.trim(req.name))
+    ).first()
+
+    if exist_data:
+        raise HTTPException(status_code=status.HTTP_409_CONFLICT,
+                            detail=f"HDD '{req.name}' already exists.")
+
     query = db.query(hdd_db).filter(
         id == hdd_db.id).first()
     if not query:
@@ -524,7 +614,7 @@ def updateHDDService(id: int, req: filtered_entities_schema.HDDRequest, db: Sess
 
 
 
-# ===================== HDD =====================
+# ===================== SSD =====================
 ssd_db = filtered_entities_model.SSD
 
 
@@ -571,6 +661,16 @@ def updateSSDService(id: int, req: filtered_entities_schema.SSDRequest, db: Sess
     if not req.name.strip():
         raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
                             detail="SSD cannot be empty.")
+    
+    exist_data = db.query(ssd_db).filter(
+        func.lower(func.trim(ssd_db.name)
+                   ) == func.lower(func.trim(req.name))
+    ).first()
+
+    if exist_data:
+        raise HTTPException(status_code=status.HTTP_409_CONFLICT,
+                            detail=f"SSD '{req.name}' already exists.")
+
     query = db.query(ssd_db).filter(
         id == ssd_db.id).first()
     if not query:
@@ -578,5 +678,5 @@ def updateSSDService(id: int, req: filtered_entities_schema.SSDRequest, db: Sess
                             detail=f'SSD not found with id {id}')
     query.name = req.name.strip()
     db.commit()
-# ===================== End HDD =====================
+# ===================== End SSD =====================
 
