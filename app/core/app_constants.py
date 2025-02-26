@@ -16,4 +16,5 @@ special_features = "/special_features"
 ram_sizes = "/ram_sizes"
 ram_types = "/ram_types"
 hdd = "/hdd"
+ssd = "/ssd"
 
