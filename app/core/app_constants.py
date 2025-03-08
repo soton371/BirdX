@@ -18,4 +18,7 @@ ram_types = "/ram_types"
 hdd = "/hdd"
 ssd = "/ssd"
 graphics = "/graphics"
+display_sizes = "/display_sizes"
+
+
 

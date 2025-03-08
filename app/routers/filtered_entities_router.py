@@ -693,3 +693,65 @@ async def updateGraphics(id: int, req: filtered_entities_schema.GraphicsRequest,
         return ResponseFailed()
 # ===================== End SSD =====================
 
+
+
+# ===================== DisplaySizes =====================
+@router.post(app_constants.display_sizes)
+async def createDisplaySizes(req: filtered_entities_schema.DisplaySizesRequest, db: Session = Depends(get_db), current_user: auth_model.Admin = Depends(oauth2.getCurrentUser)):
+    try:
+        filtered_entities_service.createDisplaySizesService(req=req, db=db)
+        return ResponseSuccess(status_code=status.HTTP_200_OK, message="The display sizes has been successfully created.")
+
+    except HTTPException as e:
+        return ResponseFailed(status_code=e.status_code, message=e.detail)
+
+    except Exception as error:
+        debugPrint(f"createDisplaySizes error: {error}")
+        return ResponseFailed()
+    
+
+
+@router.get(app_constants.display_sizes)
+async def getDisplaySizes(db: Session = Depends(get_db)):
+    try:
+        data = filtered_entities_service.getDisplaySizesService(db=db)
+        return ResponseSuccess(status_code=status.HTTP_200_OK, data=data)
+
+    except HTTPException as e:
+        return ResponseFailed(status_code=e.status_code, message=e.detail)
+
+    except Exception as error:
+        debugPrint(f"getDisplaySizes error: {error}")
+        return ResponseFailed()
+    
+
+
+@router.delete(f"{app_constants.display_sizes}"+"/{id}")
+async def deleteGraphics(id: int, db: Session = Depends(get_db), current_user: auth_model.Admin = Depends(oauth2.getCurrentUser)):
+    try:
+        filtered_entities_service.deleteDisplaySizesService(id=id, db=db)
+        return ResponseSuccess(status_code=status.HTTP_200_OK, message=f'The display sizes has been successfully deleted.')
+
+    except HTTPException as e:
+        return ResponseFailed(status_code=e.status_code, message=e.detail)
+
+    except Exception as error:
+        debugPrint(f"deleteDisplaySizes error: {error}")
+        return ResponseFailed()
+    
+
+
+@router.patch(f"{app_constants.display_sizes}"+"/{id}")
+async def updateDisplaySizes(id: int, req: filtered_entities_schema.DisplaySizesRequest, db: Session = Depends(get_db), current_user: auth_model.Admin = Depends(oauth2.getCurrentUser)):
+    try:
+        filtered_entities_service.updateDisplaySizesService(id=id, req=req, db=db)
+        return ResponseSuccess(status_code=status.HTTP_200_OK, message=f'The display sizes has been successfully updated.')
+
+    except HTTPException as e:
+        return ResponseFailed(status_code=e.status_code, message=e.detail)
+
+    except Exception as error:
+        debugPrint(f"updateDisplaySizes error: {error}")
+        return ResponseFailed()
+# ===================== End Display Sizes =====================
+
