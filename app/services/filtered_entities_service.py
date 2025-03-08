@@ -2,7 +2,6 @@ from fastapi import HTTPException, status
 from app.models import filtered_entities_model
 from app.schemas import filtered_entities_schema
 from sqlalchemy.orm import Session
-from sqlalchemy import func
 
 
 # ===================== Brand =====================
@@ -11,8 +10,7 @@ brands_db = filtered_entities_model.Brands
 
 def brandCreateService(brand_req: filtered_entities_schema.BrandsRequest, db: Session):
     exist_brand = db.query(brands_db).filter(
-        func.lower(func.trim(brands_db.name)) == func.lower(
-            func.trim(brand_req.name))
+        brands_db.name == brand_req.name
     ).first()
 
     if exist_brand:
@@ -46,8 +44,7 @@ def deleteBrandService(brand_id: int, db: Session):
 
 def updateBrandService(brand_id: int, brand_req: filtered_entities_schema.BrandsRequest, db: Session):
     exist_brand = db.query(brands_db).filter(
-        func.lower(func.trim(brands_db.name)) == func.lower(
-            func.trim(brand_req.name))
+        brands_db.name == brand_req.name
     ).first()
 
     if exist_brand:
@@ -58,7 +55,7 @@ def updateBrandService(brand_id: int, brand_req: filtered_entities_schema.Brands
     if not query:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
                             detail=f'Brand not found with id {brand_id}')
-    query.name = brand_req.name.strip()
+    query.name = brand_req.name
     db.commit()
 
 # ===================== End Brand =====================
@@ -71,8 +68,7 @@ processor_type_db = filtered_entities_model.ProcessorTypes
 def createProcessorTypeService(req: filtered_entities_schema.ProcessorTypesRequest, db: Session):
     
     exist_data = db.query(processor_type_db).filter(
-        func.lower(func.trim(processor_type_db.name)
-                   ) == func.lower(func.trim(req.name))
+        processor_type_db.name == req.name
     ).first()
 
     if exist_data:
@@ -107,8 +103,7 @@ def deleteProcessorTypeService(id: int, db: Session):
 def updateProcessorTypeService(id: int, req: filtered_entities_schema.ProcessorTypesRequest, db: Session):
     
     exist_data = db.query(processor_type_db).filter(
-        func.lower(func.trim(processor_type_db.name)
-                   ) == func.lower(func.trim(req.name))
+        processor_type_db.name == req.name
     ).first()
 
     if exist_data:
@@ -120,7 +115,7 @@ def updateProcessorTypeService(id: int, req: filtered_entities_schema.ProcessorT
     if not query:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
                             detail=f'Processor type not found with id {id}')
-    query.name = req.name.strip()
+    query.name = req.name
     db.commit()
 
 # ===================== End Processor Type =====================
@@ -133,8 +128,7 @@ processor_models_db = filtered_entities_model.ProcessorModels
 def createProcessorModelService(req: filtered_entities_schema.ProcessorModelsRequest, db: Session):
     
     exist_data = db.query(processor_models_db).filter(
-        func.lower(func.trim(processor_models_db.name)
-                   ) == func.lower(func.trim(req.name))
+        processor_models_db.name == req.name
     ).first()
 
     if exist_data:
@@ -169,8 +163,7 @@ def deleteProcessorModelService(id: int, db: Session):
 def updateProcessorModelService(id: int, req: filtered_entities_schema.ProcessorModelsRequest, db: Session):
     
     exist_data = db.query(processor_models_db).filter(
-        func.lower(func.trim(processor_models_db.name)
-                   ) == func.lower(func.trim(req.name))
+        processor_models_db.name == req.name
     ).first()
 
     if exist_data:
@@ -182,7 +175,7 @@ def updateProcessorModelService(id: int, req: filtered_entities_schema.Processor
     if not query:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
                             detail=f'Processor model not found with id {id}')
-    query.name = req.name.strip()
+    query.name = req.name
     db.commit()
 # ===================== End Processor Models =====================
 
@@ -194,8 +187,7 @@ generation_series_db = filtered_entities_model.GenerationSeries
 def createGenerationSeriesService(req: filtered_entities_schema.GenerationSeriesRequest, db: Session):
     
     exist_data = db.query(generation_series_db).filter(
-        func.lower(func.trim(generation_series_db.name)
-                   ) == func.lower(func.trim(req.name))
+        generation_series_db.name == req.name
     ).first()
 
     if exist_data:
@@ -230,8 +222,7 @@ def deleteGenerationSeriesService(id: int, db: Session):
 def updateGenerationSeriesService(id: int, req: filtered_entities_schema.GenerationSeriesRequest, db: Session):
     
     exist_data = db.query(generation_series_db).filter(
-        func.lower(func.trim(generation_series_db.name)
-                   ) == func.lower(func.trim(req.name))
+        generation_series_db.name == req.name
     ).first()
 
     if exist_data:
@@ -243,7 +234,7 @@ def updateGenerationSeriesService(id: int, req: filtered_entities_schema.Generat
     if not query:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
                             detail=f'Generation/Series not found with id {id}')
-    query.name = req.name.strip()
+    query.name = req.name
     db.commit()
 # ===================== End Generation Series =====================
 
@@ -256,8 +247,7 @@ display_types_db = filtered_entities_model.DisplayTypes
 def createDisplayTypesService(req: filtered_entities_schema.DisplayTypesRequest, db: Session):
     
     exist_data = db.query(display_types_db).filter(
-        func.lower(func.trim(display_types_db.name)
-                   ) == func.lower(func.trim(req.name))
+        display_types_db.name == req.name
     ).first()
 
     if exist_data:
@@ -292,8 +282,7 @@ def deleteDisplayTypesService(id: int, db: Session):
 def updateDisplayTypesService(id: int, req: filtered_entities_schema.DisplayTypesRequest, db: Session):
     
     exist_data = db.query(display_types_db).filter(
-        func.lower(func.trim(display_types_db.name)
-                   ) == func.lower(func.trim(req.name))
+        display_types_db.name == req.name
     ).first()
 
     if exist_data:
@@ -305,7 +294,7 @@ def updateDisplayTypesService(id: int, req: filtered_entities_schema.DisplayType
     if not query:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
                             detail=f'Display type not found with id {id}')
-    query.name = req.name.strip()
+    query.name = req.name
     db.commit()
 # ===================== End Display Types =====================
 
@@ -319,8 +308,7 @@ special_features_db = filtered_entities_model.SpecialFeatures
 def createSpecialFeaturesService(req: filtered_entities_schema.SpecialFeaturesRequest, db: Session):
     
     exist_data = db.query(special_features_db).filter(
-        func.lower(func.trim(special_features_db.name)
-                   ) == func.lower(func.trim(req.name))
+        special_features_db.name == req.name
     ).first()
 
     if exist_data:
@@ -355,8 +343,7 @@ def deleteSpecialFeaturesService(id: int, db: Session):
 def updateSpecialFeaturesService(id: int, req: filtered_entities_schema.SpecialFeaturesRequest, db: Session):
     
     exist_data = db.query(special_features_db).filter(
-        func.lower(func.trim(special_features_db.name)
-                   ) == func.lower(func.trim(req.name))
+        special_features_db.name == req.name
     ).first()
 
     if exist_data:
@@ -368,7 +355,7 @@ def updateSpecialFeaturesService(id: int, req: filtered_entities_schema.SpecialF
     if not query:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
                             detail=f'Special feature not found with id {id}')
-    query.name = req.name.strip()
+    query.name = req.name
     db.commit()
 # ===================== End Special Features =====================
 
@@ -380,8 +367,7 @@ ram_sizes_db = filtered_entities_model.RamSizes
 def createRamSizesService(req: filtered_entities_schema.RamSizesRequest, db: Session):
     
     exist_data = db.query(ram_sizes_db).filter(
-        func.lower(func.trim(ram_sizes_db.name)
-                   ) == func.lower(func.trim(req.name))
+        ram_sizes_db.name == req.name
     ).first()
 
     if exist_data:
@@ -416,8 +402,7 @@ def deleteRamSizesService(id: int, db: Session):
 def updateRamSizesService(id: int, req: filtered_entities_schema.RamSizesRequest, db: Session):
     
     exist_data = db.query(ram_sizes_db).filter(
-        func.lower(func.trim(ram_sizes_db.name)
-                   ) == func.lower(func.trim(req.name))
+        ram_sizes_db.name == req.name
     ).first()
 
     if exist_data:
@@ -429,7 +414,7 @@ def updateRamSizesService(id: int, req: filtered_entities_schema.RamSizesRequest
     if not query:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
                             detail=f'Ram size not found with id {id}')
-    query.name = req.name.strip()
+    query.name = req.name
     db.commit()
 # ===================== End Ram Sizes =====================
 
@@ -441,8 +426,7 @@ ram_types_db = filtered_entities_model.RamTypes
 def createRamTypesService(req: filtered_entities_schema.RamTypesRequest, db: Session):
     
     exist_data = db.query(ram_types_db).filter(
-        func.lower(func.trim(ram_types_db.name)
-                   ) == func.lower(func.trim(req.name))
+        ram_types_db.name == req.name
     ).first()
 
     if exist_data:
@@ -477,8 +461,7 @@ def deleteRamTypesService(id: int, db: Session):
 def updateRamTypesService(id: int, req: filtered_entities_schema.RamTypesRequest, db: Session):
     
     exist_data = db.query(ram_types_db).filter(
-        func.lower(func.trim(ram_types_db.name)
-                   ) == func.lower(func.trim(req.name))
+        ram_types_db.name == req.name
     ).first()
 
     if exist_data:
@@ -490,7 +473,7 @@ def updateRamTypesService(id: int, req: filtered_entities_schema.RamTypesRequest
     if not query:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
                             detail=f'Ram type not found with id {id}')
-    query.name = req.name.strip()
+    query.name = req.name
     db.commit()
 # ===================== End Ram Types =====================
 
@@ -503,8 +486,7 @@ hdd_db = filtered_entities_model.HDD
 def createHDDService(req: filtered_entities_schema.HDDRequest, db: Session):
     
     exist_data = db.query(hdd_db).filter(
-        func.lower(func.trim(hdd_db.name)
-                   ) == func.lower(func.trim(req.name))
+        hdd_db.name == req.name
     ).first()
 
     if exist_data:
@@ -539,8 +521,7 @@ def deleteHDDService(id: int, db: Session):
 def updateHDDService(id: int, req: filtered_entities_schema.HDDRequest, db: Session):
     
     exist_data = db.query(hdd_db).filter(
-        func.lower(func.trim(hdd_db.name)
-                   ) == func.lower(func.trim(req.name))
+        hdd_db.name == req.name
     ).first()
 
     if exist_data:
@@ -552,7 +533,7 @@ def updateHDDService(id: int, req: filtered_entities_schema.HDDRequest, db: Sess
     if not query:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
                             detail=f'HDD not found with id {id}')
-    query.name = req.name.strip()
+    query.name = req.name
     db.commit()
 # ===================== End HDD =====================
 
@@ -565,8 +546,7 @@ ssd_db = filtered_entities_model.SSD
 def createSSDService(req: filtered_entities_schema.SSDRequest, db: Session):
     
     exist_data = db.query(ssd_db).filter(
-        func.lower(func.trim(ssd_db.name)
-                   ) == func.lower(func.trim(req.name))
+        ssd_db.name == req.name
     ).first()
 
     if exist_data:
@@ -601,8 +581,7 @@ def deleteSSDService(id: int, db: Session):
 def updateSSDService(id: int, req: filtered_entities_schema.SSDRequest, db: Session):
     
     exist_data = db.query(ssd_db).filter(
-        func.lower(func.trim(ssd_db.name)
-                   ) == func.lower(func.trim(req.name))
+        ssd_db.name == req.name
     ).first()
 
     if exist_data:
@@ -614,7 +593,7 @@ def updateSSDService(id: int, req: filtered_entities_schema.SSDRequest, db: Sess
     if not query:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
                             detail=f'SSD not found with id {id}')
-    query.name = req.name.strip()
+    query.name = req.name
     db.commit()
 # ===================== End SSD =====================
 
@@ -628,8 +607,7 @@ graphics_db = filtered_entities_model.Graphics
 def createGraphicsService(req: filtered_entities_schema.GraphicsRequest, db: Session):
     
     exist_data = db.query(graphics_db).filter(
-        func.lower(func.trim(graphics_db.name)
-                   ) == func.lower(func.trim(req.name))
+        graphics_db.name == req.name
     ).first()
 
     if exist_data:
@@ -664,8 +642,7 @@ def deleteGraphicsService(id: int, db: Session):
 def updateGraphicsService(id: int, req: filtered_entities_schema.GraphicsRequest, db: Session):
     
     exist_data = db.query(graphics_db).filter(
-        func.lower(func.trim(graphics_db.name)
-                   ) == func.lower(func.trim(req.name))
+        graphics_db.name == req.name
     ).first()
 
     if exist_data:
@@ -677,7 +654,7 @@ def updateGraphicsService(id: int, req: filtered_entities_schema.GraphicsRequest
     if not query:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
                             detail=f'Graphics not found with id {id}')
-    query.name = req.name.strip()
+    query.name = req.name
     db.commit()
 # ===================== End Graphics =====================
 
