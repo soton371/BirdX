@@ -10,10 +10,6 @@ brands_db = filtered_entities_model.Brands
 
 
 def brandCreateService(brand_req: filtered_entities_schema.BrandsRequest, db: Session):
-    if not brand_req.name.strip():
-        raise HTTPException(
-            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail="Brand name cannot be empty.")
-
     exist_brand = db.query(brands_db).filter(
         func.lower(func.trim(brands_db.name)) == func.lower(
             func.trim(brand_req.name))
@@ -49,10 +45,6 @@ def deleteBrandService(brand_id: int, db: Session):
 
 
 def updateBrandService(brand_id: int, brand_req: filtered_entities_schema.BrandsRequest, db: Session):
-    if not brand_req.name.strip():
-        raise HTTPException(
-            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail="Brand name cannot be empty.")
-    
     exist_brand = db.query(brands_db).filter(
         func.lower(func.trim(brands_db.name)) == func.lower(
             func.trim(brand_req.name))
@@ -77,10 +69,7 @@ processor_type_db = filtered_entities_model.ProcessorTypes
 
 
 def createProcessorTypeService(req: filtered_entities_schema.ProcessorTypesRequest, db: Session):
-    if not req.name.strip():
-        raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
-                            detail="Processor type name cannot be empty.")
-
+    
     exist_data = db.query(processor_type_db).filter(
         func.lower(func.trim(processor_type_db.name)
                    ) == func.lower(func.trim(req.name))
@@ -116,9 +105,6 @@ def deleteProcessorTypeService(id: int, db: Session):
 
 
 def updateProcessorTypeService(id: int, req: filtered_entities_schema.ProcessorTypesRequest, db: Session):
-    if not req.name.strip():
-        raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
-                            detail="Processor type name cannot be empty.")
     
     exist_data = db.query(processor_type_db).filter(
         func.lower(func.trim(processor_type_db.name)
@@ -145,10 +131,7 @@ processor_models_db = filtered_entities_model.ProcessorModels
 
 
 def createProcessorModelService(req: filtered_entities_schema.ProcessorModelsRequest, db: Session):
-    if not req.name.strip():
-        raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
-                            detail="Processor model name cannot be empty.")
-
+    
     exist_data = db.query(processor_models_db).filter(
         func.lower(func.trim(processor_models_db.name)
                    ) == func.lower(func.trim(req.name))
@@ -184,9 +167,6 @@ def deleteProcessorModelService(id: int, db: Session):
 
 
 def updateProcessorModelService(id: int, req: filtered_entities_schema.ProcessorModelsRequest, db: Session):
-    if not req.name.strip():
-        raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
-                            detail="Processor model name cannot be empty.")
     
     exist_data = db.query(processor_models_db).filter(
         func.lower(func.trim(processor_models_db.name)
@@ -212,10 +192,7 @@ generation_series_db = filtered_entities_model.GenerationSeries
 
 
 def createGenerationSeriesService(req: filtered_entities_schema.GenerationSeriesRequest, db: Session):
-    if not req.name.strip():
-        raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
-                            detail="Generation/Series name cannot be empty.")
-
+    
     exist_data = db.query(generation_series_db).filter(
         func.lower(func.trim(generation_series_db.name)
                    ) == func.lower(func.trim(req.name))
@@ -251,9 +228,6 @@ def deleteGenerationSeriesService(id: int, db: Session):
 
 
 def updateGenerationSeriesService(id: int, req: filtered_entities_schema.GenerationSeriesRequest, db: Session):
-    if not req.name.strip():
-        raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
-                            detail="Generation/Series name cannot be empty.")
     
     exist_data = db.query(generation_series_db).filter(
         func.lower(func.trim(generation_series_db.name)
@@ -280,10 +254,7 @@ display_types_db = filtered_entities_model.DisplayTypes
 
 
 def createDisplayTypesService(req: filtered_entities_schema.DisplayTypesRequest, db: Session):
-    if not req.name.strip():
-        raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
-                            detail="Display type cannot be empty.")
-
+    
     exist_data = db.query(display_types_db).filter(
         func.lower(func.trim(display_types_db.name)
                    ) == func.lower(func.trim(req.name))
@@ -319,9 +290,6 @@ def deleteDisplayTypesService(id: int, db: Session):
 
 
 def updateDisplayTypesService(id: int, req: filtered_entities_schema.DisplayTypesRequest, db: Session):
-    if not req.name.strip():
-        raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
-                            detail="Display type name cannot be empty.")
     
     exist_data = db.query(display_types_db).filter(
         func.lower(func.trim(display_types_db.name)
@@ -349,10 +317,7 @@ special_features_db = filtered_entities_model.SpecialFeatures
 
 
 def createSpecialFeaturesService(req: filtered_entities_schema.SpecialFeaturesRequest, db: Session):
-    if not req.name.strip():
-        raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
-                            detail="Special feature cannot be empty.")
-
+    
     exist_data = db.query(special_features_db).filter(
         func.lower(func.trim(special_features_db.name)
                    ) == func.lower(func.trim(req.name))
@@ -388,9 +353,6 @@ def deleteSpecialFeaturesService(id: int, db: Session):
 
 
 def updateSpecialFeaturesService(id: int, req: filtered_entities_schema.SpecialFeaturesRequest, db: Session):
-    if not req.name.strip():
-        raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
-                            detail="Special feature name cannot be empty.")
     
     exist_data = db.query(special_features_db).filter(
         func.lower(func.trim(special_features_db.name)
@@ -416,10 +378,7 @@ ram_sizes_db = filtered_entities_model.RamSizes
 
 
 def createRamSizesService(req: filtered_entities_schema.RamSizesRequest, db: Session):
-    if not req.name.strip():
-        raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
-                            detail="Ram size cannot be empty.")
-
+    
     exist_data = db.query(ram_sizes_db).filter(
         func.lower(func.trim(ram_sizes_db.name)
                    ) == func.lower(func.trim(req.name))
@@ -455,9 +414,6 @@ def deleteRamSizesService(id: int, db: Session):
 
 
 def updateRamSizesService(id: int, req: filtered_entities_schema.RamSizesRequest, db: Session):
-    if not req.name.strip():
-        raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
-                            detail="Ram size cannot be empty.")
     
     exist_data = db.query(ram_sizes_db).filter(
         func.lower(func.trim(ram_sizes_db.name)
@@ -483,10 +439,7 @@ ram_types_db = filtered_entities_model.RamTypes
 
 
 def createRamTypesService(req: filtered_entities_schema.RamTypesRequest, db: Session):
-    if not req.name.strip():
-        raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
-                            detail="Ram type cannot be empty.")
-
+    
     exist_data = db.query(ram_types_db).filter(
         func.lower(func.trim(ram_types_db.name)
                    ) == func.lower(func.trim(req.name))
@@ -522,9 +475,6 @@ def deleteRamTypesService(id: int, db: Session):
 
 
 def updateRamTypesService(id: int, req: filtered_entities_schema.RamTypesRequest, db: Session):
-    if not req.name.strip():
-        raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
-                            detail="Ram type cannot be empty.")
     
     exist_data = db.query(ram_types_db).filter(
         func.lower(func.trim(ram_types_db.name)
@@ -551,10 +501,7 @@ hdd_db = filtered_entities_model.HDD
 
 
 def createHDDService(req: filtered_entities_schema.HDDRequest, db: Session):
-    if not req.name.strip():
-        raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
-                            detail="HDD cannot be empty.")
-
+    
     exist_data = db.query(hdd_db).filter(
         func.lower(func.trim(hdd_db.name)
                    ) == func.lower(func.trim(req.name))
@@ -590,9 +537,6 @@ def deleteHDDService(id: int, db: Session):
 
 
 def updateHDDService(id: int, req: filtered_entities_schema.HDDRequest, db: Session):
-    if not req.name.strip():
-        raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
-                            detail="HDD cannot be empty.")
     
     exist_data = db.query(hdd_db).filter(
         func.lower(func.trim(hdd_db.name)
@@ -619,10 +563,7 @@ ssd_db = filtered_entities_model.SSD
 
 
 def createSSDService(req: filtered_entities_schema.SSDRequest, db: Session):
-    if not req.name.strip():
-        raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
-                            detail="SSD cannot be empty.")
-
+    
     exist_data = db.query(ssd_db).filter(
         func.lower(func.trim(ssd_db.name)
                    ) == func.lower(func.trim(req.name))
@@ -658,9 +599,6 @@ def deleteSSDService(id: int, db: Session):
 
 
 def updateSSDService(id: int, req: filtered_entities_schema.SSDRequest, db: Session):
-    if not req.name.strip():
-        raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
-                            detail="SSD cannot be empty.")
     
     exist_data = db.query(ssd_db).filter(
         func.lower(func.trim(ssd_db.name)
@@ -688,10 +626,7 @@ graphics_db = filtered_entities_model.Graphics
 
 
 def createGraphicsService(req: filtered_entities_schema.GraphicsRequest, db: Session):
-    if not req.name.strip():
-        raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
-                            detail="Graphics cannot be empty.")
-
+    
     exist_data = db.query(graphics_db).filter(
         func.lower(func.trim(graphics_db.name)
                    ) == func.lower(func.trim(req.name))
@@ -727,9 +662,6 @@ def deleteGraphicsService(id: int, db: Session):
 
 
 def updateGraphicsService(id: int, req: filtered_entities_schema.GraphicsRequest, db: Session):
-    if not req.name.strip():
-        raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
-                            detail="Graphics cannot be empty.")
     
     exist_data = db.query(graphics_db).filter(
         func.lower(func.trim(graphics_db.name)
