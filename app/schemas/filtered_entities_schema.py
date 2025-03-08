@@ -1,4 +1,6 @@
 from pydantic import BaseModel
+from typing import Union
+
 
 # ===================== Brand =====================
 class BrandsRequest(BaseModel):
@@ -150,3 +152,18 @@ class GraphicsResponse(GraphicsRequest):
         from_attributes = True
 
 # ===================== End Graphics =====================
+
+
+
+# ===================== Display Sizes =====================
+class DisplaySizesRequest(BaseModel):
+    min_size: Union[int, float]
+    max_size: Union[int, float]
+
+class DisplaySizesResponse(DisplaySizesRequest):
+    id: int
+
+    class Config:
+        from_attributes = True
+
+# ===================== End Display Sizes =====================

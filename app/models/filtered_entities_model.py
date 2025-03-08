@@ -1,5 +1,5 @@
 from app.core.database import Base
-from sqlalchemy import Column, String, Integer, Double
+from sqlalchemy import Column, String, Integer, Float
 from sqlalchemy.sql.sqltypes import TIMESTAMP
 from sqlalchemy.sql.expression import text
 from sqlalchemy.sql import func
@@ -88,7 +88,7 @@ class DisplaySizes(Base):
     __tablename__ = "display_sizes"
 
     id = Column(Integer, primary_key=True, nullable=False)
-    min_size = Column(Double, nullable=False, unique=True)
-    max_size = Column(Double, nullable=False, unique=True)
+    min_size = Column(Float, nullable=False, unique=True)
+    max_size = Column(Float, nullable=False, unique=True)
 
 
