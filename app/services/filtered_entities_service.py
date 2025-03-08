@@ -668,14 +668,14 @@ display_sizes_db = filtered_entities_model.DisplaySizes
 def createDisplaySizesService(req: filtered_entities_schema.DisplaySizesRequest, db: Session):
     
     exist_data = db.query(display_sizes_db).filter(
-        display_sizes_db.min_size == req.min_size and display_sizes_db.max_size == req.max_size
+        display_sizes_db.min_size == req.min_size, display_sizes_db.max_size == req.max_size
     ).count()
 
     if exist_data>0:
         raise HTTPException(status_code=status.HTTP_409_CONFLICT,
                             detail=f"Display sizes already exists.")
 
-    new_data = filtered_entities_model.Graphics(**req.model_dump())
+    new_data = filtered_entities_model.DisplaySizes(**req.model_dump())
     db.add(new_data)
     db.commit()
     db.refresh(new_data)
