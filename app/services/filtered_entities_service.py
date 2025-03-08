@@ -680,3 +680,72 @@ def updateSSDService(id: int, req: filtered_entities_schema.SSDRequest, db: Sess
     db.commit()
 # ===================== End SSD =====================
 
+
+
+
+# ===================== Graphics =====================
+graphics_db = filtered_entities_model.Graphics
+
+
+def createGraphicsService(req: filtered_entities_schema.GraphicsRequest, db: Session):
+    if not req.name.strip():
+        raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+                            detail="Graphics cannot be empty.")
+
+    exist_data = db.query(graphics_db).filter(
+        func.lower(func.trim(graphics_db.name)
+                   ) == func.lower(func.trim(req.name))
+    ).first()
+
+    if exist_data:
+        raise HTTPException(status_code=status.HTTP_409_CONFLICT,
+                            detail=f"Graphics '{req.name}' already exists.")
+
+    new_data = filtered_entities_model.Graphics(**req.model_dump())
+    db.add(new_data)
+    db.commit()
+    db.refresh(new_data)
+
+
+def getGraphicsService(db: Session):
+    query = db.query(graphics_db)
+    result = [
+        filtered_entities_schema.GraphicsResponse.model_validate(
+            data).model_dump()
+        for data in query.all()
+    ]
+    return result
+
+
+def deleteGraphicsService(id: int, db: Session):
+    query = db.query(graphics_db).filter(id == graphics_db.id)
+    if not query.first():
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
+                            detail=f'Graphics not found with id {id}')
+    query.delete(synchronize_session=False)
+    db.commit()
+
+
+def updateGraphicsService(id: int, req: filtered_entities_schema.GraphicsRequest, db: Session):
+    if not req.name.strip():
+        raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+                            detail="Graphics cannot be empty.")
+    
+    exist_data = db.query(graphics_db).filter(
+        func.lower(func.trim(graphics_db.name)
+                   ) == func.lower(func.trim(req.name))
+    ).first()
+
+    if exist_data:
+        raise HTTPException(status_code=status.HTTP_409_CONFLICT,
+                            detail=f"Graphics '{req.name}' already exists.")
+
+    query = db.query(graphics_db).filter(
+        id == graphics_db.id).first()
+    if not query:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
+                            detail=f'Graphics not found with id {id}')
+    query.name = req.name.strip()
+    db.commit()
+# ===================== End Graphics =====================
+
