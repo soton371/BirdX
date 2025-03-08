@@ -137,3 +137,18 @@ class SSDResponse(HDDRequest):
         from_attributes = True
 
 # ===================== End SSD =====================
+
+
+
+
+# ===================== Graphics =====================
+class GraphicsRequest(BaseModel):
+    name: str
+
+class GraphicsResponse(GraphicsRequest):
+    id: int
+
+    class Config:
+        from_attributes = True
+
+# ===================== End Graphics =====================
