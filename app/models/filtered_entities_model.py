@@ -1,8 +1,5 @@
 from app.core.database import Base
 from sqlalchemy import Column, String, Integer, Float
-from sqlalchemy.sql.sqltypes import TIMESTAMP
-from sqlalchemy.sql.expression import text
-from sqlalchemy.sql import func
 
 
 class Brands(Base):

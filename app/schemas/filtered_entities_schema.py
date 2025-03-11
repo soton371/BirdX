@@ -157,8 +157,8 @@ class GraphicsResponse(GraphicsRequest):
 
 # ===================== Display Sizes =====================
 class DisplaySizesRequest(BaseModel):
-    min_size: Union[int, float]
-    max_size: Union[int, float]
+    min_size: float
+    max_size: float
 
 class DisplaySizesResponse(DisplaySizesRequest):
     id: int
