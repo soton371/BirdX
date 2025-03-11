@@ -1,6 +1,6 @@
 from fastapi import HTTPException, status
-from models.social_link_model import SocialLink
-from schemas.social_link_schema import SocialLinkRequest, SocialLinkResponse
+from app.models.social_link_model import SocialLink
+from app.schemas.social_link_schema import SocialLinkRequest, SocialLinkResponse
 from sqlalchemy.orm import Session
 
 

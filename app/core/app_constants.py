@@ -20,5 +20,7 @@ ssd = "/ssd"
 graphics = "/graphics"
 display_sizes = "/display-sizes"
 
+# for social links
+social_link = "/social-links"
 
 
