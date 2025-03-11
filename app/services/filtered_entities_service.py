@@ -675,7 +675,7 @@ def createDisplaySizesService(req: filtered_entities_schema.DisplaySizesRequest,
         raise HTTPException(status_code=status.HTTP_409_CONFLICT,
                             detail=f"Display sizes already exists.")
 
-    new_data = filtered_entities_model.DisplaySizes(**req.model_dump())
+    new_data = display_sizes_db(**req.model_dump())
     db.add(new_data)
     db.commit()
     db.refresh(new_data)
