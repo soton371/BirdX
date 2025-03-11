@@ -37,7 +37,7 @@ async def http_exception_handler(request: Request, exc: StarletteHTTPException):
 
 @app.exception_handler(IntegrityError)
 async def integrity_error_handler(request: Request, exc: IntegrityError):
-    error_message = str(exc.orig)  # Extract the original error message
+    error_message = str(exc.orig)
     if "duplicate key value violates unique constraint" in error_message:
         platform = error_message.split("=")[1].strip()
         return ResponseFailed(

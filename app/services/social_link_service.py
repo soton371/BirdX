@@ -10,15 +10,6 @@ social_link_db = SocialLink
 
 
 def createSocialLinkService(req: SocialLinkRequest, db: Session):
-    
-    # exist_data = db.query(display_sizes_db).filter(
-    #     display_sizes_db.min_size == req.min_size, display_sizes_db.max_size == req.max_size
-    # ).count()
-
-    # if exist_data>0:
-    #     raise HTTPException(status_code=status.HTTP_409_CONFLICT,
-    #                         detail=f"Display sizes already exists.")
-
     new_data = social_link_db(**req.model_dump())
     db.add(new_data)
     db.commit()
@@ -45,17 +36,6 @@ def deleteSocialLinkService(id: int, db: Session):
 
 
 def updateSocialLinkService(id: int, req: SocialLinkRequest, db: Session):
-    # exist_data = db.query(display_sizes_db).filter(
-    #     display_sizes_db.min_size == req.min_size,
-    #     display_sizes_db.max_size == req.max_size
-    # ).count()
-
-    # if exist_data > 0:
-    #     raise HTTPException(
-    #         status_code=status.HTTP_409_CONFLICT,
-    #         detail="Display sizes already exist."
-    #     )
-
     query = db.query(social_link_db).filter(social_link_db.id == id).first()
     
     if not query:
