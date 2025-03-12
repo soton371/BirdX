@@ -1,10 +1,9 @@
-from pydantic import BaseModel
-from typing import Union
+from pydantic import BaseModel, Field
 
 
 # ===================== Brand =====================
 class BrandsRequest(BaseModel):
-    name: str
+    name: str = Field(min_length=3)
 
 class BrandsResponse(BrandsRequest):
     id: int
@@ -17,7 +16,7 @@ class BrandsResponse(BrandsRequest):
 
 # ===================== Processor Types =====================
 class ProcessorTypesRequest(BaseModel):
-    name: str
+    name: str = Field(min_length=3)
 
 class ProcessorTypesResponse(ProcessorTypesRequest):
     id: int
@@ -31,7 +30,7 @@ class ProcessorTypesResponse(ProcessorTypesRequest):
 
 # ===================== Processor Models =====================
 class ProcessorModelsRequest(BaseModel):
-    name: str
+    name: str = Field(min_length=3)
 
 class ProcessorModelsResponse(ProcessorModelsRequest):
     id: int
@@ -45,7 +44,7 @@ class ProcessorModelsResponse(ProcessorModelsRequest):
 
 # ===================== Generation Series =====================
 class GenerationSeriesRequest(BaseModel):
-    name: str
+    name: str = Field(min_length=3)
 
 class GenerationSeriesResponse(GenerationSeriesRequest):
     id: int
@@ -59,7 +58,7 @@ class GenerationSeriesResponse(GenerationSeriesRequest):
 
 # ===================== Display Types =====================
 class DisplayTypesRequest(BaseModel):
-    name: str
+    name: str = Field(min_length=3)
 
 class DisplayTypesResponse(DisplayTypesRequest):
     id: int
@@ -72,7 +71,7 @@ class DisplayTypesResponse(DisplayTypesRequest):
 
 # ===================== Special Features =====================
 class SpecialFeaturesRequest(BaseModel):
-    name: str
+    name: str = Field(min_length=3)
 
 class SpecialFeaturesResponse(SpecialFeaturesRequest):
     id: int
@@ -87,7 +86,7 @@ class SpecialFeaturesResponse(SpecialFeaturesRequest):
 
 # ===================== Ram Sizes =====================
 class RamSizesRequest(BaseModel):
-    name: str
+    name: str = Field(min_length=3)
 
 class RamSizesResponse(RamSizesRequest):
     id: int
@@ -100,7 +99,7 @@ class RamSizesResponse(RamSizesRequest):
 
 # ===================== Ram Types =====================
 class RamTypesRequest(BaseModel):
-    name: str
+    name: str = Field(min_length=3)
 
 class RamTypesResponse(RamTypesRequest):
     id: int
@@ -114,7 +113,7 @@ class RamTypesResponse(RamTypesRequest):
 
 # ===================== HDD=====================
 class HDDRequest(BaseModel):
-    name: str
+    name: str = Field(min_length=3)
 
 class HDDResponse(HDDRequest):
     id: int
@@ -128,7 +127,7 @@ class HDDResponse(HDDRequest):
 
 # ===================== SSD=====================
 class SSDRequest(BaseModel):
-    name: str
+    name: str = Field(min_length=3)
 
 class SSDResponse(HDDRequest):
     id: int
@@ -143,7 +142,7 @@ class SSDResponse(HDDRequest):
 
 # ===================== Graphics =====================
 class GraphicsRequest(BaseModel):
-    name: str
+    name: str = Field(min_length=3)
 
 class GraphicsResponse(GraphicsRequest):
     id: int
@@ -157,8 +156,8 @@ class GraphicsResponse(GraphicsRequest):
 
 # ===================== Display Sizes =====================
 class DisplaySizesRequest(BaseModel):
-    min_size: float
-    max_size: float
+    min_size: float = Field(min_length=2)
+    max_size: float = Field(min_length=2)
 
 class DisplaySizesResponse(DisplaySizesRequest):
     id: int
