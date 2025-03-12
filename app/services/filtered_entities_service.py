@@ -9,14 +9,6 @@ brands_db = filtered_entities_model.Brands
 
 
 def brandCreateService(brand_req: filtered_entities_schema.BrandsRequest, db: Session):
-    exist_brand = db.query(brands_db).filter(
-        brands_db.name == brand_req.name
-    ).count()
-
-    if exist_brand > 0:
-        raise HTTPException(status_code=status.HTTP_409_CONFLICT,
-                            detail=f"Brand '{brand_req.name}' already exists.")
-
     new_brand = filtered_entities_model.Brands(**brand_req.model_dump())
     db.add(new_brand)
     db.commit()
@@ -43,21 +35,12 @@ def deleteBrandService(brand_id: int, db: Session):
 
 
 def updateBrandService(brand_id: int, brand_req: filtered_entities_schema.BrandsRequest, db: Session):
-    exist_brand = db.query(brands_db).filter(
-        brands_db.name == brand_req.name
-    ).count()
-
-    if exist_brand > 0:
-        raise HTTPException(status_code=status.HTTP_409_CONFLICT,
-                            detail=f"Brand '{brand_req.name}' already exists.")
-
     query = db.query(brands_db).filter(brand_id == brands_db.id).first()
     if not query:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
                             detail=f'Brand not found with id {brand_id}')
     query.name = brand_req.name
     db.commit()
-
 # ===================== End Brand =====================
 
 
@@ -66,15 +49,6 @@ processor_type_db = filtered_entities_model.ProcessorTypes
 
 
 def createProcessorTypeService(req: filtered_entities_schema.ProcessorTypesRequest, db: Session):
-    
-    exist_data = db.query(processor_type_db).filter(
-        processor_type_db.name == req.name
-    ).count()
-
-    if exist_data>0:
-        raise HTTPException(status_code=status.HTTP_409_CONFLICT,
-                            detail=f"Processor type '{req.name}' already exists.")
-
     new_data = filtered_entities_model.ProcessorTypes(**req.model_dump())
     db.add(new_data)
     db.commit()
@@ -101,15 +75,6 @@ def deleteProcessorTypeService(id: int, db: Session):
 
 
 def updateProcessorTypeService(id: int, req: filtered_entities_schema.ProcessorTypesRequest, db: Session):
-    
-    exist_data = db.query(processor_type_db).filter(
-        processor_type_db.name == req.name
-    ).count()
-
-    if exist_data>0:
-        raise HTTPException(status_code=status.HTTP_409_CONFLICT,
-                            detail=f"Processor type '{req.name}' already exists.")
-
     query = db.query(processor_type_db).filter(
         id == processor_type_db.id).first()
     if not query:
@@ -126,15 +91,6 @@ processor_models_db = filtered_entities_model.ProcessorModels
 
 
 def createProcessorModelService(req: filtered_entities_schema.ProcessorModelsRequest, db: Session):
-    
-    exist_data = db.query(processor_models_db).filter(
-        processor_models_db.name == req.name
-    ).count()
-
-    if exist_data>0:
-        raise HTTPException(status_code=status.HTTP_409_CONFLICT,
-                            detail=f"Processor model '{req.name}' already exists.")
-
     new_data = filtered_entities_model.ProcessorModels(**req.model_dump())
     db.add(new_data)
     db.commit()
@@ -161,15 +117,6 @@ def deleteProcessorModelService(id: int, db: Session):
 
 
 def updateProcessorModelService(id: int, req: filtered_entities_schema.ProcessorModelsRequest, db: Session):
-    
-    exist_data = db.query(processor_models_db).filter(
-        processor_models_db.name == req.name
-    ).count()
-
-    if exist_data>0:
-        raise HTTPException(status_code=status.HTTP_409_CONFLICT,
-                            detail=f"Processor model '{req.name}' already exists.")
-
     query = db.query(processor_models_db).filter(
         id == processor_models_db.id).first()
     if not query:
@@ -185,15 +132,6 @@ generation_series_db = filtered_entities_model.GenerationSeries
 
 
 def createGenerationSeriesService(req: filtered_entities_schema.GenerationSeriesRequest, db: Session):
-    
-    exist_data = db.query(generation_series_db).filter(
-        generation_series_db.name == req.name
-    ).count()
-
-    if exist_data>0:
-        raise HTTPException(status_code=status.HTTP_409_CONFLICT,
-                            detail=f"Generation/Series '{req.name}' already exists.")
-
     new_data = filtered_entities_model.GenerationSeries(**req.model_dump())
     db.add(new_data)
     db.commit()
@@ -220,15 +158,6 @@ def deleteGenerationSeriesService(id: int, db: Session):
 
 
 def updateGenerationSeriesService(id: int, req: filtered_entities_schema.GenerationSeriesRequest, db: Session):
-    
-    exist_data = db.query(generation_series_db).filter(
-        generation_series_db.name == req.name
-    ).count()
-
-    if exist_data>0:
-        raise HTTPException(status_code=status.HTTP_409_CONFLICT,
-                            detail=f"Generation/Series '{req.name}' already exists.")
-
     query = db.query(generation_series_db).filter(
         id == generation_series_db.id).first()
     if not query:
@@ -245,15 +174,6 @@ display_types_db = filtered_entities_model.DisplayTypes
 
 
 def createDisplayTypesService(req: filtered_entities_schema.DisplayTypesRequest, db: Session):
-    
-    exist_data = db.query(display_types_db).filter(
-        display_types_db.name == req.name
-    ).count()
-
-    if exist_data>0:
-        raise HTTPException(status_code=status.HTTP_409_CONFLICT,
-                            detail=f"Display type '{req.name}' already exists.")
-
     new_data = filtered_entities_model.DisplayTypes(**req.model_dump())
     db.add(new_data)
     db.commit()
@@ -280,15 +200,6 @@ def deleteDisplayTypesService(id: int, db: Session):
 
 
 def updateDisplayTypesService(id: int, req: filtered_entities_schema.DisplayTypesRequest, db: Session):
-    
-    exist_data = db.query(display_types_db).filter(
-        display_types_db.name == req.name
-    ).count()
-
-    if exist_data>0:
-        raise HTTPException(status_code=status.HTTP_409_CONFLICT,
-                            detail=f"Display type '{req.name}' already exists.")
-
     query = db.query(display_types_db).filter(
         id == display_types_db.id).first()
     if not query:
@@ -306,15 +217,6 @@ special_features_db = filtered_entities_model.SpecialFeatures
 
 
 def createSpecialFeaturesService(req: filtered_entities_schema.SpecialFeaturesRequest, db: Session):
-    
-    exist_data = db.query(special_features_db).filter(
-        special_features_db.name == req.name
-    ).count()
-
-    if exist_data>0:
-        raise HTTPException(status_code=status.HTTP_409_CONFLICT,
-                            detail=f"Special feature '{req.name}' already exists.")
-
     new_data = filtered_entities_model.SpecialFeatures(**req.model_dump())
     db.add(new_data)
     db.commit()
@@ -341,15 +243,6 @@ def deleteSpecialFeaturesService(id: int, db: Session):
 
 
 def updateSpecialFeaturesService(id: int, req: filtered_entities_schema.SpecialFeaturesRequest, db: Session):
-    
-    exist_data = db.query(special_features_db).filter(
-        special_features_db.name == req.name
-    ).count()
-
-    if exist_data>0:
-        raise HTTPException(status_code=status.HTTP_409_CONFLICT,
-                            detail=f"Special feature '{req.name}' already exists.")
-
     query = db.query(special_features_db).filter(
         id == special_features_db.id).first()
     if not query:
@@ -365,15 +258,6 @@ ram_sizes_db = filtered_entities_model.RamSizes
 
 
 def createRamSizesService(req: filtered_entities_schema.RamSizesRequest, db: Session):
-    
-    exist_data = db.query(ram_sizes_db).filter(
-        ram_sizes_db.name == req.name
-    ).count()
-
-    if exist_data>0:
-        raise HTTPException(status_code=status.HTTP_409_CONFLICT,
-                            detail=f"Ram size '{req.name}' already exists.")
-
     new_data = filtered_entities_model.RamSizes(**req.model_dump())
     db.add(new_data)
     db.commit()
@@ -400,15 +284,6 @@ def deleteRamSizesService(id: int, db: Session):
 
 
 def updateRamSizesService(id: int, req: filtered_entities_schema.RamSizesRequest, db: Session):
-    
-    exist_data = db.query(ram_sizes_db).filter(
-        ram_sizes_db.name == req.name
-    ).count()
-
-    if exist_data>0:
-        raise HTTPException(status_code=status.HTTP_409_CONFLICT,
-                            detail=f"Ram size '{req.name}' already exists.")
-
     query = db.query(ram_sizes_db).filter(
         id == ram_sizes_db.id).first()
     if not query:
@@ -424,15 +299,6 @@ ram_types_db = filtered_entities_model.RamTypes
 
 
 def createRamTypesService(req: filtered_entities_schema.RamTypesRequest, db: Session):
-    
-    exist_data = db.query(ram_types_db).filter(
-        ram_types_db.name == req.name
-    ).count()
-
-    if exist_data>0:
-        raise HTTPException(status_code=status.HTTP_409_CONFLICT,
-                            detail=f"Ram type '{req.name}' already exists.")
-
     new_data = filtered_entities_model.RamTypes(**req.model_dump())
     db.add(new_data)
     db.commit()
@@ -459,15 +325,6 @@ def deleteRamTypesService(id: int, db: Session):
 
 
 def updateRamTypesService(id: int, req: filtered_entities_schema.RamTypesRequest, db: Session):
-    
-    exist_data = db.query(ram_types_db).filter(
-        ram_types_db.name == req.name
-    ).count()
-
-    if exist_data>0:
-        raise HTTPException(status_code=status.HTTP_409_CONFLICT,
-                            detail=f"Ram type '{req.name}' already exists.")
-
     query = db.query(ram_types_db).filter(
         id == ram_types_db.id).first()
     if not query:
@@ -484,15 +341,6 @@ hdd_db = filtered_entities_model.HDD
 
 
 def createHDDService(req: filtered_entities_schema.HDDRequest, db: Session):
-    
-    exist_data = db.query(hdd_db).filter(
-        hdd_db.name == req.name
-    ).count()
-
-    if exist_data>0:
-        raise HTTPException(status_code=status.HTTP_409_CONFLICT,
-                            detail=f"HDD '{req.name}' already exists.")
-
     new_data = filtered_entities_model.HDD(**req.model_dump())
     db.add(new_data)
     db.commit()
@@ -519,15 +367,6 @@ def deleteHDDService(id: int, db: Session):
 
 
 def updateHDDService(id: int, req: filtered_entities_schema.HDDRequest, db: Session):
-    
-    exist_data = db.query(hdd_db).filter(
-        hdd_db.name == req.name
-    ).count()
-
-    if exist_data>0:
-        raise HTTPException(status_code=status.HTTP_409_CONFLICT,
-                            detail=f"HDD '{req.name}' already exists.")
-
     query = db.query(hdd_db).filter(
         id == hdd_db.id).first()
     if not query:
@@ -544,15 +383,6 @@ ssd_db = filtered_entities_model.SSD
 
 
 def createSSDService(req: filtered_entities_schema.SSDRequest, db: Session):
-    
-    exist_data = db.query(ssd_db).filter(
-        ssd_db.name == req.name
-    ).count()
-
-    if exist_data>0:
-        raise HTTPException(status_code=status.HTTP_409_CONFLICT,
-                            detail=f"SSD '{req.name}' already exists.")
-
     new_data = filtered_entities_model.SSD(**req.model_dump())
     db.add(new_data)
     db.commit()
@@ -579,15 +409,6 @@ def deleteSSDService(id: int, db: Session):
 
 
 def updateSSDService(id: int, req: filtered_entities_schema.SSDRequest, db: Session):
-    
-    exist_data = db.query(ssd_db).filter(
-        ssd_db.name == req.name
-    ).count()
-
-    if exist_data>0:
-        raise HTTPException(status_code=status.HTTP_409_CONFLICT,
-                            detail=f"SSD '{req.name}' already exists.")
-
     query = db.query(ssd_db).filter(
         id == ssd_db.id).first()
     if not query:
@@ -605,15 +426,6 @@ graphics_db = filtered_entities_model.Graphics
 
 
 def createGraphicsService(req: filtered_entities_schema.GraphicsRequest, db: Session):
-    
-    exist_data = db.query(graphics_db).filter(
-        graphics_db.name == req.name
-    ).count()
-
-    if exist_data>0:
-        raise HTTPException(status_code=status.HTTP_409_CONFLICT,
-                            detail=f"Graphics '{req.name}' already exists.")
-
     new_data = filtered_entities_model.Graphics(**req.model_dump())
     db.add(new_data)
     db.commit()
@@ -640,15 +452,6 @@ def deleteGraphicsService(id: int, db: Session):
 
 
 def updateGraphicsService(id: int, req: filtered_entities_schema.GraphicsRequest, db: Session):
-    
-    exist_data = db.query(graphics_db).filter(
-        graphics_db.name == req.name
-    ).count()
-
-    if exist_data>0:
-        raise HTTPException(status_code=status.HTTP_409_CONFLICT,
-                            detail=f"Graphics '{req.name}' already exists.")
-
     query = db.query(graphics_db).filter(
         id == graphics_db.id).first()
     if not query:
@@ -666,15 +469,6 @@ display_sizes_db = filtered_entities_model.DisplaySizes
 
 
 def createDisplaySizesService(req: filtered_entities_schema.DisplaySizesRequest, db: Session):
-    
-    exist_data = db.query(display_sizes_db).filter(
-        display_sizes_db.min_size == req.min_size, display_sizes_db.max_size == req.max_size
-    ).count()
-
-    if exist_data>0:
-        raise HTTPException(status_code=status.HTTP_409_CONFLICT,
-                            detail=f"Display sizes already exists.")
-
     new_data = display_sizes_db(**req.model_dump())
     db.add(new_data)
     db.commit()
@@ -701,17 +495,6 @@ def deleteDisplaySizesService(id: int, db: Session):
 
 
 def updateDisplaySizesService(id: int, req: filtered_entities_schema.DisplaySizesRequest, db: Session):
-    exist_data = db.query(display_sizes_db).filter(
-        display_sizes_db.min_size == req.min_size,
-        display_sizes_db.max_size == req.max_size
-    ).count()
-
-    if exist_data > 0:
-        raise HTTPException(
-            status_code=status.HTTP_409_CONFLICT,
-            detail="Display sizes already exist."
-        )
-
     query = db.query(display_sizes_db).filter(display_sizes_db.id == id).first()
     
     if not query:
