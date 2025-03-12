@@ -2,9 +2,11 @@ from fastapi import FastAPI, Request, status
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.exceptions import RequestValidationError
 from app.core.app_response import ResponseFailed
+from app.core.debug_print import debugPrint
 from app.routers import auth_router, filtered_entities_router, social_link_router
 from starlette.exceptions import HTTPException as StarletteHTTPException #for handle all exception
 from sqlalchemy.exc import IntegrityError
+from redis.exceptions import ConnectionError as RedisConnectionError
 
 
 
@@ -48,6 +50,15 @@ async def integrity_error_handler(request: Request, exc: IntegrityError):
     return ResponseFailed(
         status_code=status.HTTP_400_BAD_REQUEST,
         message="Database integrity error occurred."
+    )
+
+
+@app.exception_handler(RedisConnectionError)
+async def redis_connection_error_handler(request: Request, exc: RedisConnectionError):
+    debugPrint(f'exc error: {exc}')
+    return ResponseFailed(
+        status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+        message="Redis connection error occurred. Please try again later."
     )
 
 

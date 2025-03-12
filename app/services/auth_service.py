@@ -5,9 +5,10 @@ from app.schemas import auth_schema
 from sqlalchemy.orm import Session
 
 
+admin_db = auth_model.Admin
 def adminLoginService(payload: auth_schema.AdminLoginRequest, db: Session, response: Response):
-    exist_user = db.query(auth_model.Admin).filter(
-        auth_model.Admin.email == payload.email).first()
+    exist_user = db.query(admin_db).filter(
+        admin_db.email == payload.email).first()
     if not exist_user:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
                             detail=f'User with this {payload.email} invalid')
@@ -35,8 +36,8 @@ def adminLoginService(payload: auth_schema.AdminLoginRequest, db: Session, respo
 
 
 def sendOTPService(payload: auth_schema.SendOTPRequest, db: Session):
-    exist_user = db.query(auth_model.Admin).filter(
-        auth_model.Admin.email == payload.email).first()
+    exist_user = db.query(admin_db).filter(
+        admin_db.email == payload.email).first()
     if not exist_user:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
                             detail=f'User with this {payload.email} invalid')
@@ -77,9 +78,9 @@ def verifyOTPService(payload: auth_schema.VerifyOTPRequest, db: Session):
     return data
 
 
-def resetPasswordService(payload: auth_schema.ResetPasswordRequest, db: Session, current_user: auth_model.Admin):
-    exist_user = db.query(auth_model.Admin).filter(
-        auth_model.Admin.email == current_user.email).first()
+def resetPasswordService(payload: auth_schema.ResetPasswordRequest, db: Session, current_user: admin_db):
+    exist_user = db.query(admin_db).filter(
+        admin_db.email == current_user.email).first()
     if not exist_user:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
                             detail=f'Invalid request')
