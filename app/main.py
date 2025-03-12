@@ -55,7 +55,6 @@ async def integrity_error_handler(request: Request, exc: IntegrityError):
 
 @app.exception_handler(RedisConnectionError)
 async def redis_connection_error_handler(request: Request, exc: RedisConnectionError):
-    debugPrint(f'exc error: {exc}')
     return ResponseFailed(
         status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
         message="Redis connection error occurred. Please try again later."
