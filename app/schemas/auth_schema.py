@@ -5,7 +5,7 @@ from pydantic import BaseModel, EmailStr, Field
 
 class AdminLoginRequest(BaseModel):
     email: EmailStr
-    password: str
+    password: str = Field(min_length=6)
 
 
 class AdminLoginResponse(BaseModel):
