@@ -5,10 +5,9 @@ from sqlalchemy import pool
 
 from alembic import context
 
-from app.models.auth_model import Base
-from app.models.filtered_entities_model import Base
-from app.models.social_link_model import Base
-from app.core.config import settings
+from app.core.env_settings import settings
+
+from app.features.auth.models import Base
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
