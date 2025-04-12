@@ -51,16 +51,3 @@ def verifyAccessToken(token: str, credential_exception) -> TokenDataRequest:
         raise credential_exception
 
 
-def getCurrentUser(token: str = Depends(oauth2_scheme), db: Session = Depends(get_db)):
-    credential_exception = HTTPException(status_code=status.HTTP_401_UNAUTHORIZED,
-                                         detail=f"Could not validate credential", headers={"WWW-Authenticate": "Bearer"})
-
-    verifyToken = verifyAccessToken(token, credential_exception)
-
-    userAdmin = db.query(Admin).filter(
-        Admin.email == verifyToken.email).first()
-
-    if not userAdmin:
-        raise credential_exception
-
-    return userAdmin
