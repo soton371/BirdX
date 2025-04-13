@@ -96,3 +96,6 @@ def resetPasswordService(payload: schemas.ResetPasswordRequest, db: Session, cur
                             detail=f'Failed to generate password')
     exist_user.password = hashed_password
     db.commit()
+
+
+
