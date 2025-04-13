@@ -1,13 +1,13 @@
 from fastapi import HTTPException, status, Response
 from sqlalchemy.orm import Session
 from app.features.auth.models import Admin
-from app.features.auth.schemas import AdminLoginRequest, TokenDataResponse, SendOTPRequest
-from app.features.auth.utilities import verifyPassword, generateOTP, storeOTP, sendOTPSmtp
+from app.features.auth import schemas
+from app.features.auth import utilities
 from app.features.auth.oauth2 import createAccessToken, createRefreshToken
 
 
 
-def adminLoginService(payload: AdminLoginRequest, db: Session, response: Response):
+def adminLoginService(payload: schemas.AdminLoginRequest, db: Session, response: Response):
     exist_user = db.query(Admin).filter(
         Admin.email == payload.email).first()
     if not exist_user:
@@ -15,13 +15,13 @@ def adminLoginService(payload: AdminLoginRequest, db: Session, response: Respons
                             detail=f'User with this {payload.email} invalid')
 
     # Verify password
-    if not verifyPassword(payload.password, exist_user.password):
+    if not utilities.verifyPassword(payload.password, exist_user.password):
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST, detail=f'Incorrect password')
 
     # Generate access token
     access_token = createAccessToken(email=exist_user.email)
-    data = TokenDataResponse(
+    data = schemas.TokenDataResponse(
         access_token=access_token).model_dump()
 
     # set refresh token in httpOnly cookie
@@ -37,21 +37,45 @@ def adminLoginService(payload: AdminLoginRequest, db: Session, response: Respons
 
 
 
-def sendOTPService(payload: SendOTPRequest, db: Session):
+def sendOTPService(payload: schemas.SendOTPRequest, db: Session):
     exist_user = db.query(Admin).filter(
         Admin.email == payload.email).first()
     if not exist_user:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
                             detail=f'User with this {payload.email} invalid')
 
-    my_otp = generateOTP()
+    my_otp = utilities.generateOTP()
     
-    store_otp = storeOTP(email=payload.email, otp=my_otp)
+    store_otp = utilities.storeOTP(email=payload.email, otp=my_otp)
     if not store_otp:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST,
                             detail=f'Failed to store OTP')
 
-    otp_sent = sendOTPSmtp(recipientMail=payload.email, otp=my_otp)
+    otp_sent = utilities.sendOTPSmtp(recipientMail=payload.email, otp=my_otp)
     if otp_sent is None:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST,
                             detail=f'Failed to send OTP to this email {payload.email}')
+
+
+
+
+
+
+def verifyOTPService(payload: schemas.VerifyOTPRequest, db: Session):
+    store_otp = utilities.getOTP(payload.email)
+    if store_otp is None:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
+                            detail='OTP expired or not found')
+
+    if store_otp == payload.otp:
+        utilities.deleteOTP(payload.email)
+    else:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST,
+                            detail='Invalid OTP')
+    access_token = createAccessToken(email=payload.email)
+    data = schemas.TokenDataResponse(
+        access_token=access_token).model_dump() 
+    if not data:
+        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                            detail='Internal server error')
+    return data

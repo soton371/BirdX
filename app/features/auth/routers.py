@@ -20,3 +20,12 @@ async def adminLogin(payload: schemas.AdminLoginRequest, response: Response, db:
             payload=payload, db=db, response=response)
         return ResponseSuccess(status_code=status.HTTP_200_OK, data=data, message="Login successfully")
 
+
+
+
+@router.post(route_names.send_otp)
+async def sendOTP(payload: schemas.SendOTPRequest, db: Session = Depends(get_db)):
+        services.sendOTPService(payload=payload, db=db)
+        return ResponseSuccess(status_code=status.HTTP_200_OK, message="OTP sent successfully")
+
+
